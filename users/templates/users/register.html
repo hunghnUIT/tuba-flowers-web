@@ -1,0 +1,22 @@
+{% extends "users/base.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST">
+        <!-- Add csrf token for more security, this is supported by Django -->
+        {% csrf_token %}
+        <fieldset>
+            <legend class="boder-botto mb-4"> Join Today</legend>
+             
+            {{ form }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already have an account? <a href="{% url 'login'%}">Sign In</a>
+        </small>
+    </div>
+</div>
+{% endblock %}
