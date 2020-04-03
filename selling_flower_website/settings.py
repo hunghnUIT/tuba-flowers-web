@@ -125,5 +125,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4' #This is declare for using crispy
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #Save what media upload to server.
+MEDIA_URL = '/media/'   #Where we can access media from web brower.
 
 LOGIN_REDIRECT_URL = 'home' #This is the url that we will be redirect to after logged in.
+
+# Because when we logged out and try to access profile, 
+# url at that momment is: "localhost:8000/accounts/login/?next=/profile"
+# The code below show python to replace "/accounts/login/" with "login"
+LOGIN_URL = 'login'
