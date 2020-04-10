@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-#   user, image, address, phone, 
+from django.core.validators import RegexValidator
 
 class Profile(models.Model):
     # One user has only one profile and the same in return.
@@ -24,3 +24,9 @@ class Profile(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+# These code below are under constructing, purpose: Validate phone number input.
+# class PhoneModel(models.Model):
+#         phone_regex = RegexValidator(regex=r'^\+?0?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+#         phone = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
