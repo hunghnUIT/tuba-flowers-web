@@ -1,0 +1,10 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<h1>All item</h1>
+{% for item in items %}
+<h2>{{ item.title }}</h2>
+<a href="{% url 'products-category' item.category %}">{{ item.category }}</a>
+<img src="{{ item.image.url }}" alt="Flower avatar">
+<br>
+{% endfor %}
+{% endblock %}

@@ -8,11 +8,12 @@ admin.site.site_header =  "Admin Dashboard"
 class UsersProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'phone', 'address', 'image_tag')
     search_fields = ['user__username','phone', 'address']
+    readonly_fields = ['image_tag',]
 
     def image_tag(self, obj): # This is customized field, which can show image.
         return format_html('<img src="{}" />'.format(obj.image.url))
 
-    image_tag.short_description = 'Image'
+    image_tag.short_description = 'Avatar Preview'
     
 
 # Register your models here.
