@@ -9,7 +9,7 @@ class UserRegisterForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name',  'last_name', 'password1', 'password2']
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
@@ -20,7 +20,7 @@ class UserUpdateForm(forms.ModelForm):
         # What we have in the "field" will have in model too.
         # And the model affected here is model User.
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email']
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
