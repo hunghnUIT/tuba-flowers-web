@@ -1,0 +1,47 @@
+#team-section {
+    background-color: #F7F7F7;
+    padding: 50px 0;
+}
+
+.member-wrapper img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.wonderfull-gift-title {
+    font-family: Pristina, sans-serif;
+    color: #534D4D;
+    font-size: 2.5rem;
+    position: relative;
+}
+
+.wonderfull-gift-title:after {
+    position: absolute;
+    content: "";
+    width: 168px;
+    height: 2px;
+    background-color: #191414;
+    right: 0;
+    top: calc(50% - 1px);
+}
+
+.team-title {
+    font-family: Garamond, sans-serif;
+    color: #363131;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #363131;
+    margin-bottom: 36px;
+}
+
+.member-name {
+    text-transform: uppercase;
+    font-family: AdobeMingStd, sans-serif;
+    color: #363131;
+    font-size: 1.5rem;
+}
+
+.member-position {
+    font-size: 1rem;
+    text-transform: capitalize;
+}

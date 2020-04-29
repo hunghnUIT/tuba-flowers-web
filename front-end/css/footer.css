@@ -1,0 +1,52 @@
+footer {
+    padding: 30px 0;
+}
+
+.social-wrapper {
+    margin-bottom: 20px;
+}
+
+.footer-slogan {
+    font-family: Garamond, sans-serif;
+    font-weight: bold;
+    color: #211C1C;
+}
+
+.footer-col-title {
+    color: #211C1C;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: Garamond, sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.footer-col-title:after {
+    position: absolute;
+    content: '';
+    width: 76px;
+    height: 2px;
+    background-color: #707070;
+    bottom: -13px;
+    left: 0;
+}
+
+footer ul {
+    padding: 0;
+    margin: 0;
+    font-family: Garamond, sans-serif;
+    color: #211C1C;
+}
+
+footer ul li {
+    list-style-type: none;
+}
+
+footer ul a {
+    color: #211C1C;
+}
+
+footer ul a:hover {
+    color: #211C1C;
+}
