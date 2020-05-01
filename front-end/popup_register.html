@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Bai 3</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+    <style type="text/css">
+        body{
+            background-color: green;
+            font-family: leelawad, sans-serif;
+        }
+        .popup-container{
+            display: flex;
+            background-color: white;
+            width: 700px;
+            margin: 3% auto;
+            border-radius: 10px;
+            z-index: 100;
+        }
+        .cover-image{
+            width: 390px;
+            position: relative;
+            text-align: center;
+        }
+        .form-container{
+            width: calc(100% - 390px);
+        }
+        .form-icon{
+            width: 24px;
+            height: 24px
+        }
+        .cover-image img{
+            width: 90%;
+            height: auto;
+            display: block;
+            margin-top: -40px;
+        }
+        .cover-image a{
+            margin: 0px auto;
+            display: block;
+            padding-bottom: 50px;
+        }
+        .textbox{
+            width: 85%;
+            overflow: hidden;
+            font-size: 20px;
+            padding: 8px 0 4px 0;
+            margin: 8px 0;
+            
+        }
+        .textbox input{
+            border: none;
+            outline: none;
+            background: none;  
+            font-size: 18px;
+            border-bottom: 1px solid #acafac;
+        }
+        .textbox input:focus{
+            border-bottom: 2px solid #8C93FF;
+        }
+        .btn{
+            width: 40%;
+            margin: 25px auto;
+            display: block;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: #8C93FF;
+            padding: 12px;
+        }
+        #vehicle2{
+            margin-top: 20px
+        }
+    </style>
+
+</head>
+
+<body>
+    <button type="button">Click Me!</button>
+    <div class="popup-container">
+        <div class="cover-image">
+            <img src="images/sign-in/decor-layout.png" alt="register-cover-image">
+            <a href="">I am already a member</a>
+        </div>
+        <div class="form-container">
+            <h1>Sign up</h1>
+            <form>
+                <div class="textbox">
+                    <img class="form-icon" src="images/sign-in/icon_user.png">
+                    <input type="text" name="" placeholder="Your name" required>
+                </div>
+                <div class="textbox">
+                    <img class="form-icon" src="images/sign-in/icon_envelope.png">
+                    <input type="text" name="" placeholder="Your email" required>
+                </div>
+                <div class="textbox">
+                    <img class="form-icon" src="images/sign-in/icon_lock.png">
+                    <input type="password" name="" placeholder="Password" required>
+                </div>
+                <div class="textbox">
+                    <img class="form-icon" src="images/sign-in/icon_lock_retype.png">
+                    <input type="password" name="" placeholder="Re-type your password" required>
+                </div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                <label for="vehicle2"> I agree all statements in <a href="#">Terms of services</a></label><br>
+                <input class="btn" type="button" value="Register">
+            </form>
+        </div>
+    </div>
+    
+</body>
+
+</html>
