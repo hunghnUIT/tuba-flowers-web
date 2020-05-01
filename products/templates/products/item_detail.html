@@ -3,5 +3,13 @@
 <h2>{{ object.title }}</h2>
 <!-- <a href="{{object.category}}"></a> -->
 <p>{{ object.category }}</p>
-<img src="{{ object.image.url }}" alt="Flower avatar">
+<img src="{{ object.image.first.image.url }}" alt="">
+
+{% for image in object.image.all %}
+<img src="{{ image.image.url }}" alt="Flower avatar">
+<br>
+<br>
+<p> "{{  image.image.url }}"</p>
+
+{% endfor %}
 {% endblock %}

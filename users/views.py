@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from .models import Profile, Order
 
 def register(request):
     if request.method == 'POST':
@@ -21,7 +22,7 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 def home(request):
-    return render(request, 'users/home.html')
+    return render(request, 'home.html')
 
 
 @login_required
@@ -51,3 +52,22 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', contexts)
+
+def get_user_pending_order(request):
+    # get order for the correct user
+    user_profile = get_object_or_404(Profile, user=request.user)
+    orders = Order.objects.filter(customer_info=user_profile, status=False)
+    if orders.exists():
+        # get the only order in the list of filtered orders
+        return orders
+    return 0
+    # return orders
+
+@login_required
+def orders_detail(request):
+    existing_orders = get_user_pending_order(request) 
+    contexts ={
+        'orders': existing_orders
+    }
+    print(existing_orders)
+    return render(request, 'users/orders_detail.html', contexts)
