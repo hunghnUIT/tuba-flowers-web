@@ -1,0 +1,61 @@
+/***CSS chung****/
+@font-face {
+    font-family: AdobeMingStd;
+    src: url("../fonts/AdobeMingStd-Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Garamond;
+    src: url("../fonts/Garamond.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: GaramondBold;
+    src: url("../fonts/Garamond%20Bold%20font.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: InkFree;
+    src: url("../fonts/Ink%20Free.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: leelawad;
+    src: url("../fonts/leelawad.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: MicrosoftNewTaiLue;
+    src: url("../fonts/Microsoft%20New%20Tai%20Lue.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: MinionPro;
+    src: url("../fonts/MinionPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: MinionProBold;
+    src: url("../fonts/MinionPro-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pristina;
+    src: url("../fonts/PRISTINA.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: Pristina;
+    src: url("../fonts/PRISTINA.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: SitkaBanner;
+    src: url("../fonts/Sitka%20Banner.ttf") format("truetype");
+}
+
+body {
+    font-size: 1rem;
+    font-family: leelawad, sans-serif;
+    color: #707070;
+}

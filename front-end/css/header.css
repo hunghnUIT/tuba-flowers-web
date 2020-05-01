@@ -1,0 +1,54 @@
+header {
+    height: 140px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #707070;
+    z-index: 200;
+}
+
+.logo-img {
+    height: 140px;
+}
+
+nav {
+    padding: 20px 0 20px 90px;
+    border-bottom: 3px solid #707070;
+}
+
+nav ul {
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li{
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 36px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav a {
+    font-family: leelawad, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #707070;
+}
+
+.opentime-wrapper {
+    font-family: leelawad, sans-serif;
+    text-transform: uppercase;
+}
+
+.icon-bar {
+    padding-top: 20px;
+}
+
+.icon-bar a {
+    margin-left: 28px;
+}
