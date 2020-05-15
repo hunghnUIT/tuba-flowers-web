@@ -1,23 +1,25 @@
 {% extends "users/base.html"%}
 {% block content %}
 <h1>Orders Detail</h1>
+{% if orders %}
+  {% for order in orders %}
+  <div class="profile-img-container" style="text-align: center">
+    {% for itemSelected in order.get_cart_items %}
+    <p>{{ itemSelected.item.price }}</p>
+    <!-- Get the first image only. -->
+    <img src="{{ itemSelected.item.image.first.image.url }}" alt="preview">
+    <br>
+    {% endfor %}
+    <!-- <a target="_blank" href="{{ itemSelected.item.image.first.image.url }}">
+      <span class="fa fa-expand fa-5x" style="color: darkcyan" aria-hidden="true"></span> -->
+    </a>
+  </div>
 
-{% for order in orders %}
-<div class="profile-img-container" style="text-align: center">
-  {% for itemSelected in order.get_cart_items %}
-      <p>{{ itemSelected.item.price }}</p>
-      <!-- Get the first image only. -->
-        <img src="{{ itemSelected.item.image.first.image.url }}" alt="preview">
-      <br>
-      {% endfor %}
-  <a target="_blank" href="{{ itemSelected.item.image.first.image.url }}">
-    <span class="fa fa-expand fa-5x" style="color: darkcyan" aria-hidden="true"></span>
-  </a>
-</div>
-    
 
-{% empty %}
-    <p>You don't have any order yet.</p>
-{% endfor %}
+  {% endfor %}
+{% else %}
+<p>You don't have any order yet.</p>
+{% endif %}
+
 
 {% endblock %}
