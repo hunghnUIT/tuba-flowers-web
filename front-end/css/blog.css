@@ -12,7 +12,7 @@
     -webkit-background-size: cover;
     background-size: cover;
 
-    padding: 364px 0 112px;
+    padding: 112px 0;
 }
 
 .blog-item-title {
@@ -44,6 +44,7 @@
 }
 
 .blog-see-more {
+    font-size: 0.875rem;
     color: #fff;
     text-transform: uppercase;
     font-family: MinionPro, sans-serif;
@@ -65,13 +66,13 @@
     align-self: center;
     font-family: MinionPro, sans-serif;
     font-style: italic;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     color: #707070;
 }
 
 .blog-col-title {
     font-family: InkFree, sans-serif;
-    font-size: 2.25rem;
+    font-size: 1.5rem;
 }
 
 .swiper-pagination-bullet {
@@ -98,6 +99,42 @@
 .blog-button-next, .blog-button-prev {
     -webkit-background-size: 100% auto;
     background-size: 100% auto;
-    width: 55px;
+    width: 34px;
     height: 25px;
+}
+
+/***RESPONSIVE****/
+@media (min-width: 576px) {
+    .blog-row img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .blog-item {
+        padding: 313px 0 112px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .blog-item {
+        padding: 342px 0 210px;
+    }
+
+    .blog-button-next, .blog-button-prev {
+        width: 55px;
+    }
+
+    .blog-see-more {
+        font-size: 1rem;
+    }
+
+    .blog-col, .blog-col a {
+        font-size: 1.25rem;
+    }
+
+    .blog-col-title {
+        font-size: 2.25rem;
+    }
 }

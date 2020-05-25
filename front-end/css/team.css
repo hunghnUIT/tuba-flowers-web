@@ -12,14 +12,14 @@
 .wonderfull-gift-title {
     font-family: Pristina, sans-serif;
     color: #534D4D;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     position: relative;
 }
 
 .wonderfull-gift-title:after {
     position: absolute;
     content: "";
-    width: 168px;
+    width: 150px;
     height: 2px;
     background-color: #191414;
     right: 0;
@@ -32,16 +32,35 @@
     padding-bottom: 12px;
     border-bottom: 2px solid #363131;
     margin-bottom: 36px;
+    font-size: 1.5rem;
 }
 
 .member-name {
     text-transform: uppercase;
     font-family: AdobeMingStd, sans-serif;
     color: #363131;
-    font-size: 1.5rem;
+    font-size: 1.125rem;
 }
 
 .member-position {
     font-size: 1rem;
     text-transform: capitalize;
+}
+
+@media (min-width: 1200px) {
+    .wonderfull-gift-title {
+        font-size: 2.5rem;
+    }
+
+    .wonderfull-gift-title:after {
+        width: 168px;
+    }
+
+    .team-title {
+        font-size: 2rem;
+    }
+
+    .member-name {
+        font-size: 1.5rem;
+    }
 }

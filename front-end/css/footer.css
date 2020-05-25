@@ -17,7 +17,7 @@ footer {
     font-weight: bold;
     text-transform: uppercase;
     font-family: Garamond, sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     margin-bottom: 30px;
     position: relative;
 }
@@ -49,4 +49,16 @@ footer ul a {
 
 footer ul a:hover {
     color: #211C1C;
+}
+
+@media (min-width: 992px) {
+    .footer-col-title {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .footer-col-title {
+        font-size: 1.25rem;
+    }
 }

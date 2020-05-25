@@ -59,3 +59,9 @@ body {
     font-family: leelawad, sans-serif;
     color: #707070;
 }
+
+@media (min-width: 1200px) {
+    body {
+        padding-top: 0;
+    }
+}

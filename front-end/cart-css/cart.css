@@ -1,0 +1,73 @@
+
+/* Start cart css */
+    
+    /* table */
+table {
+    border-radius: 10px 10px 0px 0px;
+    margin-top: 60px;
+    border-collapse: collapse !important;
+    overflow: hidden !important;   
+    font-family: MinionPro !important; 
+    font-weight: 10px !important;
+}
+#table {
+    background-color: #F7F7F7;
+}
+.list-header {
+    color: #fff;
+    background: #362D2D;
+    cursor: default;
+}
+
+.list-header > th,tr>td {
+    text-align: center;
+}
+tr > td,tr>th{
+    vertical-align: middle !important;
+}
+.img-product-cell {
+    width: 180px;
+    height: 160px;
+}
+.text-product-cell,.quantity-product-cell
+{
+    text-transform: uppercase;
+    font-family: MinionPro;
+    font-size: 20px;
+    color: #000;
+}
+.quantity-product-cell>input{
+    text-align: center;
+    width: 80px;
+}
+.btn-update-cart {
+    width: fit-content;
+    border-radius: 15px;
+    border: 1px solid #0e8a0a;
+    background: none ;
+    margin: 0px;
+    padding: 10px 10px;
+    font-size: 15px;
+    font-family: MinionProBold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.2s;
+    overflow: hidden;
+}
+.btn-update-cart:hover {
+    background-color: #0e8a0a;
+}
+/* hover processing */
+.delete-product-cell>a{
+    color: #000 !important;
+}
+.delete-product-cell>a>i{
+    transition: ease-in-out 0.3s;
+}
+.delete-product-cell>a>i:hover {
+    color: rgb(255, 121, 177) ;
+    cursor: pointer;
+}
+/* end hover */
+    /* end table */
+/* End cart css */
