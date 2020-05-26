@@ -53,10 +53,6 @@
 .detail-box:before {
     background-image: url('../images/product-detail/product-landscape.png');
 }
-.box > .box-item-inner {
-    position: relative;
-    top: -70px;
-}
 .box > .box-item-inner span a{
  font-size: 25px;
  letter-spacing: 1px;
@@ -68,6 +64,8 @@
     letter-spacing: 1px;
     padding-left: 10px;
     color: #fff;
+    position: relative;
+    top:15px;
 }
 .box h2 {
     position: relative;
@@ -76,23 +74,24 @@
     font-size: 40px;
     text-align: center;
     margin-top:0px;
-    margin-bottom:10vh;
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
     cursor: default;
 }
+.fa-angle-right {
+    position: relative;
+    top: 12px;
+}
 /* Responsive title-banner */
 @media only screen and (max-width: 1920px) {
     .box > .box-item-inner {
         position: relative;
-        top: -95px;
     }
   }
   @media only screen and (max-width: 575px) {
     .box > .box-item-inner {
         position: relative;
-        top: -75px;
     }
     .box h2 {
         top: -20px;
@@ -102,7 +101,6 @@
   @media only screen and (max-width: 460px) {
     .box > .box-item-inner {
         position: relative;
-        top: -65px;
     }
     .box h2 {
         top: -20px;
@@ -112,11 +110,9 @@
   @media only screen and (max-width: 360px) {
     .box > .box-item-inner {
         position: relative;
-        top: -65px;
     }
     .box h2 {
         top: -20px;
-        
     }
   }
 
