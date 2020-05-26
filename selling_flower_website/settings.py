@@ -61,7 +61,7 @@ ROOT_URLCONF = 'selling_flower_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'front-end').replace('\\','/'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,6 +125,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'front-end'),
+]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' #This is declare for using crispy
 
@@ -137,3 +140,10 @@ LOGIN_REDIRECT_URL = 'home' #This is the url that we will be redirect to after l
 # url at that momment is: "localhost:8000/accounts/login/?next=/profile"
 # The code below show python to replace "/accounts/login/" with "login"
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('DB_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('DB_PASSWORD')

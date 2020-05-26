@@ -8,13 +8,16 @@ class Item(models.Model):
     category = models.CharField(max_length=30)
     title = models.CharField(max_length=30)
     description = models.TextField(default='')
-    price = models.IntegerField()
+    price = models.PositiveIntegerField()
     is_available = models.BooleanField(default=True)
-    tag = models.CharField(max_length=50) # This field must be devided by comma (,) between each tag
+    tag = models.CharField(max_length=50) # This field must be divided by comma (,) between each tag
     
 
     def __str__(self):
         return self.title
+
+    def get_all_images(self):
+        return self.image.all()
     
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, on_delete = models.CASCADE, related_name='image')   
