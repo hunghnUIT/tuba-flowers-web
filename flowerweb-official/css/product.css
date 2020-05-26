@@ -1,0 +1,44 @@
+.product-section {
+    background-color: #f7f7f7;
+    padding: 60px 0;
+}
+
+.category-title {
+    font-weight: 800;
+    color: #2D2929;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.category-title:hover {
+    color: #2D2929;
+}
+
+.category-list a {
+    color: #2D2929;
+}
+
+.category-list li {
+    margin-bottom: 10px;
+}
+
+.soldout {
+    position: relative;
+}
+
+.soldout:after {
+    position: absolute;
+    content: "SOLD";
+    color: #fff;
+    background-color: rgba(49, 44, 44, 0.64);
+    top: 15px;
+    left: 20px;
+    padding: 5px;
+}
+
+@media (min-width: 1200px) {
+    .soldout:after {
+        top: 15px;
+        left: 30px;
+    }
+}
