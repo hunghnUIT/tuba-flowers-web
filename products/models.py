@@ -1,6 +1,7 @@
 from django.db import models
 from PIL import Image
 from django.utils.html import format_html
+from django.urls import reverse
 
 # Category: string, title: string, description: string, price: int, is_available: true/false, tag: [string, string,...]
 
@@ -18,6 +19,15 @@ class Item(models.Model):
 
     def get_all_images(self):
         return self.image.all()
+
+    def get_add_to_cart_url(self):
+        return reverse("add-to-cart",kwargs={
+            'pk' : self.pk
+        })
+    def get_remove_single_item_from_cart_url(self):
+        return reverse("remove-single-item-from-cart",kwargs={
+            'pk' : self.pk
+        })  
     
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, on_delete = models.CASCADE, related_name='image')   

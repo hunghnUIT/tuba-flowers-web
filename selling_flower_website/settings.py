@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     #Your own app
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
-
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [

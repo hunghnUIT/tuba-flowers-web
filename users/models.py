@@ -28,11 +28,16 @@ class Profile(models.Model):
             img.save(self.image.path)
 
 class ItemSelection(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=1)
+    ordered = models.BooleanField(default=False)
 
     def __str__(self):
         return self.item.title + " - Quantity: " + str(self.quantity)
+
+    def get_total_item_price(self):
+        return self.item.price * self.quantity
 
 # def get_default_phone(self):
 #     return self.customer_info.phone
@@ -46,7 +51,7 @@ class Order(models.Model):
     # This have to have a link to products
     items_ordered = models.ManyToManyField(ItemSelection)
     date_ordered = models.DateTimeField(default = timezone.now())
-    status = models.BooleanField(default="False")
+    ordered = models.BooleanField(default="False")
     address = models.CharField(max_length=50, default="")
     phone = models.CharField(max_length=12, default="")
     # This address and phonenumber field will be automatic filled by address in class Profile with front-end handling or we need to extend User model.
@@ -59,10 +64,10 @@ class Order(models.Model):
     def get_cart_items(self):
         return self.items_ordered.all()
 
-    def orderCost(self):
+    def get_total_order_price(self):
         return sum([i.item.price*i.quantity for i in self.items_ordered.all()])
 
-    orderCost.short_description = 'Total cost'
+    get_total_order_price.short_description = 'Total cost'
 
     def user_fullname(self):
         return self.customer_info.user.last_name + " " + self.customer_info.user.first_name

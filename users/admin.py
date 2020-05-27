@@ -18,10 +18,10 @@ class UsersProfileAdmin(admin.ModelAdmin):
 
 
 class UserOrdersAdmin(admin.ModelAdmin):
-    list_display = ('short_detail','orderCost', 'phone', 'get_items','status') 
+    list_display = ('short_detail','get_total_order_price', 'phone', 'get_items','ordered') 
     search_fields = ('customer_info__user__first_name', 'customer_info__user__last_name', 'phone')
-    list_filter = ('status',)
-    list_editable = ('status',)
+    list_filter = ('ordered',)
+    # list_editable = ('ordered',)
     list_per_page = 10
 
     def short_detail(self, obj):

@@ -1,8 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Order
+from .models import Profile, Order, ItemSelection
+from products.models import Item
+from django.utils import timezone
+from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def register(request):
     if request.method == 'POST':
@@ -56,7 +60,7 @@ def profile(request):
 def get_user_pending_order(request):
     # get order for the correct user
     user_profile = get_object_or_404(Profile, user=request.user)
-    orders = Order.objects.filter(customer_info=user_profile, status=False)
+    orders = Order.objects.filter(customer_info=user_profile, ordered=True)
     if orders.exists():
         # get the only order in the list of filtered orders
         return orders
@@ -71,3 +75,121 @@ def orders_detail(request):
     }
     print(existing_orders)
     return render(request, 'users/orders_detail.html', contexts)
+
+@login_required
+def cart(request):
+    try:
+        '''
+        This func is only able to get one order till now.
+        Need to find out if an user can have more than an order which "ordered=False"?
+        '''
+        orders = Order.objects.get(customer_info__user=request.user,ordered=False)
+        print(orders)
+    except:
+        return render(request, 'users/cartt.html')
+    return render(request, 'users/cartt.html', {'orders':orders})
+
+
+@login_required
+def add_to_cart(request, pk):
+    # Get the id of item
+    item = get_object_or_404(Item, pk=pk)
+    # user_profile = get_object_or_404(Profile, user=request.user)
+    # Create a new ItemSelection if adding item is not exist in cart.
+    selected_item, created = ItemSelection.objects.get_or_create(
+        item=item,
+        user=request.user,
+        ordered=False
+    )
+    # Check if there is any order of user requesting.
+    order_qs = Order.objects.filter(
+        customer_info__user=request.user,
+        ordered=False
+    ) # <=> order query set
+    if order_qs.exists(): # There is order
+        order = order_qs[0] # Get the exactly order of the user.
+        # check if the order item is in the order
+        if order.items_ordered.filter(item__pk=item.pk).exists():
+            selected_item.quantity += 1
+            selected_item.save()
+            # messages.info(request, "This item quantity was updated.")
+            # This should redirect to summary checkout.
+            return redirect('item-detail', pk)
+            # return redirect("core:order-summary")
+        else:
+            order.items_ordered.add(selected_item)
+            messages.info(request, "This item was added to your cart.")
+            # return redirect("core:order-summary")
+            return redirect('item-detail', pk)
+    else:
+        order = Order.objects.create(
+            customer_info=request.user.profile)
+        order.items_ordered.add(selected_item)
+        messages.info(request, "This item was added to your cart.")
+        # return redirect("core:order-summary")
+        return redirect('item-detail', pk)
+
+
+@login_required
+def remove_item_from_cart(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    order_qs = Order.objects.filter(
+        customer_info__user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items_ordered.filter(item__pk=item.pk).exists():
+            order_item = ItemSelection.objects.filter(
+                item=item,
+                user=request.user,
+                ordered=False
+            )[0]
+            order.items_ordered.remove(order_item)
+            
+            order_item.delete()
+            messages.info(request, "This item was removed.")
+            return redirect('cart')
+            # return redirect("core:order-summary")
+        else:
+            messages.info(request, "This item was not in your cart")
+            return redirect('cart')
+            # return redirect("core:product", slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        # return redirect("core:product", slug=slug)
+        return redirect('cart')
+
+@login_required
+def remove_single_item_from_cart(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    order_qs = Order.objects.filter(
+        customer_info__user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items_ordered.filter(item__pk=item.pk).exists():
+            order_item = ItemSelection.objects.filter(
+                item=item,
+                user=request.user,
+                ordered=False
+            )[0]
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                order.items_ordered.remove(order_item)
+            messages.info(request, "This item quantity was updated.")
+            return redirect('item-detail', pk)
+            # return redirect("core:order-summary")
+        else:
+            messages.info(request, "This item was not in your cart")
+            return redirect('item-detail', pk)
+            # return redirect("core:product", slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        # return redirect("core:product", slug=slug)
+        return redirect('item-detail', pk)
