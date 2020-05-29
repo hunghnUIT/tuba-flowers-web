@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    $('.error-form').hide();
-
     var isValid_username=false;
     var isValid_phone=false;
     var isValid_email=false;
@@ -8,151 +6,144 @@ $(document).ready(function () {
     var isValid_retype=false;
     var isValid_checkbox=false;
 
-    $('#txt-username').on('input', function () {
-        checkUsername();
+    $('#txt-username').on('input', function (e) {
+        checkUsername($(this));
     });
     $('#txt-phone').on('input',function (e) { 
-        checkPhone();
+        checkPhone($(this));
     });
     $('#txt-email').on('input',function (e) { 
-        checkEmail();
+        checkEmail($(this));
     });
     $('#txt-password').on('input',function (e) { 
-        checkPassword();
+        checkPassword($(this));
     });
     $('#txt-retype').on('input',function (e) { 
-        checkRetype();
+        checkRetype($(this));
     });
 
-    function checkUsername() {
+    function checkUsername(para) {
         var pattern =/^[a-zA-Z]*$/;
         var nameInput =$('#txt-username').val();
+        const temp=para.parent().parent().children('.notice');
         if(pattern.test(nameInput)&& nameInput!=""&&nameInput.length>4)
         {
-            $("#name-error").hide();
-            $('#txt-username').css("border-bottom","1px solid #34F458");
+            temp.removeClass('show');
             isValid_username=true;
         }
         else
         {
             if (!pattern.test(nameInput))
             {
-                $("#name-error").html("Should contain only characters");
-                $("#name-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("Invalid name")
             }
             if (!nameInput!=""||nameInput.length<=4)
             {
-                $("#name-error").html("This field must not be empty and more than 4 characters");
-                $("#name-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("More than 4 characters")
             }
-            $('#txt-username').css("border-bottom","1px solid #f90a0a");
             isValid_username=false;
         }
     }
 
-    function checkPhone() {
+    function checkPhone(para) {
         var pattern =/^[0-9]*$/;
         var phoneInput =$('#txt-phone').val();
+        const temp=para.parent().parent().children('.notice');
         if(pattern.test(phoneInput)&& phoneInput!=""&& phoneInput.length ==10 )
         {
-            $("#phone-error").hide();
-            $('#txt-phone').css("border-bottom","1px solid #34F458");
+            temp.removeClass('show');
             isValid_phone=true;
         }
         else
         {
             if (!pattern.test(phoneInput)|| phoneInput!=10)
             {
-                $("#phone-error").html("Invalid phone number");
-                $("#phone-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("Invalid phone number");
             }
             if (!phoneInput!="")
             {
-                $("#phone-error").html("This field must not be empty");
-                $("#phone-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("Must not be empty");
             }
-            $('#txt-phone').css("border-bottom","1px solid #f90a0a");
             isValid_phone=false;
         }
     }
-    
-    function checkEmail() {
+    function checkEmail(para) {
         var pattern =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         var email =$('#txt-email').val();
+        const temp=para.parent().parent().children('.notice');
         if(pattern.test(email)&& email!="")
         {
-            $("#email-error").hide();
-            $('#txt-email').css("border-bottom","1px solid #34F458");
+            temp.removeClass('show');
             isValid_email=true;
         }
         else
         {
             if (!pattern.test(email))
             {
-                $("#email-error").html("Invalid email");
-                $("#email-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("Invalid e-mail");
             }
             if (!email!="")
             {
-                $("#email-error").html("This field must not be empty");
-                $("#email-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("Must not be empty");
             }
-            $('#txt-email').css("border-bottom","1px solid #f90a0a");
             isValid_email=false;
         }
     }
 
-    function checkPassword() {
+    function checkPassword(para) {
         var pattern =/^[a-zA-Z0-9]*$/;
         var password =$('#txt-password').val();
+        const temp=para.parent().parent().children('.notice');
         if(pattern.test(password)&& password!=""&&password.length>=5)
         {
-            $("#password-error").hide();
-            $('#txt-password').css("border-bottom","1px solid #34F458");
+            temp.removeClass('show');
             isValid_password=true;
         }
         else
         {
             if (!pattern.test(password))
             {
-                $("#password-error").html("Should contain only characters");
-                $("#password-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("Include invalid character");
             }
             if (!password!=""||password.length<5)
             {
-                $("#password-error").html("This field must not be empty and more than 5 characters");
-                $("#password-error").show();
+                temp.addClass('show');
+                temp.children('.tooltip-text').html("More than 5 characters");
             }
-            $('#txt-password').css("border-bottom","1px solid #f90a0a");
             isValid_password=false;
         }
     }
-    function checkRetype() {
+    function checkRetype(para) {
         var retype =$('#txt-retype').val();
         var password=$('#txt-password').val();
+        const temp=para.parent().parent().children('.notice');
         if(retype == password && retype!="")
         {
-            $("#retype-error").hide();
-            $('#txt-retype').css("border-bottom","1px solid #34F458");
+            temp.removeClass('show');
             isValid_retype=true;
         }
         else
         {
-            $("#retype-error").html("Invalid password confirm");
-            $("#retype-error").show();
-            $('#txt-retype').css("border-bottom","1px solid #f90a0a");
+            temp.addClass('show');
+            temp.children('.tooltip-text').html("Password do not match");
             isValid_retype=false;
         }
     }
     function checkCheckbox() {
         var checkbox =document.getElementById('vehicle2');
         if(!checkbox.checked){
-            $("#checkbox-error").html("You have to agree with our terms");
-            $("#checkbox-error").show();
+            $('.submit').prop('disable',true)
             isValid_checkbox=false;
             console.log(isValid_checkbox);
         }else{
-            $("#checkbox-error").hide();
+            $('.submit').prop('disable',false)
             isValid_checkbox=true;
             console.log(isValid_checkbox);
 
@@ -167,17 +158,17 @@ $(document).ready(function () {
         {$('#txt-moreinfo').val("Optional...");}
     });
     $('.submit').click(function (e) { 
-        checkEmail();
-        checkPassword();
-        checkPhone();
-        checkRetype();
-        checkUsername();
-        checkCheckbox();
         console.log(isValid_checkbox);
         if (!isValid_email|!isValid_password|!isValid_retype|!isValid_username|!isValid_checkbox)
         {
-            alert("Please fill the form correctly");
-            return false;
+            if (!isValid_checkbox)
+            {
+                alert("Please agree to our terms and conditions");
+            }
+            else {
+                alert("Please fill the form correctly");
+                return false;
+            }
         }
         else
         {
@@ -191,19 +182,9 @@ $(document).ready(function () {
             isValid_checkbox=true;
             console.log(isValid_checkbox);
         }
+        else
+        {
+            isValid_checkbox=false;
+        }
     });
-
-    myBlurFunction = function(state) {
-    /* state can be 1 or 0 */
-    var containerElement = document.getElementById('main_container');
-    var overlayEle = document.getElementById('overlay');
-
-    if (state) {
-        overlayEle.style.display = 'block';
-        containerElement.setAttribute('class', 'blur');
-    } else {
-        overlayEle.style.display = 'none';
-        containerElement.setAttribute('class', null);
-    }
-};
 });

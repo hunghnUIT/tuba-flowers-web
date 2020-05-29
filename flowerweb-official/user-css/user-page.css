@@ -1,0 +1,227 @@
+*{
+    box-sizing: border-box;
+}
+.wave {
+    position: fixed;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+}
+body {
+    font-family: Garamond;
+}
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 7rem;
+    pad: 0 2rem;
+    /* overflow: hidden; */
+}
+h2 {
+    font-size: 2.9rem;
+    text-transform: uppercase;
+    font-family: MinionProBold;
+    margin: 15px 0;
+    text-align: center;
+    cursor: pointer;
+}
+h2 span {
+    text-transform: lowercase !important;
+}
+h2 a{
+    color: #333 !important;
+    transition: .3s ease;
+}
+h2 a:hover{
+    color: rgba(51, 51, 51, 0.589) !important;
+}
+.decor {
+    width: 500px;
+    position: relative;
+    left: -122px;
+}
+form {
+    width: 360px;
+}
+.img {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.avt-img {
+    width: 100px;
+}
+.textbox {
+    position: relative;
+    display: grid;
+    grid-template-columns: 7% 88% 5%;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+.textbox:before,.textbox:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 0px;
+    height: 2px;
+    background-color: #DE0B33;
+    transition: .3s;
+}
+.textbox:before {
+    left: 50%;
+}
+.textbox:after {
+    right: 50%;
+}
+.i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.textbox .i i {
+    position: relative;
+    top: 0px;
+    font-size: 20px;
+    color: #d9d9d9;
+    transition: .5s ease-in-out;
+     
+}
+.textbox div {
+    position: relative;
+    height: 45px;
+}
+.textbox.focus .i i{
+    color: #DE0B33 !important;
+}
+.textbox.focus div h5{
+    top: -15px !important;
+    left: 170px;
+    font-size: 15px !important;
+    display: block;
+    color: #333;
+    font-weight: bold;
+}
+.textbox.focus:after,.textbox.focus:before{
+    width: 50%;
+}
+.login-container {
+    position: relative !important;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.input {
+    display: flex;
+    justify-content: ;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    font-family: Garamond;
+    color: #555;
+}
+.input::after {
+    content: '';
+    display: block;
+
+}
+div > div h5 {
+    position: absolute;
+    width: 100%;
+    left: 180px;
+    top: 30%;
+    text-align: left;
+    transform: translate(-50%);
+    color: #999;
+    font-size: 18px;
+    transition: .3s;
+    font-weight: 200px !important;
+}
+.input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0.5rem 0.7rem;
+    font-size: 1.2rem;
+    font-family: Garamond;
+    color:#555;
+}
+.notice {
+    display: absolute;
+    text-align: right;
+    align-items: right;
+    width: 20%;
+    height: 20%;
+    top: 28%;
+    /* display: none; */
+    transition: .3s;
+}
+.notice i {
+    font-size: 15px;
+    transition: .3s;
+    color: #fff;
+    cursor: default;
+}
+.notice.show i {
+    display: flex;
+    font-size: 20px;
+    color: #DE0B33;
+}
+.notice span {
+    position: relative;
+    display: flex;
+    width: 200px;
+    height: 0px;
+    border-radius: 10px;
+    padding: 5px 0px 5px 10px;
+    z-index: 1000;
+    color: #fff;
+    cursor: default;
+    transition: .5s ease-in-out;
+}
+.notice.show span {
+    background-color: #DE6063;
+    /* width: 200px; */
+    height: fit-content;
+}
+.btn {
+    display: block;
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    margin: 1rem 0;
+    font-size: 1.3rem;
+    outline: none;
+    border: none;
+    background-image: linear-gradient(to right,#DE0B33,#CF5A5C,#FFB8B8);
+    cursor: pointer;
+    color: #fff;
+    font-family: MinionProBold;
+    background-size: 200%;
+    transition: .5s ease-in-out;
+    text-transform: uppercase;
+}
+.btn:hover {
+    background-position: right;
+}
+.another-way-login a i {
+    font-size: 40px;
+}
+#google {
+    color: #DD4B3B;
+}
+.fa-google-plus-official:hover {
+    color: rgba(224, 69, 52, 0.568) !important;
+}
+.fa-google-plus-official,.fa-facebook{
+    transition: .3s;
+}
