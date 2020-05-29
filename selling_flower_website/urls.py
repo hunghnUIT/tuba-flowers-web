@@ -32,6 +32,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('profile/', users_views.profile, name="profile"),
     path('user/orders_detail', users_views.orders_detail, name="orders_detail"),
+    path('add-to-cart/<int:pk>', users_views.add_to_cart, name='add-to-cart'),
+    path('remove-single-item-from-cart/<int:pk>', users_views.remove_single_item_from_cart, name='remove-single-item-from-cart'),
+    path('remove-item-from-cart/<int:pk>', users_views.remove_item_from_cart, name='remove-item-from-cart'),
 
     # For password reseting
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'), name='password_reset'),
@@ -40,6 +43,8 @@ urlpatterns = [
     path('password-reset-complete', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
 
     path('products/', include('products.urls')),
+    # path('cart/', include('cart.urls')),
+    path('cart/', users_views.cart, name='cart'),
 ]
 
 if settings.DEBUG:

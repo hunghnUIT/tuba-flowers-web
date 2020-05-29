@@ -6,10 +6,11 @@
 <img src="{{ object.image.first.image.url }}" alt="">
 
 {% for image in object.image.all %}
-<img src="{{ image.image.url }}" alt="Flower avatar">
-<br>
-<br>
-<p> "{{  image.image.url }}"</p>
+<div>
+    <img src="{{ image.image.url }}" alt="Flower avatar">
+</div>
 
 {% endfor %}
+<a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary">Add</a>
+<a href="{{ object.get_remove_single_item_from_cart_url }}" class="btn btn-danger">Remove</a>
 {% endblock %}
