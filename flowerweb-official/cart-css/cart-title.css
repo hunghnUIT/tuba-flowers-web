@@ -92,10 +92,10 @@
   @media only screen and (max-width: 575px) {
     .box > .box-item-inner {
         position: relative;
+	top: 20px;
     }
     .box h2 {
         top: -20px;
-        
     }
   }
   @media only screen and (max-width: 460px) {
