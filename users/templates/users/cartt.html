@@ -21,7 +21,7 @@
               <td>{{ forloop.counter }}</td>
               <td>{{ item.item.title }}</td>
               <td>{{ item.get_total_item_price }}</td>
-              <td>{{ item.quantity }}</td>
+              <td>{{ item.quantity }} <p>({{ item.item.number_item_left }} left)</p></td>
               <!-- <p>item_selected.item.pk}}</p> -->
               <td><a href="{% url 'remove-item-from-cart' item.item.pk %}" class="btn btn-danger">Remove</a></td>
             </tr>

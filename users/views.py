@@ -84,6 +84,16 @@ def checkout(request):
         messages.error(request, f'You have no item to checkout.')
         return redirect('cart')
 
+    # Check number item available before checkout.
+    failed_items = []
+    for item in checkout_items:
+        number_left = item.item.number_item_left - item.quantity
+        if number_left < 0:
+            failed_items.append(item)
+    if failed_items:
+        messages.error(request, f'Checkout failed. We do not have enough '+ ", ".join([i.item.title for i in failed_items]) + ' .')
+        return redirect('cart')
+
     total_cost = sum(i.item.price*i.quantity for i in checkout_items)
     
     if request.method == 'GET':
@@ -116,14 +126,9 @@ def checkout(request):
 
             for item in checkout_items:
                 new_order.items_ordered.add(item)
-                # Decreasing number of item left
-                number_left = item.item.number_item_left - item.quantity
-                if number_left>=0:
-                    item.item.number_item_left = number_left
-                    item.item.save()
-                else:
-                    messages.error(request, f'Checkout failed. We just have ' + str(item.item.number_item_left) + ' of ' + item.item.title + ' .')
-                    return redirect('cart')
+                # Decreasing number of item left NO NEED TO CHECK NUMBER IS VALID HERE, CHECKED ABOVE.
+                item.item.number_item_left -= item.quantity
+                item.item.save()
                 # Change ItemSelection 'ordered' to True 
                 item.ordered=True
                 item.save()
@@ -181,7 +186,7 @@ def remove_item_from_cart(request, pk):
         selected_item.delete()
         messages.info(request, "This item quantity was updated.")
     except: #Case: Not have this item in cart
-         messages.info(request, "This item was not in your cart")
+        messages.info(request, "This item was not in your cart")
     return redirect('cart')
 
 @login_required
@@ -200,5 +205,5 @@ def remove_single_item_from_cart(request, pk):
             selected_item.delete()
         messages.info(request, "This item quantity was updated.")
     except: #Case: Not have this item in cart
-         messages.info(request, "This item was not in your cart")
+        messages.info(request, "This item was not in your cart")
     return redirect('item-detail', pk)
