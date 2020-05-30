@@ -18,15 +18,19 @@ class UsersProfileAdmin(admin.ModelAdmin):
 
 
 class UserOrdersAdmin(admin.ModelAdmin):
-    list_display = ('short_detail','get_total_order_price', 'phone', 'get_items','ordered') 
-    search_fields = ('customer_info__user__first_name', 'customer_info__user__last_name', 'phone')
-    list_filter = ('ordered',)
-    # list_editable = ('ordered',)
+    list_display = ('id_order','short_detail','get_total_order_price', 'phone', 'get_items', 'date_ordered' ,'order_status') 
+    list_display_links = ('id_order', 'short_detail')
+    search_fields = ('user__first_name', 'user__last_name', 'phone','pk')
+    list_filter = ('order_status',)
+    list_editable = ('order_status',)
     list_per_page = 10
 
+    def id_order(self, obj):
+        return obj.pk
+    
     def short_detail(self, obj):
         # return obj.user_fullname() + " ordered " + str(obj.amount) + " of "  + " to address: " + obj.address
-        return obj.user_fullname() + " ordered to address: " + obj.address
+        return obj.get_user_fullname() + " ordered to address: " + obj.address
 
     short_detail.short_description = 'Short Detail'
 

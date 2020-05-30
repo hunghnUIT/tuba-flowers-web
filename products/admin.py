@@ -16,10 +16,10 @@ class ItemImagesInline(admin.StackedInline):
 class ProductsItemAdmin(admin.ModelAdmin):
     inlines = [ItemImagesInline,]
 
-    list_display = ('title', 'category', 'description', 'price', 'is_available', 'tag',)
+    list_display = ('title', 'category', 'description', 'price', 'number_item_left', 'tag',)
     search_fields = ['title', 'category', 'description', 'tag']
-    list_filter = ['is_available',]
-    list_editable = ['price','is_available']
+    list_filter = ['number_item_left',]
+    list_editable = ['price','number_item_left']
     list_per_page = 10
 
     

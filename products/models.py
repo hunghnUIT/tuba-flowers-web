@@ -10,8 +10,10 @@ class Item(models.Model):
     title = models.CharField(max_length=30)
     description = models.TextField(default='')
     price = models.PositiveIntegerField()
-    is_available = models.BooleanField(default=True)
+    number_item_left = models.PositiveIntegerField(default=1)
     tag = models.CharField(max_length=50) # This field must be divided by comma (,) between each tag
+    weight = models.DecimalField(max_digits=5, decimal_places=2, default=1.0)
+    dimension = models.CharField(max_length=20, default='? x ? x ? cm')
     
 
     def __str__(self):

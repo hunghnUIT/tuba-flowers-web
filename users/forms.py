@@ -14,6 +14,10 @@ class UserRegisterForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['readonly'] = True
+
     class Meta: 
         # This class provide a nested namespace for configurations and 
         # keep those configurations in a place.
@@ -28,9 +32,9 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = ['address', 'phone','image'] 
 
 
-# These code below are under constructing, purpose: Validate phone number input.
-# class PhoneForm(forms.ModelForm):
-#     class Meta:
-#         model = PhoneModel
-#         fields = ['phone']
+class CheckoutForm(forms.Form):
+    receiver = forms.CharField(required=True)
+    phone = forms.CharField(max_length=12, required=True)
+    address = forms.CharField(max_length=70, required=True)
+
 
