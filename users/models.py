@@ -5,6 +5,12 @@ from django.core.validators import RegexValidator
 from products.models import Item
 from django.utils import timezone
 
+ORDER_STATUS_CHOICES = (
+    ('P', 'Processing'),
+    ('S', 'Shipping'),
+    ('C', 'Completed'),
+)
+
 class Profile(models.Model):
     # One user has only one profile and the same in return.
     # If user were delete, the profile will be the same.
@@ -47,19 +53,20 @@ class ItemSelection(models.Model):
 
 class Order(models.Model):
     # This is orders of a user. -> one user to many order.
-    customer_info = models.ForeignKey(Profile, on_delete=models.CASCADE, default = 1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    receiver = models.CharField(max_length=30)
     # This have to have a link to products
     items_ordered = models.ManyToManyField(ItemSelection)
     date_ordered = models.DateTimeField(default = timezone.now())
-    ordered = models.BooleanField(default="False")
-    address = models.CharField(max_length=50, default="")
-    phone = models.CharField(max_length=12, default="")
+    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=1,null=False,default='P')
+    address = models.CharField(max_length=70)
+    phone = models.CharField(max_length=12)
     # This address and phonenumber field will be automatic filled by address in class Profile with front-end handling or we need to extend User model.
 
     
     
     def __str__(self):
-        return self.customer_info.user.last_name + " " + self.customer_info.user.first_name + " ordered " + ", ".join([i.item.title for i in self.items_ordered.all()])
+        return self.user.last_name + " " + self.user.first_name + " ordered " + ", ".join([i.item.title for i in self.items_ordered.all()])
 
     def get_cart_items(self):
         return self.items_ordered.all()
@@ -69,8 +76,8 @@ class Order(models.Model):
 
     get_total_order_price.short_description = 'Total cost'
 
-    def user_fullname(self):
-        return self.customer_info.user.last_name + " " + self.customer_info.user.first_name
+    def get_user_fullname(self):
+        return self.user.last_name + " " + self.user.first_name
 
     
 

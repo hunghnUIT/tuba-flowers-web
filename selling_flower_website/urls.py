@@ -30,8 +30,7 @@ urlpatterns = [
     path('register/', users_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html', redirect_authenticated_user = True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-    path('profile/', users_views.profile, name="profile"),
-    path('user/orders_detail', users_views.orders_detail, name="orders_detail"),
+    path('user/', include('users.urls')),
     path('add-to-cart/<int:pk>', users_views.add_to_cart, name='add-to-cart'),
     path('remove-single-item-from-cart/<int:pk>', users_views.remove_single_item_from_cart, name='remove-single-item-from-cart'),
     path('remove-item-from-cart/<int:pk>', users_views.remove_item_from_cart, name='remove-item-from-cart'),
@@ -43,11 +42,15 @@ urlpatterns = [
     path('password-reset-complete', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
 
     path('products/', include('products.urls')),
+<<<<<<< HEAD
     # path('cart/', include('cart.urls')),
     path('cart/', users_views.cart, name='cart'),
 
     # For facebook login
     path('accounts/', include('allauth.urls')),
+=======
+
+>>>>>>> 2dbe59753bd4ba467eeee4ab96a043b3deb92e06
 ]
 
 if settings.DEBUG:
