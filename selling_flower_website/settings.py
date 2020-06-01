@@ -60,7 +60,7 @@ ROOT_URLCONF = 'selling_flower_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'front-end').replace('\\','/'),],
+        'DIRS': [os.path.join(BASE_DIR, 'flowerweb-official').replace('\\','/'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

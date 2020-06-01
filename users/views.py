@@ -26,7 +26,7 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 
 @login_required

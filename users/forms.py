@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
+from django.contrib.auth.password_validation import validate_password 
+from django.core import validators
 
 
 class UserRegisterForm(UserCreationForm):
@@ -36,5 +38,4 @@ class CheckoutForm(forms.Form):
     receiver = forms.CharField(required=True)
     phone = forms.CharField(max_length=12, required=True)
     address = forms.CharField(max_length=70, required=True)
-
 
