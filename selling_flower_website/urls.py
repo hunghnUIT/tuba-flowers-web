@@ -45,6 +45,9 @@ urlpatterns = [
     path('products/', include('products.urls')),
     # path('cart/', include('cart.urls')),
     path('cart/', users_views.cart, name='cart'),
+
+    # For facebook login
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
