@@ -42,15 +42,11 @@ urlpatterns = [
     path('password-reset-complete', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
 
     path('products/', include('products.urls')),
-<<<<<<< HEAD
     # path('cart/', include('cart.urls')),
     path('cart/', users_views.cart, name='cart'),
 
     # For facebook login
     path('accounts/', include('allauth.urls')),
-=======
-
->>>>>>> 2dbe59753bd4ba467eeee4ab96a043b3deb92e06
 ]
 
 if settings.DEBUG:
