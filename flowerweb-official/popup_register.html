@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-    <script src="js/register.js"></script>
+    <script src="{% static 'js/register.js' %}"></script>
 
     <style type="text/css">
         body{
@@ -130,7 +130,7 @@
     <div id="overlay">
         <div class="popup-container">
             <div class="cover-image">
-                <img src="images/sign-in/decor-layout.png" alt="register-cover-image">
+                <img src="{% static 'images/sign-in/decor-layout.png' %}" alt="register-cover-image">
                 <a href="#">I am already a member</a>
             </div>
             <div class="form-container">
@@ -138,22 +138,22 @@
                 <h1>Sign up</h1>
                 <form>
                     <div class="textbox focus">
-                        <img class="form-icon" src="images/sign-in/icon_user.png">
+                        <img class="form-icon" src="{% static 'images/sign-in/icon_user.png' %}">
                         <input id="txt-username" type="text" name="" placeholder="Your name" required>
                         <span class="error-form" id="name-error"></span>
                     </div>
                     <div class="textbox">
-                        <img class="form-icon" src="images/sign-in/icon_envelope.png">
+                        <img class="form-icon" src="{% static 'images/sign-in/icon_envelope.png' %}">
                         <input id="txt-email" type="text" name="" placeholder="Your email" required>
                         <span class="error-form" id="email-error"></span>
                     </div>
                     <div class="textbox">
-                        <img class="form-icon" src="images/sign-in/icon_lock.png">
+                        <img class="form-icon" src="{% static 'images/sign-in/icon_lock.png' %}">
                         <input id="txt-password" type="password" name="" placeholder="Password" required>
                         <span class="error-form" id="password-error"></span>
                     </div>
                     <div class="textbox">
-                        <img class="form-icon" src="images/sign-in/icon_lock_retype.png">
+                        <img class="form-icon" src="{% static 'images/sign-in/icon_lock_retype.png' %}">
                         <input id="txt-retype" type="password" name="" placeholder="Re-type your password" required>
                         <span class="error-form" id="retype-error"></span>
                     </div>

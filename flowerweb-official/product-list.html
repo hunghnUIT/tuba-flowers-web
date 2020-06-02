@@ -33,7 +33,7 @@
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target" aria-expanded="false" aria-controls="collapse-target">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="index.html" class="navbar-brand"><img  src="images/home/logo_transparent.png" alt="logo" width="120px" height="120px"></a>
+                <a href="index.html" class="navbar-brand"><img  src="{% static 'images/home/logo_transparent.png' %}" alt="logo" width="120px" height="120px"></a>
                 <div class="display-block w-100">
                     <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow " id="collapse_target">
                         <div class="clearfix w-100">
@@ -147,21 +147,21 @@
                     <div class="row">
                         <div class="col-md-4 col-6">
                             <div class="product-wrapper text-center product-saleoff">
-                                <a href="#"><img width="300" height="365" src="images/home/product-2.png" alt=""></a>
+                                <a href="#"><img width="300" height="365" src="{% static 'images/home/product-2.png' %}" alt=""></a>
                                 <a href="#"><h3>Majesty Palm</h3></a>
                                 <span>216.000 VNĐ</span>
                             </div>
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="product-wrapper text-center soldout">
-                                <a href="#"><img width="300" height="365" src="images/home/product-1.png" alt=""></a>
+                                <a href="#"><img width="300" height="365" src="{% static 'images/home/product-1.png' %}" alt=""></a>
                                 <a href="#"><h3>Majesty Palm</h3></a>
                                 <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
                             </div>
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="product-wrapper text-center product-saleoff">
-                                <a href="#"><img width="300" height="365" src="images/home/product-3.png" alt=""></a>
+                                <a href="#"><img width="300" height="365" src="{% static 'images/home/product-3.png' %}" alt=""></a>
                                 <a href="#"><h3>Majesty Palm</h3></a>
                                 <span>216.000 VNĐ</span>
                             </div>
@@ -176,11 +176,11 @@
             <div class="row">
                 <div class="col-lg-3 mb-4 mb-lg-0">
                     <div class="footer-col">
-                        <img width="211" height="211" src="images/home/logo_transparent.png" alt="logo">
+                        <img width="211" height="211" src="{% static 'images/home/logo_transparent.png' %}" alt="logo">
                         <div class="social-wrapper">
-                            <a href="#"><img width="46" height="45" src="images/home/fb.png" alt="fb"></a>
-                            <a href="#"><img width="46" height="45" src="images/home/zalo.png" alt="zalo"></a>
-                            <a href="#"><img width="46" height="45" src="images/home/insta.png" alt="instagram"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/fb.png' %}" alt="fb"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/zalo.png' %}" alt="zalo"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/insta.png' %}" alt="instagram"></a>
                         </div>
                         <div class="footer-slogan">
                             We love plants,<br>
@@ -201,16 +201,16 @@
                     <h3 class="footer-col-title">contact us</h3>
                     <ul>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/address-icon.png" alt="address"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/address-icon.png' %}" alt="address"></div>
                             <div class="align-self-center">Sydney road, Billboard Street 2219-11C.<br class="d-none d-xl-block">
                                 Apple Town, Your Country.</div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/phone-icon.png" alt="phone"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/phone-icon.png' %}" alt="phone"></div>
                             <div class="align-self-center"><a href="tel:(305) 533-1122">(305) 533-1122</a>, <a href="tel:(305) 112-7788">(305) 112-7788</a></div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/email-icon.png" alt="address"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/email-icon.png' %}" alt="address"></div>
                             <div class="align-self-center"><a href="mailto:johndoe@mail.com">johndoe@mail.com</a></div>
                         </li>
                     </ul>
@@ -231,13 +231,13 @@
         <form id="search-form" class="" action="">
             <div class="form-group position-relative">
                 <input type="text" class="form-control" placeholder="Nhập nội dung tìm kiếm...">
-                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="images/home/search.svg" alt=""></button>
+                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="{% static 'images/home/search.svg' %}" alt=""></button>
             </div>
         </form>
     </div>
 
-    <script src="library/swiper/swiper.min.js"></script>
-    <script src="js/header.js"></script>
-    <script src="js/cart.js"></script>
+    <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
 </body>
 </html>
