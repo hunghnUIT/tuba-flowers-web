@@ -36,7 +36,7 @@
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target" aria-expanded="false" aria-controls="collapse-target">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="index.html" class="navbar-brand"><img  src="images/home/logo_transparent.png" alt="logo" width="120px" height="120px"></a>
+                <a href="index.html" class="navbar-brand"><img  src="{% static 'images/home/logo_transparent.png' %}" alt="logo" width="120px" height="120px"></a>
                 <div class="display-block w-100">
                     <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow " id="collapse_target">
                         <div class="clearfix w-100">
@@ -62,7 +62,7 @@
                             </div>
                             <div class="float-right" style="margin-top: 8px;">
                                 <i class="fa fa-clock-o"></i>
-                                <span>Open every days 800 - 18:00</span>
+                                <span>Open every days 8:00 - 18:00</span>
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                         </a>
                     </span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    <span > Schefflera</span>
+                    <span > {{ object.title }}</span>
                     </div>
                 </div>
         </div>
@@ -140,15 +140,11 @@
                     <div>
                         <div class="swiper-container gallery-thumbs">
                             <div class="swiper-wrapper">
+                                {% for image in object.image.all %}
                                 <div class="swiper-slide">
-                                    <img width="140" height="auto" src="images/home/product-1.png" alt="">
+                                    <img width="140" height="auto" src="{{ image.image.url }}" alt="preview-img">
                                 </div>
-                                <div class="swiper-slide">
-                                    <img width="140" height="auto" src="images/home/product-2.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img width="140" height="auto" src="images/home/product-3.png" alt="">
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -156,28 +152,20 @@
                 <div class="col-8 col-lg-5 mx-auto">
                     <div class="swiper-container gallery-top">
                         <div class="swiper-wrapper">
+                            {% for image in object.image.all %}
                             <div class="swiper-slide">
-                                <img width="100%" height="auto" src="images/home/product-1.png" alt="">
+                                <img width="100%" height="auto" src="{{ image.image.url }}" alt="">
                             </div>
-                            <div class="swiper-slide">
-                                <img width="100%" height="auto" src="images/home/product-2.png" alt="">
-                            </div>
-                            <div class="swiper-slide">
-                                <img width="100%" height="auto" src="images/home/product-3.png" alt="">
-                            </div>
+                            {% endfor %}
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-5">
                     <div class="detail-information">
                         <h2 class="detail-title">Schefflera</h2>
-                        <p class="detail-price"><span>119K VNĐ</span><span class="root-price">156K VNĐ</span></p>
-                        <p class="detail-description">Class aptent taciti sociosqu ad litora torquent per
-                            conubia nostra, per inceptos himenaeos. Mauris in
-                            erat justo. Nullam ac urna eu felis dapibus
-                            condimentum sit amet a augue. Sed non neque elit.
-                            Sed ut imperdiet nisi. Proin condimentum fermentum
-                            nunc.</p>
+                        <p class="detail-price"><span>{{ object.price }} VNĐ</span><span class="root-price">156K VNĐ</span></p>
+                        <p class="detail-description">{{ object.description }}</p>
                         <div class="add-to-cart-wrapper">
                             <div class="quantity-wrapper d-inline-block">
                                 <span class="d-inline-block quantity-label">Quantity</span>
@@ -210,10 +198,7 @@
                 <div class="container">
                     <div class="tab-description">
                         <h3 class="mb-4">The power of flowers</h3>
-                        <p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
-                            rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam
-                            rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque
-                            sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante</p>
+                        <p>{{ object.description }}</p>
                     </div>
                     <div class="tab-addinfo" style="display: none;">
                         <div class="row">
@@ -222,8 +207,8 @@
                                 <p class="font-weight-bold">Demensions:</p>
                             </div>
                             <div class="col-md-10">
-                                <p>1 kg</p>
-                                <p>30 x 30 x 50 cm</p>
+                                <p>{{ object.weight }} kg</p>
+                                <p>{{ object.dimension }}</p>
                             </div>
                         </div>
                     </div>
@@ -238,10 +223,7 @@
             <div class="content">
                 <div class="tab-description">
                     <h3 class="mb-4">The power of flowers</h3>
-                    <p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
-                        rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam
-                        rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque
-                        sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante</p>
+                    <p>{{ object.description }}</p>
                 </div>
             </div>
             <button type="button" class="collapsible">additional information</button>
@@ -253,8 +235,8 @@
                             <p class="font-weight-bold">Demensions:</p>
                         </div>
                         <div class="col-md-10">
-                            <p>1 kg</p>
-                            <p>30 x 30 x 50 cm</p>
+                            <p>{{ object.weight }} kg</p>
+                            <p>{{ object.dimension }}</p>
                         </div>
                     </div>
                 </div>
@@ -275,28 +257,28 @@
                     <!-- Slides -->
                     <div class="swiper-slide">
                         <div class="product-wrapper text-center product-saleoff">
-                            <a href="#"><img width="300" height="365" src="images/home/product-1.png" alt=""></a>
+                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-1.png' %}" alt=""></a>
                             <a href="#"><h3>Majesty Palm</h3></a>
                             <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-wrapper text-center">
-                            <a href="#"><img width="300" height="365" src="images/home/product-2.png" alt=""></a>
+                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-2.png' %}" alt=""></a>
                             <a href="#"><h3>Majesty Palm</h3></a>
                             <span>216.000 VNĐ</span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-wrapper text-center">
-                            <a href="#"><img width="300" height="365" src="images/home/product-3.png" alt=""></a>
+                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-3.png' %}" alt=""></a>
                             <a href="#"><h3>Majesty Palm</h3></a>
                             <span>216.000 VNĐ</span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-wrapper text-center product-saleoff">
-                            <a href="#"><img width="300" height="365" src="images/home/product-4.png" alt=""></a>
+                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-4.png' %}" alt=""></a>
                             <a href="#"><h3>Majesty Palm</h3></a>
                             <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
                         </div>
@@ -312,9 +294,9 @@
                     <div class="footer-col">
                         <img width="211" height="211" src="images/home/logo_transparent.png" alt="logo">
                         <div class="social-wrapper">
-                            <a href="#"><img width="46" height="45" src="images/home/fb.png" alt="fb"></a>
-                            <a href="#"><img width="46" height="45" src="images/home/zalo.png" alt="zalo"></a>
-                            <a href="#"><img width="46" height="45" src="images/home/insta.png" alt="instagram"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/fb.png' %}" alt="fb"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/zalo.png' %}" alt="zalo"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/insta.png' %}" alt="instagram"></a>
                         </div>
                         <div class="footer-slogan">
                             We love plants,<br>
@@ -335,17 +317,17 @@
                     <h3 class="footer-col-title">contact us</h3>
                     <ul>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/address-icon.png" alt="address"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/address-icon.png' %}" alt="address"></div>
                             <div class="align-self-center">Sydney road, Billboard Street 2219-11C.<br class="d-none d-xl-block">
                                 Apple Town, Your Country.</div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/phone-icon.png" alt="phone"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/phone-icon.png' %}" alt="phone"></div>
                             <div class="align-self-center"><a href="tel:(305) 533-1122">(305) 533-1122</a>, <a href="tel:(305) 112-7788">(305) 112-7788</a></div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/email-icon.png" alt="address"></div>
-                            <div class="align-self-center"><a href="mailto:johndoe@mail.com">johndoe@mail.com</a></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/email-icon.png' %}" alt="address"></div>
+                            <div class="align-self-center"><a href="mailto:tubaflowers@gmail.com">tubaflowers@gmail.com</a></div>
                         </li>
                     </ul>
                 </div>
@@ -365,15 +347,15 @@
         <form id="search-form" class="" action="">
             <div class="form-group position-relative">
                 <input type="text" class="form-control" placeholder="Nhập nội dung tìm kiếm...">
-                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="images/home/search.svg" alt=""></button>
+                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="{% static 'images/home/search.svg' %}" alt=""></button>
             </div>
         </form>
     </div>
 
-    <script src="library/swiper/swiper.min.js"></script>
-    <script src="js/header.js"></script>
-    <script src="library/wenumberic/wenumberic.js"></script>
-    <script src="js/product-detail.js"></script>
-    <script src="js/cart.js"></script>
+    <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'library/wenumberic/wenumberic.js' %}"></script>
+    <script src="{% static 'js/product-detail.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
 </body>
 </html>

@@ -22,6 +22,7 @@ class ItemsWithCategoryListView(ListView): # Click at an category and it return 
 class ItemDetailView(DetailView):
     model = Item
 
+    template_name = 'product-detail.html'
     # By default, the generic class-based will looking for template <app>/<model>_<viewtype>.html
     # So it's unnecessary to have the line "template_name = 'products/item_detail.html'"
     # as long as we created a file exactly is item_detail.html in templates/products folder
