@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,15 +25,15 @@
     <span id="Users" style="display: none"></span>
 </head>
 <body>
-    <img class="wave" src="./images/sign-in/wave.svg"  alt="">
+    <img class="wave" src="{% static './images/sign-in/wave.svg' %}"  alt="">
     <!-- Register -->
     <div class="container">
         <div class="img">
-            <img class="decor" src="./images/sign-in/banner.svg" alt="banner">
+            <img class="decor" src="{% static './images/sign-in/banner.svg' %}" alt="banner">
         </div>
         <div class="login-container">
             <form  id="register" action="user-page.html">
-                <img class="avt-img" src="./images/sign-in/avt-img.svg" alt="avt">
+                <img class="avt-img" src="{% static './images/sign-in/avt-img.svg' %}" alt="avt">
                 <h2 class="greeting"><span>o8o</span> welcome</h2>
                 <div class="textbox">
                     
@@ -157,7 +158,7 @@
         </div>
         <!-- end Register -->
     </div>
-    <script src="js/user.js"></script>
-    <script src="js/register.js"></script>
+    <script src="{% static 'js/user.js' %}"></script>
+    <script src="{% static 'js/register.js' %}"></script>
 </body>
 </html>
