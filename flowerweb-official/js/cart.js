@@ -1,8 +1,8 @@
-$('.icon-bar > a').hover(function () {
-        $(this).find("span").addClass("change-color-span");
+$('.icon-bar  ul  li  a').hover(function () {
+        $(this).find(".cart-number").addClass("change-color-span");
         
     }, function () {
-        $(this).find("span").removeClass("change-color-span");
+        $(this).find(".cart-number").removeClass("change-color-span");
     }
 );
 $(document).ready(function () {
