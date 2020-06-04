@@ -147,7 +147,7 @@ def cart(request):
             'selected_items':selected_items,
             'total_cost': total_cost
     }
-    return render(request, 'users/cartt.html', contexts)
+    return render(request, 'cart.html', contexts)
 
 
 '''

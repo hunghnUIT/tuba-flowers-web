@@ -2,11 +2,34 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Item
 from django.views.generic import ListView, DetailView
 
-def allItems(request):
-    context = {
-        'items': Item.objects.all()
-    }
-    return render(request, 'products/all_items.html', context)
+class ItemsListView(ListView):
+    model = Item
+    # template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
+    template_name= 'products/all_items.html'
+    context_object_name = 'items'
+    paginate_by = 12
+    # ordering = ['-price'] or ['price'] depended on the order user's choice.
+
+    # Custom a order_by sort by final price.
+    # qs = Item.objects.all()
+    # qs = sorted(qs, key: lambda i: i.roll_numb().split('-')[1]) #Not edit yet
+    
+    def get_queryset(self): # Get the list of items for this view.
+        # queryset = super(ItemsListView, self).get_queryset()
+        kw_order_by = self.request.GET.get('order_by')
+        if kw_order_by:
+            if kw_order_by == 'asc-price':
+                return Item.objects.filter(number_item_left__gt=0).order_by('price')
+            if kw_order_by == 'desc-price':
+                return Item.objects.filter(number_item_left__gt=0).order_by('-price')
+            if kw_order_by == 'by-name':
+                return Item.objects.filter(number_item_left__gt=0).order_by('title')
+            if kw_order_by == 'best-seller':
+                print('This feature is being completed.')
+                # return Item.objects.filter(number_item_left__gt=0).order_by('number_item_sold')
+                return Item.objects.filter(number_item_left__gt=0)
+        else:
+            return Item.objects.filter(number_item_left__gt=0)
 
 class ItemsWithCategoryListView(ListView): # Click at an category and it return items with the same category.
     model = Item
@@ -17,7 +40,7 @@ class ItemsWithCategoryListView(ListView): # Click at an category and it return 
 
     def get_queryset(self): # Get the list of items for this view.
         cate = self.kwargs.get('category')
-        return Item.objects.filter(category = cate)
+        return Item.objects.filter(category__contains = cate)
 
 class ItemDetailView(DetailView):
     model = Item

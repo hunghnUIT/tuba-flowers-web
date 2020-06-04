@@ -98,7 +98,14 @@
                     </div>
                 </div>
             </div>
-        </div>          
+        </div>  
+        {% if messages %}
+        {% for message in messages%}
+        <div class="alert alert-{{ message.tags}}">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}        
     </header>
     <!-- title -->
     <section class="title">
@@ -147,42 +154,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="img-product-cell" data-title="thumb"><a href="#productdetail"><img src="{% static 'Images/cart/shop-10-img.png' %}" alt="item-1" class="img-fluid" height="120px" width="120px"></a></td>
-                        <td class="text-product-cell" data-title="product">Products</td>
-                        <td class="text-product-cell" data-title="price">235.000 vnđ</td>
-                        <td class="quantity-product-cell" data-title="quantity">
-                            <input type="number" required value="2" min=0>
-                        </td>
-                        <td class="text-product-cell" data-title="total">470.000 vnđ</td>
-                        <td class="delete-product-cell text-product-cell" data-title="Remove"><a href="#removed" class="item-link"><i class="material-icons">remove_shopping_cart</i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="img-product-cell" data-title="thumb"><a href="#productdetail"><img src="{% static 'Images/cart/shop-14-img.png' %}" alt="item-1" class="img-fluid" height="120px" width="120px"></a></td>
-                        <td class="text-product-cell" data-title="product">Products</td>
-                        <td class="text-product-cell" data-title="price">156.000 vnđ</td>
-                        <td class="quantity-product-cell" data-title="quantity">
-                            <input type="number" required value="1" min=0>
-                        </td>
-                        <td class="text-product-cell" data-title="total">156.000 vnđ</td>
-                        <td class="delete-product-cell text-product-cell" data-title="Remove"><a href="#removed" class="item-link"><i class="material-icons">remove_shopping_cart</i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="img-product-cell" data-title="thumb"><a href="#productdetail"><img src="{% static 'Images/cart/shop-8-img.png' %}" alt="item-1" class="img-fluid" height="120px" width="120px"></a></td>
-                        <td class="text-product-cell" data-title="product">Products</td>
-                        <td class="text-product-cell" data-title="price">75.000 vnđ</td>
-                        <td class="quantity-product-cell" data-title="quantity">
-                            <input type="number" required value="3" min=0>
-                        </td>
-                        <td class="text-product-cell" data-title="total">225.000 vnđ</td>
-                        <td class="delete-product-cell text-product-cell" data-title="Remove"><a href="#removed" class="item-link"><i class="material-icons">remove_shopping_cart</i></a></td>
-                    </tr>
+                    {% if selected_items %}
+                        {% for item in selected_items %}
+                        <tr>
+                            <td class="img-product-cell" data-title="thumb"><a href="{% url 'item-detail' item.item.pk %}"><img src="{{ item.item.image.first.image.url }}" alt="item-image" class="img-fluid" height="120px" width="120px"></a></td>
+                            <td class="text-product-cell" data-title="product">{{ item.item.title }}</td>
+                            <td class="text-product-cell" data-title="price">{{ item.item.price }} vnđ</td>
+                            <td class="quantity-product-cell" data-title="quantity">
+                                <input type="number" required value="{{ item.quantity }}" min=0>
+                            </td>
+                            <td class="text-product-cell" data-title="total">{{ item.get_total_item_price }} vnđ</td>
+                            <td class="delete-product-cell text-product-cell" data-title="Remove"><a href="{% url 'remove-item-from-cart' item.item.pk %}" class="item-link"><i class="material-icons">remove_shopping_cart</i></a></td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <td colspan="6">There is no item in your cart.</td>
+                    {% endif %}
+        </tbody>
                 </tbody>
                 <tfoot>
                     <tr>
                         <th data-title="" scope="col" colspan="3" class="text-right text-product-cell">Total:</th>
-                        <th data-title="quantity" scope="col" class="text-center text-product-cell">6</th>
-                        <th data-title="price" scope="col" class="text-center text-product-cell">881.000 vnđ</th>
+                        <th data-title="quantity" scope="col" class="text-center text-product-cell" style="color: blueviolet;">FE handle</th>
+                        <th data-title="price" scope="col" class="text-center text-product-cell">{{ total_cost }} vnđ</th>
                         <th scope="col" class="text-center text-product-cell">
                             <button class="text-capitalize btn-custom btn-update-cart">
                                 Update cart
@@ -236,7 +230,7 @@
                     <tbody class="">
                         <tr class="cart-subtotal">
                             <td data-title="Subtotal">
-                              881K VNĐ  
+                                {{ total_cost }} VNĐ  
                             </td>
                         </tr>
                         <tr class="cart-ship-cost">
@@ -249,14 +243,14 @@
                         </tr>
                         <tr class="cart-order-total">
                             <td data-title="Total">
-                              881K VNĐ  
+                                {{ total_cost }} VNĐ  
                             </td>
                         </tr>
                         <tr class="cart-checkout">
                             <td data-title="proceed-checkout">
-                                <button class="text-uppercase btn-custom btn-update-cart w-100">
+                                <a href="{% url 'checkout' %}" class="btn text-uppercase btn-custom btn-update-cart w-100">
                                     Proceed to checkout
-                                </button>  
+                                </a>  
                             </td>
                         </tr>
                     </tbody>

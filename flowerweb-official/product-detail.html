@@ -1,4 +1,5 @@
 ﻿{% load static %}
+{% load products_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +70,7 @@
                     <div class="float-right">
                         <div class="icon-bar">
                             <a class="btn" href="#" data-toggle="modal" data-target="#modal-search-box"><i class="fa fa-search"></i></a>
-                            <a class="btn" href="cart.html"><i class="fa fa-shopping-cart"></i>
+                            <a class="btn" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>
                                 <span class="cart-number">0</span>
                             </a>
                             <a class="btn" href="user-page.html"><i class="fa fa-user"></i></a>
@@ -163,7 +164,7 @@
                 </div>
                 <div class="col-12 col-lg-5">
                     <div class="detail-information">
-                        <h2 class="detail-title">Schefflera</h2>
+                        <h2 class="detail-title">{{ object.title }}</h2>
                         <p class="detail-price"><span>{{ object.price }} VNĐ</span><span class="root-price">156K VNĐ</span></p>
                         <p class="detail-description">{{ object.description }}</p>
                         <div class="add-to-cart-wrapper">
@@ -177,8 +178,21 @@
                         </div>
                         <div class="more-information">
                             <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
-                            <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;Plants, Cactuses, Greens</p>
-                            <p><span class="font-weight-bold">TAGS :</span>&nbsp;Roses, Tulips</p>
+                            <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;
+                                {% with object.category|split_to_link:"," as categories %}
+                                    {% for cate in categories %}
+                                        <a href="{% url 'products-category' cate %}">{{ cate }}</a> 
+                                    {% endfor %}
+                                {% endwith %} 
+                            </p>
+                            <!-- NOT HANDLE SEARCH BY TAG YET -->
+                            <p><span class="font-weight-bold">TAGS :</span>&nbsp
+                                {% with object.tag|split_to_link:"," as tags %}
+                                    {% for tag in tags %}
+                                        <a href="{% url 'products-category' tag %}">{{ tag }}</a> 
+                                    {% endfor %}
+                                {% endwith %} 
+                            </p>
                         </div>
                     </div>
                 </div>

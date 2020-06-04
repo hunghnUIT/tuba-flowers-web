@@ -1,8 +1,21 @@
 {% extends 'users/base.html' %}
 {% block content %}
+<form action="">
+    <label for="item">Order by:</label>
+    <select name="order_by" id="item">
+        <option value="asc-price">Ascending Price</option>
+        <option value="desc-price">Descending Price</option>
+        <option value="by-name">By Name</option>
+        <option value="best-seller">Best seller</option>
+    </select>
+    <br><br>
+    <p style="color: blueviolet;">FE Handle (JS: on change -> Click submit)<input  type="submit" value="Submit"></p> 
+
+</form>
 <h1>All item</h1>
 {% for item in items %}
 <h2>{{ item.title }}</h2>
+<p>Price {{ item.price }}</p>
 <a href="{% url 'products-category' item.category %}">{{ item.category }}</a>
 <img src="{{ item.image.first.image.url }}" alt="Flower avatar">
 <br>
