@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -406,7 +407,7 @@
                 <div class="col-6 col-md-4 mb-4 mb-md-0">
                     <div class="member-wrapper rounded ">
                         <a target="_blank" target="_blank" title="Facebook" rel="noopener noreferrer" href="https://www.facebook.com/hunghoang59" class="card-link">
-                            <img width="300" height="300" src="{%static '/images/home/hung-avt.jpg'%}" alt="avar-1">
+                            <img width="300" height="300" src="{%static 'images/home/hung-avt.jpg'%}" alt="avar-1">
                         </a>
                         <div class="member-name">
                             <a target="_blank" title="Facebook" href="https://www.facebook.com/hunghoang59" class="nav-link">Ngoc Hung</a></div>
@@ -416,7 +417,7 @@
                 <div class="col-6 col-md-4 mb-4 mb-md-0">
                     <div class="member-wrapper">
                         <a target="_blank" title="Facebook" rel="noopener noreferrer" href="https://www.facebook.com/hungphuc.nguyen.2001" class="card-link">
-                            <img width="300" height="300" src="{%static 'images/home/phuc-avt.jpg'%}" alt="avar-2">
+                            <img width="300" height="300" src="{%static 'images/home/phuc.png'%}" alt="avar-2">
                         </a>
                         <div class="member-name"><a target="_blank" title="Facebook" href="https://www.facebook.com/hungphuc.nguyen.2001" class="nav-link">Phuc Nguyen</a></div>
                         <div class="member-name member-position">manager</div>
@@ -503,7 +504,7 @@
     <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
     <script src="{% static 'js/header.js' %}"></script>
     <script src="{% static 'js/blog.js' %}"></script>
-    <script src="{% js/cart.js %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/home-product.js' %}"></script>
 </body>
 </html>
