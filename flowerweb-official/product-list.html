@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,13 +17,13 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Font material -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="library/swiper/swiper.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/product.css">
-    <link rel="stylesheet" href="cart-css/cart-title.css">
-    <link rel="stylesheet" href="css/homeproduct.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="{% static 'library/swiper/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    <link rel="stylesheet" href="{% static 'cart-css/cart-title.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <span id="list" style="display: none"></span>
     
 </head>
@@ -33,7 +34,7 @@
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target" aria-expanded="false" aria-controls="collapse-target">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="index.html" class="navbar-brand"><img  src="images/home/logo_transparent.png" alt="logo" width="120px" height="120px"></a>
+                <a href="index.html" class="navbar-brand"><img  src="{% static 'images/home/logo_transparent.png' %}" alt="logo" width="120px" height="120px"></a>
                 <div class="display-block w-100">
                     <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow " id="collapse_target">
                         <div class="clearfix w-100">
@@ -92,7 +93,7 @@
                                     <a class="btn dropdown-toggle" data-toggle="dropdown" data-target="user" href="#"><i class="fa fa-user"></i></a>
                                     <div id="visitor"  class="neumorphism toggler dropdown-menu visitor-user" aria-labelledby="visitor">
                                         <a href="user-page.html" class="nav-link dropdown-item-custom" title="Go to login page">
-                                            <img class="text-center col-12 my-auto" src="./images/home/wanna-login.svg" alt="login" height="80px" width="80px">
+                                            <img class="text-center col-12 my-auto" src="{% static 'images/home/wanna-login.svg' %}" alt="login" height="80px" width="80px">
                                             <div class=" col-12 pr-1 dropdown-divider"></div>
                                             <p class="pr-2 mt-2">Go to <span class="initialism text-uppercase">login</span>  or <span class="text-uppercase">register</span> </p></a>
                                     </div>
@@ -164,6 +165,17 @@
         </div>
     </section>
     <!-- title -->
+    <form action="">
+        <label for="item">Order by:</label>
+        <select name="order_by" id="item">
+            <option value="asc-price">Ascending Price</option>
+            <option value="desc-price">Descending Price</option>
+            <option value="by-name">By Name</option>
+            <option value="best-seller">Best seller</option>
+        </select>
+        <br><br>
+        <p style="color: blueviolet;">FE Handle (JS: on change -> Click submit)<input  type="submit" value="Submit"></p>
+    </form>
     <article class="product-section">
         <div class="container">
             <div class="row">
@@ -179,27 +191,16 @@
                 </div>
                 <div class="col-xl-9">
                     <div class="row">
+                        {% for item in items %}
                         <div class="col-md-4 col-6">
                             <div class="product-wrapper text-center product-saleoff">
-                                <a href="#"><img width="300" height="365" src="images/home/product-2.png" alt=""></a>
-                                <a href="#"><h3>Majesty Palm</h3></a>
-                                <span>216.000 VNĐ</span>
+                                <a href="{% url 'item-detail' item.pk %}"><img width="300" height="365" src="{{ item.image.first.image.url }}" alt="Preview item"></a>
+                                <a href="{% url 'item-detail' item.pk %}"><h3>{{ item.title }}</h3></a>
+                                <span>{{ item.price }} VNĐ</span>
+                                <p style="color: blueviolet;">FE handle saleoff or Sold out</p>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <div class="product-wrapper text-center soldout">
-                                <a href="#"><img width="300" height="365" src="images/home/product-1.png" alt=""></a>
-                                <a href="#"><h3>Majesty Palm</h3></a>
-                                <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="product-wrapper text-center product-saleoff">
-                                <a href="#"><img width="300" height="365" src="images/home/product-3.png" alt=""></a>
-                                <a href="#"><h3>Majesty Palm</h3></a>
-                                <span>216.000 VNĐ</span>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -210,11 +211,11 @@
             <div class="row">
                 <div class="col-lg-3 mb-4 mb-lg-0">
                     <div class="footer-col">
-                        <img width="211" height="211" src="images/home/logo_transparent.png" alt="logo">
+                        <img width="211" height="211" src="{% static 'images/home/logo_transparent.png' %}" alt="logo">
                         <div class="social-wrapper">
-                            <a href="#"><img width="46" height="45" src="images/home/fb.png" alt="fb"></a>
-                            <a href="#"><img width="46" height="45" src="images/home/zalo.png" alt="zalo"></a>
-                            <a href="#"><img width="46" height="45" src="images/home/insta.png" alt="instagram"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/fb.png' %}" alt="fb"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/zalo.png' %}" alt="zalo"></a>
+                            <a href="#"><img width="46" height="45" src="{% static 'images/home/insta.png' %}" alt="instagram"></a>
                         </div>
                         <div class="footer-slogan">
                             We love plants,<br>
@@ -235,16 +236,16 @@
                     <h3 class="footer-col-title">contact us</h3>
                     <ul>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/address-icon.png" alt="address"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/address-icon.png' %}" alt="address"></div>
                             <div class="align-self-center">Sydney road, Billboard Street 2219-11C.<br class="d-none d-xl-block">
                                 Apple Town, Your Country.</div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/phone-icon.png" alt="phone"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/phone-icon.png' %}" alt="phone"></div>
                             <div class="align-self-center"><a href="tel:(305) 533-1122">(305) 533-1122</a>, <a href="tel:(305) 112-7788">(305) 112-7788</a></div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="images/home/email-icon.png" alt="address"></div>
+                            <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/email-icon.png' %}" alt="address"></div>
                             <div class="align-self-center"><a href="mailto:johndoe@mail.com">johndoe@mail.com</a></div>
                         </li>
                     </ul>
@@ -265,7 +266,7 @@
         <form id="search-form" class="" action="">
             <div class="form-group position-relative">
                 <input type="text" class="form-control" placeholder="Nhập nội dung tìm kiếm...">
-                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="images/home/search.svg" alt=""></button>
+                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="{% static 'images/home/search.svg"' %} alt=""></button>
             </div>
         </form>
     </div>

@@ -4,8 +4,8 @@ from django.views.generic import ListView, DetailView
 
 class ItemsListView(ListView):
     model = Item
-    # template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
-    template_name= 'products/all_items.html'
+    template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
+    # template_name= 'products/all_items.html'
     context_object_name = 'items'
     paginate_by = 12
     # ordering = ['-price'] or ['price'] depended on the order user's choice.

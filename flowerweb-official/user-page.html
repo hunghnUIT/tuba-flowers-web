@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,24 +18,24 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Font material -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="library/swiper/swiper.min.css">
-    <link rel="stylesheet" href="user-css/user-page.css">
-    <link rel="stylesheet" href="user-css/responsive.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{% static 'library/swiper/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user-css/user-page.css' %}">
+    <link rel="stylesheet" href="{% static 'user-css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     <span id="Users" style="display: none"></span>
     <span class="status-user" style="display: none">user</span>
 </head>
 <body>
-    <img class="wave" src="./images/sign-in/wave.svg"  alt="">
+    <img class="wave" src="{% static './images/sign-in/wave.svg' %}"  alt="">
     <!-- Register -->
     <div class="container">
         <div class="img">
-            <img class="decor" src="./images/sign-in/banner.svg" alt="banner">
+            <img class="decor" src="{% static './images/sign-in/banner.svg' %}" alt="banner">
         </div>
         <div class="login-container">
             <form  id="register" action="user-page.html">
-                <img class="avt-img" src="./images/sign-in/avt-img.svg" alt="avt">
+                <img class="avt-img" src="{% static './images/sign-in/avt-img.svg' %}" alt="avt">
                 <h2 class="greeting"><a class="nav-link" href="index.html" title="Homepage"><span>o8o</span> welcome</a></h2>
                 <div class="textbox">
                     
@@ -110,7 +111,7 @@
                 <input class="btn submit register-btn" type="submit" value="Register">
             </form>
             <form id="login" action="user-page.html">
-                <img class="avt-img" src="./images/sign-in/male-avatar.svg" alt="avt">
+                <img class="avt-img" src="{% static './images/sign-in/male-avatar.svg' %}" alt="avt">
                 <h2 class="greeting"><a class="nav-link" href="index.html" title="Homepage"><span>o8o</span> welcome</a></h2>
                 <div class="textbox">
                     <div class="i">
@@ -157,8 +158,8 @@
         </div>
         <!-- end Register -->
     </div>
-    <script src="js/user.js"></script>
-    <script src="js/register-login-process.js"></script>
-    <script src="js/header.js"></script>
+    <script src="{% static 'js/user.js' %}"></script>
+    <script src="{% static 'js/register-login-process.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
 </body>
 </html>
