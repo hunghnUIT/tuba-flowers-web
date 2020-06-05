@@ -28,7 +28,7 @@ urlpatterns = [
     path('', users_views.home, name='home'),
     
     path('register/', users_views.register, name='register'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html', redirect_authenticated_user = True), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='user-page.html', redirect_authenticated_user = True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('user/', include('users.urls')),
     path('add-to-cart/<int:pk>', users_views.add_to_cart, name='add-to-cart'),
