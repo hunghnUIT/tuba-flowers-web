@@ -1,29 +1,33 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CheckoutForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CheckoutForm, ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Order, ItemSelection
 from products.models import Item
 from django.utils import timezone
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 def register(request):
     if request.method == 'POST':
-        print('POST')
         form = UserRegisterForm(request.POST)
+        p_form = ProfileRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-
-            print(form.cleaned_data)
+            new_user = User.objects.get(username=username)
+            p_form.instance=new_user.profile # Indicating who this phone number belong to.
+            p_form.save()
+            # print(form.cleaned_data)
 
             messages.success(request, f'Your account {username} has been created. You can login now.')
             return redirect('home')
     
     else:
         form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+        p_form = ProfileRegisterForm()
+    return render(request, 'users/register.html', {'form': form, 'p_form': p_form})
 
 def home(request):
     return render(request, 'index.html')
@@ -94,7 +98,7 @@ def checkout(request):
         messages.error(request, f'Checkout failed. We do not have enough '+ ", ".join([i.item.title for i in failed_items]) + ' .')
         return redirect('cart')
 
-    total_cost = sum(i.item.price*i.quantity for i in checkout_items)
+    total_cost = sum(i.get_final_price() for i in checkout_items)
     
     if request.method == 'GET':
         checkout_form = CheckoutForm(initial={
@@ -128,6 +132,7 @@ def checkout(request):
                 new_order.items_ordered.add(item)
                 # Decreasing number of item left NO NEED TO CHECK NUMBER IS VALID HERE, CHECKED ABOVE.
                 item.item.number_item_left -= item.quantity
+                item.item.number_item_sold += item.quantity
                 item.item.save()
                 # Change ItemSelection 'ordered' to True 
                 item.ordered=True
@@ -142,10 +147,12 @@ def checkout(request):
 @login_required
 def cart(request):
     selected_items = ItemSelection.objects.filter(user=request.user,ordered=False)
-    total_cost = sum(i.item.price*i.quantity for i in selected_items)
+    total_cost = sum(i.get_final_price() for i in selected_items)
+    old_cost = sum(i.get_total_item_price() for i in selected_items)
     contexts={
             'selected_items':selected_items,
-            'total_cost': total_cost
+            'total_cost': total_cost,
+            'old_cost': old_cost,
     }
     return render(request, 'cart.html', contexts)
 

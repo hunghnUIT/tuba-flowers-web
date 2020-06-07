@@ -45,6 +45,11 @@ class ItemSelection(models.Model):
     def get_total_item_price(self):
         return self.item.price * self.quantity
 
+    def get_final_price(self):
+        if self.item.discount_percent:
+            return self.get_total_item_price() - int(self.get_total_item_price()*self.item.discount_percent)
+        return self.get_total_item_price()
+
 # def get_default_phone(self):
 #     return self.customer_info.phone
 

@@ -39,7 +39,7 @@
         <div class="login-container">
             <form id="register" method="POST">
                 <img class="avt-img" src="{% static './images/sign-in/avt-img.svg' %}" alt="avt">
-                <h2 class="greeting"><a class="nav-link" href="index.html" title="Homepage"><span>o8o</span> welcome</a>
+                <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
                 </h2>
                 <div class="textbox">
 
@@ -118,7 +118,7 @@
                 {% csrf_token %}
                 <!-- {{ form }} -->
                 <img class="avt-img" src="{% static './images/sign-in/male-avatar.svg' %}" alt="avt">
-                <h2 class="greeting"><a class="nav-link" href="index.html" title="Homepage"><span>o8o</span> welcome</a>
+                <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
                 </h2>
                 <div class="textbox">
                     <div class="i">

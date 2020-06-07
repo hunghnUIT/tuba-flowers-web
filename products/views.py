@@ -25,9 +25,8 @@ class ItemsListView(ListView):
             if kw_order_by == 'by-name':
                 return Item.objects.filter(number_item_left__gt=0).order_by('title')
             if kw_order_by == 'best-seller':
-                print('This feature is being completed.')
+                return Item.objects.filter(number_item_left__gt=0).order_by('-number_item_sold')
                 # return Item.objects.filter(number_item_left__gt=0).order_by('number_item_sold')
-                return Item.objects.filter(number_item_left__gt=0)
         else:
             return Item.objects.filter(number_item_left__gt=0)
 

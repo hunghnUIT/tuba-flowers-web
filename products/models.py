@@ -1,7 +1,9 @@
 from django.db import models
+from django.db.models import Model, DecimalField
 from PIL import Image
 from django.utils.html import format_html
 from django.urls import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Category: string, title: string, description: string, price: int, is_available: true/false, tag: [string, string,...]
 
@@ -14,7 +16,8 @@ class Item(models.Model):
     tag = models.CharField(max_length=50) # This field must be divided by comma (,) between each tag
     weight = models.DecimalField(max_digits=5, decimal_places=2, default=1.0)
     dimension = models.CharField(max_length=20, default='? x ? x ? cm')
-    
+    discount_percent = models.DecimalField(max_digits=3, decimal_places=2, default=0.00, validators=[MinValueValidator(0.00), MaxValueValidator(1.00)])
+    number_item_sold = models.PositiveIntegerField(default=0)    
 
     def __str__(self):
         return self.title
