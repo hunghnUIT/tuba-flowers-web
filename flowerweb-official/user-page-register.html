@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower o8o</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/0a957108d3.js" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Font material -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'library/swiper/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user-css/user-page.css' %}">
+    <link rel="stylesheet" href="{% static 'user-css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <span id="Users" style="display: none"></span>
+    <span class="status-user" style="display: none">user</span>
+</head>
+
+<body>
+    <img class="wave" src="{% static './images/sign-in/wave.svg' %}" alt="">
+    <!-- Register -->
+    <div class="container">
+        <div class="img">
+            <img class="decor" src="{% static './images/sign-in/banner.svg' %}" alt="banner">
+        </div>
+        <div class="login-container">
+            <form id="register" method="POST">
+                {% csrf_token %}
+                <img class="avt-img" src="{% static './images/sign-in/avt-img.svg' %}" alt="avt">
+                <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
+                </h2>
+                <div class="textbox">
+
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h5 id="name">Your name</h5>
+                        <input class="input" id="txt-username" type="text" name="username" placeholder="" required>
+                    </div>
+                    <div class="notice">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="tooltip-text"></span>
+                    </div>
+                </div>
+                <div class="textbox">
+                    <div class="i">
+                        <i class="fas fa-mobile"></i>
+                    </div>
+                    <div>
+                        <h5 id="phone">Your phone number</h5>
+                        <input class="input" id="txt-phone" type="text" name="phone" placeholder="" required>
+                    </div>
+                    <div class="notice">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="tooltip-text"></span>
+                    </div>
+                </div>
+                <div class="textbox">
+                    <div class="i">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5 id="email">Your email</h5>
+                        <input class="input" id="txt-email" type="text" name="email" placeholder="" required>
+                    </div>
+                    <div class="notice">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="tooltip-text"></span>
+                    </div>
+                </div>
+                <div class="textbox">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <h5 id="password">Password</h5>
+                        <input class="input" id="txt-password" type="password" name="password1" placeholder="" required>
+                    </div>
+                    <div class="notice">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="tooltip-text"></span>
+                    </div>
+                </div>
+                <div class="textbox">
+                    <div class="i">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <div>
+                        <h5 id="retype">Re-type your password</h5>
+                        <input class="input" id="txt-retype" type="password" name="password2" placeholder="" required>
+                    </div>
+                    <div class="notice">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="tooltip-text"></span>
+                    </div>
+                </div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                <label for="vehicle2"> I agree all statements in <a href="#">Terms of services</a></label><br>
+                <div class="link-container">
+                    <a id="go-to-login" href="#login" class="nav-link">I am already member</a>
+                </div>
+                <input class="btn submit" type="submit" value="Register">
+            </form>
+            <form id="login" method="POST">
+                {% csrf_token %}
+                <!-- {{ form }} -->
+                <img class="avt-img" src="{% static './images/sign-in/male-avatar.svg' %}" alt="avt">
+                <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
+                </h2>
+                <div class="textbox">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h5 id="name">Email or phone number</h5>
+                        <input class="input" id="txt-username-login" type="text" name="username" placeholder=""
+                            required>
+                    </div>
+                    <div class="notice">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="tooltip-text"></span>
+                    </div>
+                </div>
+                <div class="textbox">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <h5 id="password">Password</h5>
+                        <input class="input" id="txt-password-login" type="password" name="password" placeholder=""
+                            required>
+                    </div>
+                    <div class="notice">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="tooltip-text"></span>
+                    </div>
+                </div>
+                <div class="link-container">
+                    <a id="create-account" href="#register" class="nav-link">Create an new account</a>
+                </div>
+                <!-- <button class="btn btn-outline-info" type="submit">Login</button> -->
+                <input class="btn submit" type="submit" value="Login">
+                <div class="another-way-login row justify-content-center">
+                    <div class="col-12">
+                        - Or login with other ways:
+                    </div>
+                    <a id="facebook" href="#facebook" class="nav-link col-2 text-right pr-1"
+                        title="Login with facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a id="google" href="#google" class="nav-link col-2 text-left pl-1" title="Login with google">
+                        <i class="fab fa-google-plus-official"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <!-- end Register -->
+    </div>
+    <script src="{% static 'js/user.js' %}"></script>
+    <script src="{% static 'js/register-login-process.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+</body>
+
+</html>

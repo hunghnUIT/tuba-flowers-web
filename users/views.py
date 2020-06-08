@@ -9,6 +9,9 @@ from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 
+# def handler404(request, *args, **argv):
+#     return render(request, 'notfound-404.html', status=404)
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -27,7 +30,7 @@ def register(request):
     else:
         form = UserRegisterForm()
         p_form = ProfileRegisterForm()
-    return render(request, 'users/register.html', {'form': form, 'p_form': p_form})
+    return render(request, 'user-page-register.html', {'form': form, 'p_form': p_form})
 
 def home(request):
     return render(request, 'index.html')
@@ -63,7 +66,7 @@ def profile(request):
 
 def get_user_pending_order(request):
     # get order for the correct user
-    orders = Order.objects.filter(user=request.user, order_status='P') | Order.objects.filter(user=request.user, order_status='S')
+    orders = Order.objects.filter(user=request.user, order_status='P') | Order.objects.filter(user=request.user, order_status='S')| Order.objects.filter(user=request.user, order_status='RC')
     if orders.exists():
         # get the only order in the list of filtered orders
         return orders
@@ -79,6 +82,13 @@ def orders_detail(request):
     print(existing_orders)
     return render(request, 'users/orders_detail.html', contexts)
 
+@login_required
+def cancel_order(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    if order:
+        order.order_status = "RC"
+        order.save()
+        return redirect('orders-detail')
 
 @login_required
 def checkout(request):

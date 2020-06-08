@@ -20,8 +20,10 @@ from django.conf.urls.static import static
 from users import views as users_views
 from products import views as products_views
 from django.contrib.auth import views as auth_views
+from django.conf.urls import handler404
 
 
+# handler404 = '.page_not_found'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

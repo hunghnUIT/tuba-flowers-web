@@ -21,16 +21,5 @@ $(document).ready(function () {
         $('.box div div h2').css('font-size', '20px');
         console.log("title's more than 16 letters");
     }
-    // add banner img 
-    if ($('#cart').length > 0) {
-        $('.title >div').css('background-image', "url('./images/cart/cart-landscape.png')");
-    }
-    else if ($('#detail').length > 0)
-    {
-        $('.title >div').css('background-image', "url('./images/product-detail/product-landscape.png')");
-    }
-    else if ($('#list').length > 0)
-    {
-        $('.title >div').css('background-image', "url('./images/product-list/list-landscape.png')");
-    }
+    
 });

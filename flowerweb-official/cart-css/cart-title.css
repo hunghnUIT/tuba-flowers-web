@@ -53,6 +53,15 @@
 .detail-box:before {
     background-image: url('../images/product-detail/product-landscape.png');
 }
+.cart-landscape {
+    background-image: url('../images/cart/cart-landscape.png') !important;
+}
+.list-banner:before {
+    background-image: url('../images/product-list/list-landscape.png');
+}
+.detail-banner:before {
+    background-image: url('../images/product-detail/product-landscape.png');
+}
 .box > .box-item-inner span a{
  font-size: 25px;
  letter-spacing: 1px;

@@ -19,27 +19,38 @@ class ItemsListView(ListView):
         kw_order_by = self.request.GET.get('order_by')
         if kw_order_by:
             if kw_order_by == 'asc-price':
-                return Item.objects.filter(number_item_left__gt=0).order_by('price')
+                return Item.objects.all().order_by('price')
             if kw_order_by == 'desc-price':
-                return Item.objects.filter(number_item_left__gt=0).order_by('-price')
+                return Item.objects.all().order_by('-price')
             if kw_order_by == 'by-name':
-                return Item.objects.filter(number_item_left__gt=0).order_by('title')
+                return Item.objects.all().order_by('title')
             if kw_order_by == 'best-seller':
-                return Item.objects.filter(number_item_left__gt=0).order_by('-number_item_sold')
-                # return Item.objects.filter(number_item_left__gt=0).order_by('number_item_sold')
+                return Item.objects.all().order_by('-number_item_sold')
         else:
-            return Item.objects.filter(number_item_left__gt=0)
+            return Item.objects.all()
 
 class ItemsWithCategoryListView(ListView): # Click at an category and it return items with the same category.
     model = Item
-    template_name = 'products/items_category.html' # Format of the file's name: <app>/<model>_<viewtype>.html
+    template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
     context_object_name = 'items'
     paginate_by = 12
     # ordering = ['-price'] or ['price'] depended on the order user's choice.
 
     def get_queryset(self): # Get the list of items for this view.
+        kw_order_by = self.request.GET.get('order_by')
         cate = self.kwargs.get('category')
-        return Item.objects.filter(category__contains = cate)
+        items_match = Item.objects.filter(category__contains = cate)
+        if kw_order_by:
+            if kw_order_by == 'asc-price':
+                return items_match.all().order_by('price')
+            if kw_order_by == 'desc-price':
+                return items_match.all().order_by('-price')
+            if kw_order_by == 'by-name':
+                return items_match.all().order_by('title')
+            if kw_order_by == 'best-seller':
+                return items_match.all().order_by('-number_item_sold')
+        
+        return items_match.all()
 
 class ItemDetailView(DetailView):
     model = Item
