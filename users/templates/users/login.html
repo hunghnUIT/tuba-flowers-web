@@ -1,4 +1,6 @@
 {% extends "users/base.html"%}
+{% load socialaccount %}
+{% providers_media_js %}
 {% block content %}
 <div class="content-section">
     <form method="POST">
@@ -16,6 +18,7 @@
         <small class="text-muted">
             Need an account? <a href="{% url 'register' %}">Register now</a>
         </small>
+        <a href="{% provider_login_url "facebook" method="oauth2" %}">aaaa</a>
     </div>
     
 </div>
