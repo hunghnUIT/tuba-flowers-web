@@ -8,6 +8,7 @@
             <legend class="boder-botto mb-4"> Join Today</legend>
              
             {{ form }}
+            {{ p_form }}
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-info" type="submit">Sign Up</button>
@@ -16,6 +17,10 @@
     <div class="border-top pt-3">
         <small class="text-muted">
             Already have an account? <a href="{% url 'login'%}">Sign In</a>
+<<<<<<< HEAD
+=======
+            <a href="{% provider_login_url 'facebook' method='js_sdk' %}">aaaa</a>
+>>>>>>> master
         </small>
     </div>
 </div>

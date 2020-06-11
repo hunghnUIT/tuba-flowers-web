@@ -38,6 +38,7 @@
         </div>
         <div class="login-container">
             <form id="register" method="POST">
+                {% csrf_token %}
                 <img class="avt-img" src="{% static './images/sign-in/avt-img.svg' %}" alt="avt">
                 <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
                 </h2>
@@ -61,7 +62,7 @@
                     </div>
                     <div>
                         <h5 id="phone">Your phone number</h5>
-                        <input class="input" id="txt-phone" type="text" name="" placeholder="" required>
+                        <input class="input" id="txt-phone" type="text" name="phone" placeholder="" required>
                     </div>
                     <div class="notice">
                         <i class="fas fa-exclamation-circle"></i>

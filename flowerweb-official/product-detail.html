@@ -1,4 +1,5 @@
 ﻿{% load static %}
+{% load products_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,37 +43,71 @@
                         <div class="clearfix w-100">
                             <div class="float-left" >
                                 <ul class="navbar-nav">
-                                    <li class="parent nav-item ">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#home_dropdown">Home
+                                    <li class="parent-home nav-item dropdown">
+                                        <a href="#" role="button" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#home_dropdown">Home
                                             <span class="caret"></span>
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="home_dropdown">
-                                            <a class="dropdown-item" href="#blog-section">Blog</a>
+                                        <div class="neumorphism dropdown-menu home" aria-labelledby="home_dropdown">
+                                            <a class="dropdown-item" href="index.html#blog-section">Blog</a>
                                             <a class="dropdown-item" href="#home-product-section">Best sellers</a>
                                             <a class="dropdown-item" href="#team-section">Flower experts</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Page</a>
+                                    <li class="parent-page nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
+                                        <div class="neumorphism dropdown-menu page" aria-labelledby="page-dropdown">
+                                            <a class="dropdown-item" href="user-page.html">My account</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Policy</a>
+                                            <a class="dropdown-item" href="notfound-404.html">FAQs</a>
+                                        </div>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Shop</a>
+                                    <li class="parent-shop nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
+                                        <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
+                                            <a class="dropdown-item" href="product-list.html">Product list</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="notfound-404.html">Wedding</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Birthday</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Party</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Valentine</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Tet</a>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="float-right" style="margin-top: 8px;">
-                                <i class="fa fa-clock-o"></i>
+                            <div title="Today is open" class="float-right" style="margin-top: 8px;">
+                                <i class="fa fa-clock-o" ></i>
                                 <span>Open every days 800 - 18:00</span>
                             </div>
                         </div>
                     </div>
-                    <div class="float-right">
+                    <div class="float-right ">
                         <div class="icon-bar">
-                            <a class="btn" href="#" data-toggle="modal" data-target="#modal-search-box"><i class="fa fa-search"></i></a>
-                            <a class="btn" href="cart.html"><i class="fa fa-shopping-cart"></i>
-                                <span class="cart-number">0</span>
-                            </a>
-                            <a class="btn" href="user-page.html"><i class="fa fa-user"></i></a>
+                            <ul class="navbar-nav">
+                                <li class="icon-bar-hover">
+                                    <a class="btn" href="#" data-toggle="modal" data-target="#modal-search-box"><i class="fa fa-search"></i></a>
+                                </li>
+                                <li class="icon-bar-hover">
+                                    <a class="btn" href="cart.html"><i class="fa fa-shopping-cart"></i>
+                                        <span class="cart-number">0</span>
+                                    </a>
+                                </li>
+                                <li class="parent-user dropdown icon-bar-hover">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown" data-target="user" href="#"><i class="fa fa-user"></i></a>
+                                    <div id="visitor"  class="neumorphism toggler dropdown-menu visitor-user" aria-labelledby="visitor">
+                                        <a href="user-page.html" class="nav-link dropdown-item-custom" title="Go to login page">
+                                            <img class="text-center col-12 my-auto" src="{% static 'images/home/wanna-login.svg' %}" alt="login" height="80px" width="80px">
+                                            <div class=" col-12 pr-1 dropdown-divider"></div>
+                                            <p class="pr-2 mt-2">Go to <span class="initialism text-uppercase">login</span>  or <span class="text-uppercase">register</span> </p></a>
+                                    </div>
+                                    <div id="user" class="toggler neumorphism dropdown-menu  align-content-center" aria-labelledby="user">
+                                        <a class="dropdown-item-custom nav-link" href="#">Hello, Sang pussy face!</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a title="Go to your account" class="dropdown-item-custom " href="notfound-404.html">My account</a>
+                                        <a title="Logout" class="dropdown-item-custom " href="notfound-404.html">Log out</a>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -126,7 +161,7 @@
                         </a>
                     </span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    <span > Schefflera</span>
+                    <span > {{ object.title }}</span>
                     </div>
                 </div>
         </div>
@@ -140,15 +175,11 @@
                     <div>
                         <div class="swiper-container gallery-thumbs">
                             <div class="swiper-wrapper">
+                                {% for image in object.image.all %}
                                 <div class="swiper-slide">
-                                    <img width="140" height="auto" src="{% static 'images/home/product-1.png' %}" alt="">
+                                    <img width="140" height="auto" src="{{ image.image.url }}" alt="preview-img">
                                 </div>
-                                <div class="swiper-slide">
-                                    <img width="140" height="auto" src="{% static 'images/home/product-2.png' %}" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img width="140" height="auto" src="{% static 'images/home/product-3.png' %}" alt="">
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -156,28 +187,19 @@
                 <div class="col-8 col-lg-5 mx-auto">
                     <div class="swiper-container gallery-top">
                         <div class="swiper-wrapper">
+                            {% for image in object.image.all %}
                             <div class="swiper-slide">
-                                <img width="100%" height="auto" src="{% static 'images/home/product-1.png' %}" alt="">
+                                <img width="100%" height="auto" src="{{ image.image.url }}" alt="">
                             </div>
-                            <div class="swiper-slide">
-                                <img width="100%" height="auto" src="{% static 'images/home/product-2.png' %}" alt="">
-                            </div>
-                            <div class="swiper-slide">
-                                <img width="100%" height="auto" src="{% static 'images/home/product-3.png' %}" alt="">
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-5">
                     <div class="detail-information">
-                        <h2 class="detail-title">Schefflera</h2>
-                        <p class="detail-price"><span>119K VNĐ</span><span class="root-price">156K VNĐ</span></p>
-                        <p class="detail-description">Class aptent taciti sociosqu ad litora torquent per
-                            conubia nostra, per inceptos himenaeos. Mauris in
-                            erat justo. Nullam ac urna eu felis dapibus
-                            condimentum sit amet a augue. Sed non neque elit.
-                            Sed ut imperdiet nisi. Proin condimentum fermentum
-                            nunc.</p>
+                        <h2 class="detail-title">{{ object.title }}</h2>
+                        <p class="detail-price"><span>{{ object.price }} VNĐ</span><span class="root-price">156K VNĐ</span></p>
+                        <p class="detail-description">{{ object.description }}</p>
                         <div class="add-to-cart-wrapper">
                             <div class="quantity-wrapper d-inline-block">
                                 <span class="d-inline-block quantity-label">Quantity</span>
@@ -189,8 +211,21 @@
                         </div>
                         <div class="more-information">
                             <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
-                            <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;Plants, Cactuses, Greens</p>
-                            <p><span class="font-weight-bold">TAGS :</span>&nbsp;Roses, Tulips</p>
+                            <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;
+                                {% with object.category|split_to_link:"," as categories %}
+                                    {% for cate in categories %}
+                                        <a href="{% url 'products-category' cate %}">{{ cate }}</a> 
+                                    {% endfor %}
+                                {% endwith %} 
+                            </p>
+                            <!-- NOT HANDLE SEARCH BY TAG YET -->
+                            <p><span class="font-weight-bold">TAGS :</span>&nbsp
+                                {% with object.tag|split_to_link:"," as tags %}
+                                    {% for tag in tags %}
+                                        <a href="{% url 'products-category' tag %}">{{ tag }}</a> 
+                                    {% endfor %}
+                                {% endwith %} 
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -210,10 +245,7 @@
                 <div class="container">
                     <div class="tab-description">
                         <h3 class="mb-4">The power of flowers</h3>
-                        <p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
-                            rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam
-                            rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque
-                            sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante</p>
+                        <p>{{ object.description }}</p>
                     </div>
                     <div class="tab-addinfo" style="display: none;">
                         <div class="row">
@@ -222,8 +254,8 @@
                                 <p class="font-weight-bold">Demensions:</p>
                             </div>
                             <div class="col-md-10">
-                                <p>1 kg</p>
-                                <p>30 x 30 x 50 cm</p>
+                                <p>{{ object.weight }} kg</p>
+                                <p>{{ object.dimension }}</p>
                             </div>
                         </div>
                     </div>
@@ -238,10 +270,7 @@
             <div class="content">
                 <div class="tab-description">
                     <h3 class="mb-4">The power of flowers</h3>
-                    <p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
-                        rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam
-                        rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque
-                        sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante</p>
+                    <p>{{ object.description }}</p>
                 </div>
             </div>
             <button type="button" class="collapsible">additional information</button>
@@ -253,8 +282,8 @@
                             <p class="font-weight-bold">Demensions:</p>
                         </div>
                         <div class="col-md-10">
-                            <p>1 kg</p>
-                            <p>30 x 30 x 50 cm</p>
+                            <p>{{ object.weight }} kg</p>
+                            <p>{{ object.dimension }}</p>
                         </div>
                     </div>
                 </div>
@@ -345,7 +374,7 @@
                         </li>
                         <li class="d-flex">
                             <div class="align-self-center"><img width="49" height="51" src="{% static 'images/home/email-icon.png' %}" alt="address"></div>
-                            <div class="align-self-center"><a href="mailto:johndoe@mail.com">johndoe@mail.com</a></div>
+                            <div class="align-self-center"><a href="mailto:tubaflowers@gmail.com">tubaflowers@gmail.com</a></div>
                         </li>
                     </ul>
                 </div>

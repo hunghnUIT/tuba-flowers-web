@@ -22,7 +22,18 @@
       <p>{{ order.get_total_order_price }}</p>
     </div>
     <div class="col">
-      <p>{{ order.order_status }}p>
+      {% if order.order_status == 'P' %}
+        <p>Processing<p>
+      {% elif order.order_status == 'RC' %}
+        <p>Requesting Cancel<p>
+      {% elif order.order_status == 'S' %}
+        <p>Shipping<p>
+      {% elif order.order_status == 'C' %}
+        <p>Completed<p>    
+      {% endif %}
+    </div>
+    <div class="col">
+      <a href="{{ order.get_cancel_order_url }}">Request cancel order</a> 
     </div>
   </div>
 

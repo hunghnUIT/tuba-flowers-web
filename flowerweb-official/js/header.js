@@ -1,8 +1,5 @@
 
 /* Search setting*/
-$(document).ready(function () {
-    
-});
 $(window).on('scroll', function () {
     $('nav').toggleClass('black', window.scrollY >250);
 });
@@ -27,20 +24,3 @@ var isMobile = function() {
     return false;
 };
 
-//var mobileHeader = document.querySelector("#mobile-header");
-//var desktopHeader = document.querySelector("#desktop-header");
-
-/*
-window.addEventListener("load", (e) => {
-    if(isMobile()) {
-        mobileHeader.style.display = "block";
-        desktopHeader.style.display = "none";
-
-    } else {
-        desktopHeader.style.display = "block";
-        mobileHeader.style.display = "none";
-        //document.querySelector("#mobile-header").classList.add("d-none");
-        //console.log(document.querySelector("#mobile-header"));
-    }
-});
-*/

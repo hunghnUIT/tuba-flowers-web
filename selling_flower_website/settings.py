@@ -130,7 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'front-end'),
+    os.path.join(BASE_DIR, 'flowerweb-official'),
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' #This is declare for using crispy

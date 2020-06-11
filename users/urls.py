@@ -4,9 +4,10 @@ from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 
 urlpatterns = [
-    path('orders_detail', views.orders_detail, name="orders_detail"),
+    path('orders_detail', views.orders_detail, name="orders-detail"),
+    path('orders_detail/cancel/<int:pk>', views.cancel_order, name="request-cancel-order"),
     path('profile', views.profile, name="profile"),
-    path('cart/', views.cart, name='cart'),
+    # path('cart/', views.cart, name='cart'),
     path('cart/checkout', views.checkout, name='checkout'),
     path('password-change', auth_views.PasswordChangeView.as_view(
         template_name='users/password_change.html',

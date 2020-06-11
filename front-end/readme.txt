@@ -1,1 +1,0 @@
-NOTICE: Đây là folder để duyệt qua Front-end cho tiện quản lý. Tránh push lên mà xung đột back-end.

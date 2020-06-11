@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <span id="list" style="display: none"></span>
+    
 </head>
 <body>
     <header>
@@ -39,37 +40,71 @@
                         <div class="clearfix w-100">
                             <div class="float-left" >
                                 <ul class="navbar-nav">
-                                    <li class="parent nav-item ">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#home_dropdown">Home
+                                    <li class="parent-home nav-item dropdown">
+                                        <a href="#" role="button" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#home_dropdown">Home
                                             <span class="caret"></span>
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="home_dropdown">
-                                            <a class="dropdown-item" href="#blog-section">Blog</a>
+                                        <div class="neumorphism dropdown-menu home" aria-labelledby="home_dropdown">
+                                            <a class="dropdown-item" href="index.html#blog-section">Blog</a>
                                             <a class="dropdown-item" href="#home-product-section">Best sellers</a>
                                             <a class="dropdown-item" href="#team-section">Flower experts</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Page</a>
+                                    <li class="parent-page nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
+                                        <div class="neumorphism dropdown-menu page" aria-labelledby="page-dropdown">
+                                            <a class="dropdown-item" href="user-page.html">My account</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Policy</a>
+                                            <a class="dropdown-item" href="notfound-404.html">FAQs</a>
+                                        </div>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Shop</a>
+                                    <li class="parent-shop nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
+                                        <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
+                                            <a class="dropdown-item" href="product-list.html">Product list</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="notfound-404.html">Wedding</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Birthday</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Party</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Valentine</a>
+                                            <a class="dropdown-item" href="notfound-404.html">Tet</a>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="float-right" style="margin-top: 8px;">
-                                <i class="fa fa-clock-o"></i>
+                            <div title="Today is open" class="float-right" style="margin-top: 8px;">
+                                <i class="fa fa-clock-o" ></i>
                                 <span>Open every days 800 - 18:00</span>
                             </div>
                         </div>
                     </div>
-                    <div class="float-right">
+                    <div class="float-right ">
                         <div class="icon-bar">
-                            <a class="btn" href="#" data-toggle="modal" data-target="#modal-search-box"><i class="fa fa-search"></i></a>
-                            <a class="btn" href="cart.html"><i class="fa fa-shopping-cart"></i>
-                                <span class="cart-number">0</span>
-                            </a>
-                            <a class="btn" href="user-page.html"><i class="fa fa-user"></i></a>
+                            <ul class="navbar-nav">
+                                <li class="icon-bar-hover">
+                                    <a class="btn" href="#" data-toggle="modal" data-target="#modal-search-box"><i class="fa fa-search"></i></a>
+                                </li>
+                                <li class="icon-bar-hover">
+                                    <a class="btn" href="cart.html"><i class="fa fa-shopping-cart"></i>
+                                        <span class="cart-number">0</span>
+                                    </a>
+                                </li>
+                                <li class="parent-user dropdown icon-bar-hover">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown" data-target="user" href="#"><i class="fa fa-user"></i></a>
+                                    <div id="visitor"  class="neumorphism toggler dropdown-menu visitor-user" aria-labelledby="visitor">
+                                        <a href="user-page.html" class="nav-link dropdown-item-custom" title="Go to login page">
+                                            <img class="text-center col-12 my-auto" src="{% static 'images/home/wanna-login.svg' %}" alt="login" height="80px" width="80px">
+                                            <div class=" col-12 pr-1 dropdown-divider"></div>
+                                            <p class="pr-2 mt-2">Go to <span class="initialism text-uppercase">login</span>  or <span class="text-uppercase">register</span> </p></a>
+                                    </div>
+                                    <div id="user" class="toggler neumorphism dropdown-menu  align-content-center" aria-labelledby="user">
+                                        <a class="dropdown-item-custom nav-link" href="#">Hello, Sang pussy face!</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a title="Go to your account" class="dropdown-item-custom " href="notfound-404.html">My account</a>
+                                        <a title="Logout" class="dropdown-item-custom " href="notfound-404.html">Log out</a>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -130,6 +165,17 @@
         </div>
     </section>
     <!-- title -->
+    <form action="">
+        <label for="item">Order by:</label>
+        <select name="order_by" id="item">
+            <option value="asc-price">Ascending Price</option>
+            <option value="desc-price">Descending Price</option>
+            <option value="by-name">By Name</option>
+            <option value="best-seller">Best seller</option>
+        </select>
+        <br><br>
+        <p style="color: blueviolet;">FE Handle (JS: on change -> Click submit)<input  type="submit" value="Submit"></p>
+    </form>
     <article class="product-section">
         <div class="container">
             <div class="row">
@@ -145,27 +191,16 @@
                 </div>
                 <div class="col-xl-9">
                     <div class="row">
+                        {% for item in items %}
                         <div class="col-md-4 col-6">
                             <div class="product-wrapper text-center product-saleoff">
-                                <a href="#"><img width="300" height="365" src="{% static 'images/home/product-2.png' %}" alt=""></a>
-                                <a href="#"><h3>Majesty Palm</h3></a>
-                                <span>216.000 VNĐ</span>
+                                <a href="{% url 'item-detail' item.pk %}"><img width="300" height="365" src="{{ item.image.first.image.url }}" alt="Preview item"></a>
+                                <a href="{% url 'item-detail' item.pk %}"><h3>{{ item.title }}</h3></a>
+                                <span>{{ item.price }} VNĐ</span>
+                                <p style="color: blueviolet;">FE handle saleoff or Sold out</p>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <div class="product-wrapper text-center soldout">
-                                <a href="#"><img width="300" height="365" src="{% static 'images/home/product-1.png' %}" alt=""></a>
-                                <a href="#"><h3>Majesty Palm</h3></a>
-                                <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="product-wrapper text-center product-saleoff">
-                                <a href="#"><img width="300" height="365" src="{% static 'images/home/product-3.png' %}" alt=""></a>
-                                <a href="#"><h3>Majesty Palm</h3></a>
-                                <span>216.000 VNĐ</span>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -231,7 +266,7 @@
         <form id="search-form" class="" action="">
             <div class="form-group position-relative">
                 <input type="text" class="form-control" placeholder="Nhập nội dung tìm kiếm...">
-                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="{% static 'images/home/search.svg' %}" alt=""></button>
+                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="{% static 'images/home/search.svg"' %} alt=""></button>
             </div>
         </form>
     </div>
