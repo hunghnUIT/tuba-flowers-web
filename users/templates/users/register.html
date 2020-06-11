@@ -1,6 +1,4 @@
 {% extends "users/base.html" %}
-{% load socialaccount %}
-{% providers_media_js %}
 {% block content %}
 <div class="content-section">
     <form method="POST">
@@ -18,7 +16,6 @@
     <div class="border-top pt-3">
         <small class="text-muted">
             Already have an account? <a href="{% url 'login'%}">Sign In</a>
-            <!-- link để làm cái login facebook: <a href="{% provider_login_url 'facebook' method='js_sdk' %}">aaaa</a> -->
         </small>
     </div>
 </div>
