@@ -55,7 +55,7 @@ tr > td,tr>th{
     overflow: hidden;
 }
 .btn-update-cart:hover {
-    background-color: #0e8a0a;
+    background-color: #a9bba8 !important;
 }
 /* hover processing */
 .delete-product-cell>a{
