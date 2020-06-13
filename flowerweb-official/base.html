@@ -36,7 +36,7 @@
                     aria-expanded="false" aria-controls="collapse-target">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="index.html" class="navbar-brand"><img src="{% static 'images/home/logo_transparent.png' %}"
+                <a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'images/home/logo_transparent.png' %}"
                         alt="logo" width="120px" height="120px"></a>
                 <div class="display-block w-100">
                     <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow "
@@ -81,7 +81,7 @@
                             </div>
                             <div title="Today is open" class="float-right" style="margin-top: 8px;">
                                 <i class="fa fa-clock-o"></i>
-                                <span>Open every days 800 - 18:00</span>
+                                <span>Open every days 8:00 - 18:00</span>
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                                             class="fa fa-search"></i></a>
                                 </li>
                                 <li class="icon-bar-hover">
-                                    <a class="btn" href="cart.html"><i class="fa fa-shopping-cart"></i>
+                                    <a class="btn" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>
                                         <span class="cart-number">0</span>
                                     </a>
                                 </li>
@@ -182,7 +182,7 @@
                         </div>
                     </div>
                     <div class="box-item-inner">
-                        <span><a class="btn-link" href="index.html"  typeof="WebPage" title="Go to home">
+                        <span><a class="btn-link" href="{% url 'home' %}"  typeof="WebPage" title="Go to home">
                             o8o 
                         </a>
                     </span>
@@ -245,7 +245,7 @@
                     <li class="d-flex">
                         <div class="align-self-center"><img width="49" height="51"
                                 src="{% static 'images/home/email-icon.png' %}" alt="address"></div>
-                        <div class="align-self-center"><a href="mailto:johndoe@mail.com">johndoe@mail.com</a></div>
+                        <div class="align-self-center"><a href="mailto:tubaflowers@gmail.com">tubaflowers@gmail.com</a></div>
                     </li>
                 </ul>
             </div>
