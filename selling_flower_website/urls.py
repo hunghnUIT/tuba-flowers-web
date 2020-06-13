@@ -49,6 +49,9 @@ urlpatterns = [
 
     # For facebook login
     path('accounts/', include('allauth.urls')),
+
+    # For testing API
+    path('api/', users_views.response_api, name='test-api'),
 ]
 
 if settings.DEBUG:

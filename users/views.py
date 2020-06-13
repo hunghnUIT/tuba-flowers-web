@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CheckoutForm, ProfileRegisterForm
@@ -8,6 +10,8 @@ from django.utils import timezone
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.core import serializers
 
 # def handler404(request, *args, **argv):
 #     return render(request, 'notfound-404.html', status=404)
@@ -224,3 +228,16 @@ def remove_single_item_from_cart(request, pk):
     except: #Case: Not have this item in cart
         messages.info(request, "This item was not in your cart")
     return redirect('item-detail', pk)
+
+def to_dict(data, owner, count=None):
+    return dict(
+        data=data,
+        count=count,
+        owner=owner)
+
+def response_api(request):
+    temp = Item.objects.values('id','category','title', 'price', 'tag')
+    # Data chỉ nhận mỗi kiểu: list bên trong nó là dict (hình như <=> json) ?
+    return JsonResponse(
+        data=list(temp),
+        content_type='application/json', status=200, safe=False)
