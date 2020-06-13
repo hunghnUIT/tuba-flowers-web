@@ -44,6 +44,7 @@
     background-attachment: fixed;
     filter: blur(4px);
 }
+    /* Use for three pages cart, list, detail */
 .cart-box:before {
     background-image: url('../images/cart/cart-landscape.png');
 }
@@ -56,12 +57,13 @@
 .cart-landscape {
     background-image: url('../images/cart/cart-landscape.png') !important;
 }
-.list-banner:before {
-    background-image: url('../images/product-list/list-landscape.png');
+.list-landscape {
+    background-image: url('../images/product-list/list-landscape.png') !important;
 }
-.detail-banner:before {
-    background-image: url('../images/product-detail/product-landscape.png');
+.detail-landscape {
+    background-image: url('../images/product-detail/product-landscape.png') !important;
 }
+    /* Use for three pages cart, list, detail */
 .box > .box-item-inner span a{
  font-size: 25px;
  letter-spacing: 1px;
