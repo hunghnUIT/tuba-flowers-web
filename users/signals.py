@@ -6,8 +6,8 @@ from .models import Profile
 
 
 # Few explanation from line 14-17:
-# When a user send a signal (Save the post), it will be recieved by reciever (line 14)
-# The reciever here is create_profile function, which takes these 
+# When a user send a signal (Save the post), it will be received by receiver (line 14)
+# The receiver here is create_profile function, which takes these 
 # arguments (extract from post_save) below. (line 15)
 # (Instance is user.) (line 15)
 # Check if User was created then create a profile object with info extract from instance
