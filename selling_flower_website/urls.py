@@ -22,6 +22,11 @@ from products import views as products_views
 from django.contrib.auth import views as auth_views
 from django.conf.urls import handler404
 
+from rest_framework import routers
+
+# Declare a router for API calling here
+router = routers.DefaultRouter()
+router.register('user', users_views.UserViewSet, basename='user')
 
 # handler404 = '.page_not_found'
 
@@ -51,7 +56,9 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     # For testing API
-    path('api/', users_views.response_api, name='test-api'),
+    # path('api/', users_views.response_api, name='test-api'),
+    # This router just able to return user, user-list by now. Depending on views.
+    path('api/', include(router.urls), name='test-api-user'),
 ]
 
 if settings.DEBUG:

@@ -241,3 +241,22 @@ def response_api(request):
     return JsonResponse(
         data=list(temp),
         content_type='application/json', status=200, safe=False)
+
+# from rest_framework.views import 
+from .serializers import UserSerializer
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+# NOTE: API here
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('username')
+    serializer_class = UserSerializer
+
+    # def get_queryset(self):
+    #     pass
+    
