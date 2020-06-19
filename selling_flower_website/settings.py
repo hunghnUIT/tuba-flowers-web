@@ -158,26 +158,43 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-# SOCIALACCOUNT_PROVIDERS = \
-#     {'facebook':
-#        {'METHOD': 'oauth2',
-#         'SCOPE': ['email','public_profile', 'user_friends'],
-#         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-#         'FIELDS': [
-#             'id',
-#             'email',
-#             'name',
-#             'first_name',
-#             'last_name',
-#             'verified',
-#             'locale',
-#             'timezone',
-#             'link',
-#             'gender',
-#             'updated_time'],
-#         'EXCHANGE_TOKEN': True,
-#         'LOCALE_FUNC': lambda request: 'kr_KR',
-#         'VERIFIED_EMAIL': False,
-#         'VERSION': 'v2.4'}}
+# This one set email which we enter to the form after accept login.
+'''NOTE: 
+If errors about SMTP occur, try to check tubaflowers@gmail.com and turn on less secure apps, 
+Unlock this from mail: https://accounts.google.com/DisplayUnlockCaptcha
+More detail: https://stackoverflow.com/questions/54657006/smtpauthenticationerror-5-7-14-please-log-n5-7-14-in-via-your-web-browser
+'''
+# Vấn đề đang gặp phải: khi xuất hiện 1 cái form nhập email vô dụng? Form lỗi nữa.
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook':{
+        'METHOD': 'oauth2',
+        'SCOPE': ['email','public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'link',
+            'gender',],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'kr_KR',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'
+        }
+    }
+
+
+# Hiện tại đang lỗi sau khi nhập email vô thì lỗi smtp, có thể do email.
+
+# SOCIALACCOUNT_AUTO_SIGNUP = True
+# SOCIALACCOUNT_EMAIL_REQUIRED = True
 
 SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'

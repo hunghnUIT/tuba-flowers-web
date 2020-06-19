@@ -9,10 +9,19 @@ from django.core import validators
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already used")
+
+        return email
+
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name',  'last_name', 'password1', 'password2']
         # fields = ['username', 'email', 'password1', 'password2']
+        # unique_together = ['email']
 
 class ProfileRegisterForm(forms.ModelForm):
     class Meta:
