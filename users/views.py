@@ -34,6 +34,11 @@ def register(request):
 
 def home(request):
     return render(request, 'index.html')
+'''
+Sang's code
+'''
+def loadcheckout(request):
+    return render (request,'checkout.html')
 
 
 @login_required

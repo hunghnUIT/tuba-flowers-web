@@ -7,7 +7,6 @@
 }
 
 .title >div {
-    /* background-image: url('../images/cart/cart-landscape.png'); */
     background-color: #698467;
     background-repeat: no-repeat;
     background-position: center center;
@@ -15,6 +14,10 @@
 
 .title >.row{
     background-color: #fff;
+}
+.title-banner {
+    font-weight: bold !important;
+    font-size: larger;
 }
 .box {
     position: relative;
@@ -45,6 +48,9 @@
     filter: blur(4px);
 }
     /* Use for three pages cart, list, detail */
+.pay-box:before {
+    background-image: url('../images/checkout/payment.png') ;
+}    
 .cart-box:before {
     background-image: url('../images/cart/cart-landscape.png');
 }
@@ -54,6 +60,9 @@
 .detail-box:before {
     background-image: url('../images/product-detail/product-landscape.png');
 }
+.pay-landscape {
+    background-image: url('../images/checkout/payment.png') !important;
+} 
 .cart-landscape {
     background-image: url('../images/cart/cart-landscape.png') !important;
 }

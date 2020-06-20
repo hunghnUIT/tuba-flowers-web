@@ -1,0 +1,46 @@
+.customize-title {
+    text-shadow: 2px 2px 4px #000000;
+}
+.product-review-table thead tr th,.product-review-table tbody tr td {
+    padding-right: 20px;
+    font-size: 14px;
+    border-bottom: 1px rgb(49, 48, 48) !important;
+}
+.product-review-table {
+
+}
+.card-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+.card-footer {
+    border-top: 1px rgb(75, 73, 73) !important;
+}
+.fa-remove {
+    color: gray;
+    font-size: 20px;
+    transition: 0.2s linear;
+}
+.fa-remove:hover{
+    color: rgb(223, 82, 82);
+}
+.remove-icon-cell {
+    
+}
+.card{
+    display: table !important;
+    margin: auto !important;
+}
+
+/* responsive checkout */
+@media only screen and (max-width: 768px) {
+    /* medium screen */
+    .col-lg-4{
+        margin-top: 20px;
+    }
+    .card-preview {
+        max-width: 34rem !important;
+    }
+  }
+  /* End responsive */

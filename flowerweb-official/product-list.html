@@ -2,7 +2,6 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
-    <link rel="stylesheet" href="{% static 'cart-css/cart-title.css' %}">
     <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
     <span id="list" style="display: none"></span>
 {% endblock %}
@@ -15,17 +14,6 @@
 {% block title-banner %}Our Products{% endblock %}
 {% block on-page %} Product List {% endblock %}
 {% block content %}
-    <form action="">
-        <label for="item">Order by:</label>
-        <select name="order_by" id="item">
-            <option value="asc-price">Ascending Price</option>
-            <option value="desc-price">Descending Price</option>
-            <option value="by-name">By Name</option>
-            <option value="best-seller">Best seller</option>
-        </select>
-        <br><br>
-        <p style="color: blueviolet;">FE Handle (JS: on change -> Click submit)<input  type="submit" value="Submit"></p>
-    </form>
     <article class="product-section">
         <div class="container">
             <div class="row">
@@ -39,10 +27,21 @@
                         <li><a class="text-uppercase" href="javascript:void(0)">tet</a></li>
                     </ul>
                 </div>
-                <div class="col-xl-9">
-                    <div class="row">
+                <div class="col-xl-9" >
+                    <div class="container p-0 border border-0 mb-2 rounded d-flex justify-content-end mr-0 ">
+                        <form class="pb-2 ml-2" action=""> {% csrf_token %}
+                                <select class="browser-default custom-select " name="order_by" id="item" >
+                                    <option disabled selected  value="">Choose your option</option>
+                                    <option  value="asc-price">Ascending Price</option>
+                                    <option  value="desc-price">Descending Price</option>
+                                    <option  value="by-name">By Name</option>
+                                    <option  value="best-seller">Best seller</option>
+                                </select>
+                          </form>
+                    </div>
+                    <div class="row append-result">
                         {% for item in items %}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-6 result">
                             <div class="product-wrapper text-center product-saleoff">
                                 <a href="{% url 'item-detail' item.pk %}"><img width="300" height="365" src="{{ item.image.first.image.url }}" alt="Preview item"></a>
                                 <a href="{% url 'item-detail' item.pk %}"><h3>{{ item.title }}</h3></a>
@@ -56,4 +55,7 @@
             </div>
         </div>
     </article>
+{% endblock %}
+{% block JavaScript %}
+    <script src="{% static 'js/list.js' %}"></script>
 {% endblock %}
