@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -157,7 +159,7 @@
                     <div class="col-12">
                         - Or login with other ways:
                     </div>
-                    <a id="facebook" href="#facebook" class="nav-link col-2 text-right pr-1"
+                    <a id="facebook" href="{% provider_login_url "facebook" method="oauth2" %}" class="nav-link col-2 text-right pr-1"
                         title="Login with facebook">
                         <i class="fab fa-facebook"></i>
                     </a>

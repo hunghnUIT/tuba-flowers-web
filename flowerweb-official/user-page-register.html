@@ -39,6 +39,23 @@
         <div class="login-container">
             <form id="register" method="POST">
                 {% csrf_token %}
+                <!-- Show errors from form -->
+                {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+                {% endif %}
+                <!-- End errors from form -->
+                
                 <img class="avt-img" src="{% static './images/sign-in/avt-img.svg' %}" alt="avt">
                 <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
                 </h2>
