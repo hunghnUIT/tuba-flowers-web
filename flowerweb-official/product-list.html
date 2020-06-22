@@ -1,61 +1,74 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/product.css' %}">
-    <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
-    <span id="list" style="display: none"></span>
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+<link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
+<span id="list" style="display: none"></span>
 {% endblock %}
 {% block landscape-class %}
-    <div class="container-fluid title d-flex align-items-center list-landscape">
-{% endblock %}
-{% block box-class %}
+<div class="container-fluid title d-flex align-items-center list-landscape">
+    {% endblock %}
+    {% block box-class %}
     <div class="box wrap w-100 align-items-center list-box">
-{% endblock %}
-{% block title-banner %}Our Products{% endblock %}
-{% block on-page %} Product List {% endblock %}
-{% block content %}
-    <article class="product-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-3 d-none d-xl-block">
-                    <a href="#" class="d-block text-uppercase category-title">categories</a>
-                    <ul class="list-unstyled category-list">
-                        <li><a class="text-uppercase" href="javascript:void(0)">cactuses</a></li>
-                        <li><a class="text-uppercase" href="javascript:void(0)">exotic</a></li>
-                        <li><a class="text-uppercase" href="javascript:void(0)">green</a></li>
-                        <li><a class="text-uppercase" href="javascript:void(0)">popular</a></li>
-                        <li><a class="text-uppercase" href="javascript:void(0)">tet</a></li>
-                    </ul>
-                </div>
-                <div class="col-xl-9" >
-                    <div class="container p-0 border border-0 mb-2 rounded d-flex justify-content-end mr-0 ">
-                        <form class="pb-2 ml-2" action=""> {% csrf_token %}
-                                <select class="browser-default custom-select " name="order_by" id="item" >
-                                    <option disabled selected  value="">Choose your option</option>
-                                    <option  value="asc-price">Ascending Price</option>
-                                    <option  value="desc-price">Descending Price</option>
-                                    <option  value="by-name">By Name</option>
-                                    <option  value="best-seller">Best seller</option>
-                                </select>
-                          </form>
+        {% endblock %}
+        {% block title-banner %}Our Products{% endblock %}
+        {% block on-page %} Product List {% endblock %}
+        {% block content %}
+        <article class="product-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 d-none d-xl-block">
+                        <a href="#" class="d-block text-uppercase category-title">categories</a>
+                        <ul class="list-unstyled category-list">
+                            <li><a class="text-uppercase" href="javascript:void(0)">cactuses</a></li>
+                            <li><a class="text-uppercase" href="javascript:void(0)">exotic</a></li>
+                            <li><a class="text-uppercase" href="javascript:void(0)">green</a></li>
+                            <li><a class="text-uppercase" href="javascript:void(0)">popular</a></li>
+                            <li><a class="text-uppercase" href="javascript:void(0)">tet</a></li>
+                        </ul>
                     </div>
-                    <div class="row append-result">
-                        {% for item in items %}
-                        <div class="col-md-4 col-6 result">
-                            <div class="product-wrapper text-center product-saleoff">
-                                <a href="{% url 'item-detail' item.pk %}"><img width="300" height="365" src="{{ item.image.first.image.url }}" alt="Preview item"></a>
-                                <a href="{% url 'item-detail' item.pk %}"><h3>{{ item.title }}</h3></a>
-                                <span>{{ item.price }} VNĐ</span>
-                                <p style="color: blueviolet;">FE handle saleoff or Sold out</p>
-                            </div>
+                    <div class="col-xl-9">
+                        <div class="container p-0 border border-0 mb-2 rounded d-flex justify-content-end mr-0 ">
+                            <form class="pb-2 ml-2" action=""> {% csrf_token %}
+                                <select class="browser-default custom-select " name="order_by" id="item">
+                                    <option disabled selected value="">Choose your option</option>
+                                    <option value="asc-price">Ascending Price</option>
+                                    <option value="desc-price">Descending Price</option>
+                                    <option value="by-name">By Name</option>
+                                    <option value="best-seller">Best seller</option>
+                                </select>
+                            </form>
                         </div>
-                        {% endfor %}
+                        <div class="row append-result">
+                            {% for item in items %}
+                            <div class="col-md-4 col-6 result">
+                                <div class="card product-wrapper">
+                                    <a href="{% url 'item-detail' item.pk %}"><img class="img-item img-fluid rounded" src="{{ item.image.first.image.url }}"
+                                        alt="Preview item"></a>
+                                    <div class="card-body">
+                                        <a href="{% url 'item-detail' item.pk %}">
+                                            <h3 class="card-title text-center">{{ item.title }}</h3>
+                                        </a>
+                                        <p class="card-tex text-center"><span>{{ item.price }} VNĐ</span></p>
+                                        <div class="col text-center">
+                                            <a style="visibility: hidden;
+                                  opacity: 0;
+                                  transition: visibility 0s, opacity 0.5s linear;" type="button"
+                                                class="btn btn-outline-dark" title="Select this item"><i
+                                                    class="fa fa-cart-plus mr-2 p-1"></i><span
+                                                    class="p-1 font-weight-bold" style="font-size: large;">Add to
+                                                    cart</span> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </article>
-{% endblock %}
-{% block JavaScript %}
-    <script src="{% static 'js/list.js' %}"></script>
-{% endblock %}
+        </article>
+        {% endblock %}
+        {% block JavaScript %}
+        <script src="{% static 'js/list.js' %}"></script>
+        {% endblock %}

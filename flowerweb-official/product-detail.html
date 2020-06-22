@@ -4,7 +4,7 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'library/wenumberic/wenumberic.css' %}">
 <link rel="stylesheet" href="{% static 'css/product-detail.css' %}">
-<link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
 <span id="detail" style="display: none"></span>
 {% endblock %}
 {% block landscape-class %}
@@ -152,32 +152,40 @@
                 <div class="swiper-wrapper">
                     <!-- Slides -->
                     <div class="swiper-slide">
-                        <div class="product-wrapper text-center product-saleoff">
-                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-1.png' %}" alt=""></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
-                        </div>
+                        <div class="card product-wrapper" style="width: 90%;">
+                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-3.png'%}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
+                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
+                            </div> 
+                        </div>  
                     </div>
                     <div class="swiper-slide">
-                        <div class="product-wrapper text-center">
-                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-2.png' %}" alt=""></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
+                        <div class="card product-wrapper" style="width: 90%;">
+                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-4.png'%}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
+                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
+                            </div> 
+                        </div>  
                     </div>
                     <div class="swiper-slide">
-                        <div class="product-wrapper text-center">
-                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-3.png' %}" alt=""></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
+                        <div class="card product-wrapper" style="width: 90%;">
+                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-5.png'%}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
+                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
+                            </div> 
+                        </div>  
                     </div>
                     <div class="swiper-slide">
-                        <div class="product-wrapper text-center product-saleoff">
-                            <a href="#"><img width="300" height="365" src="{% static 'images/home/product-4.png' %}" alt=""></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
-                        </div>
+                        <div class="card product-wrapper" style="width: 90%;">
+                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-1.png'%}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
+                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
+                            </div> 
+                        </div>  
                     </div>
                 </div>
             </div>
