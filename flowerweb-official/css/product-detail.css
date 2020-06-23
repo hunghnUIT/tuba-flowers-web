@@ -143,7 +143,65 @@
     bottom: -15px;
     left: calc(50% - 50px);
 }
+.product-wrapper {
+    font-family: AdobeMingStd, sans-serif;
+    margin-bottom: 20px;
+    font-size: 0.875rem;
+}
+.product-wrapper img {
+    width: 100%;
+    height: auto;
+}   
+.product-wrapper h3 {
+    color: #000000;
+    font-size: 1rem;
+}
+.product-saleoff:after {
+    position: absolute;
+    content: '';
+    width: 70px;
+    height: 70px;
+    top: 3px;
+    right: 3px;
+    background: url(../images/home/saleoff.png) no-repeat;
+    background-size: cover;
+}
+@media (min-width: 1200px) {
+    .product-title {
+        font-size: 2.5rem;
+    }
 
+    .new-arrival-title {
+        font-size: 2.5rem;
+    }
+
+    .new-arrival-title img {
+        width: 65px;
+    }
+
+    .product-tab {
+        font-size: 1.25rem;
+    }
+
+    .product-wrapper {
+        font-size: 1rem;
+    }
+
+    .product-wrapper h3 {
+        font-size: 1.75rem;
+    }
+
+    #home-product-section .row {
+        margin-bottom: 20px;
+    }
+
+    .product-saleoff:after {
+        width: 140px;
+        height: 140px;
+        top: 5px;
+        right: 5px;
+    }
+}
 /****TABS MOBILE****/
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
