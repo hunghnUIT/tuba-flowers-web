@@ -11,6 +11,7 @@ ORDER_STATUS_CHOICES = (
     ('S', 'Shipping'),
     ('C', 'Completed'),
     ('RC', 'Requesting Cancel'),
+    ('AC', 'Accepted Cancellation Request'),
 )
 
 class Profile(models.Model):

@@ -50,7 +50,9 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     #call checkout 
-    path('proceed/',users_views.loadcheckout,name='checkout')
+    # path('proceed/',users_views.loadcheckout,name='checkout')
+    # Test
+    # path('test/',users_views.response_api,name='test')
 ]
 
 if settings.DEBUG:

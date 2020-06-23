@@ -75,7 +75,7 @@
                             </div>
                             <div title="Today is open" class="float-right" style="margin-top: 8px;">
                                 <i class="fa fa-clock-o" ></i>
-                                <span>Open every days 800 - 18:00</span>
+                                <span>Open every days 8:00 - 18:00</span>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                     <a class="btn btn-customize" href="#" data-toggle="modal" data-target="#modal-search-box"><i class="fa fa-search"></i></a>
                                 </li>
                                 <li class="icon-bar-hover">
-                                    <a class="btn btn-customize" href="cart.html"><i class="fa fa-shopping-cart"></i>
+                                    <a class="btn btn-customize" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>
                                         <span class="cart-number">0</span>
                                     </a>
                                 </li>
@@ -94,16 +94,16 @@
                                     <a class="btn btn-customize dropdown-toggle" data-toggle="dropdown" data-target="user" href="#"><i class="fa fa-user"></i></a>
                                     {% if user.is_authenticated %}
                                     <div id="user" class="toggler neumorphism dropdown-menu visitor-user align-content-center dropdown-menu-right" aria-labelledby="user">
-                                        <a class="dropdown-item-custom nav-link" href="#">Hello, Sang pussy face!</a>
+                                        <a class="dropdown-item-custom nav-link" href="#">Hello, {{ user.username }}!</a>
                                         <div class="dropdown-divider"></div>
-                                        <a title="Go to your account" class="dropdown-item-custom " href="notfound-404.html">My account</a>
-                                        <a title="Go to your account" class="dropdown-item-custom " href="notfound-404.html">My account</a>
-                                        <a title="Logout" class="dropdown-item-custom " href="notfound-404.html">Log out</a>
+                                        <a title="Go to your account" class="dropdown-item-custom " href="{% url 'profile' %}">My account</a>
+                                        <a title="Go to your account" class="dropdown-item-custom " href="{% url 'orders-detail' %}">My orders</a>
+                                        <a title="Logout" class="dropdown-item-custom " href="{% url 'logout' %}">Log out</a>
                                     </div>
                                     {% else %}
                                     
                                     <div id="visitor"  class="neumorphism toggler dropdown-menu visitor-user dropdown-menu-right" aria-labelledby="visitor">
-                                        <a href="user-page.html" class="nav-link dropdown-item-custom" title="Go to login page">
+                                        <a href="{% url 'login' %}" class="nav-link dropdown-item-custom" title="Go to login page">
                                             <img class="text-center col-12 my-auto" src="{%static '/images/home/welcome-cat.svg'%}" alt="login" height="100px" width="100px">
                                             <div class=" col-12 pr-1 dropdown-divider"></div>
                                             <p class="pr-2 mt-2">Go to <span class="initialism text-uppercase">login</span>  or <span class="text-uppercase">register</span> </p></a>
@@ -177,13 +177,13 @@
     </section>
     <section id="blog-section">
         <div class="container">
-            {% if backends.associated.provider == 'facebook' %}
+            <!-- {% if backends.associated.provider == 'facebook' %}
             
                 <p> Name:  {{ backends.associated.extra_data.name }} </p>
                 <p> Provider url: <a href="{{backends.associated.extra_data.profile_url}}">link</a></p>
                 <img src="{{user.socialaccount_set.all.0.get_avatar_url}}" alt="" width="150" height="150" style="border-radius: 50%">
             {% endif %}
-            {{user}}
+            {{user}} -->
             <div class="row">
                 <div class="col-lg-5">
                     <!-- Slider main container -->
@@ -284,130 +284,62 @@
             </div>
             <div class="new-arrival-wrapper">
                 <div class="row">
-                    <!--Line 1-->
+                    <!-- Line 1-->
+                    {% for new in new_arrival %}
+                    {% if forloop.counter0 < 4%}
                     <div class="col-6 col-md-3">
                         <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-1.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
+                            <a href="{% url 'item-detail' new.pk %}"><img width="324" height="344" src="{{ new.image.first.image.url }}" alt="product preview"></a>
+                            <a href="{% url 'item-detail' new.pk %}"><h3>{{ new.title }}</h3></a>
+                            <span>{{ new.price }} VNĐ</span>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper product-saleoff">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-2.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-3.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-4.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="row">
-                    <!--Line 2-->
+                    <!-- Line 2-->
+                    {% for new in new_arrival %}
+                    {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
                     <div class="col-6 col-md-3">
                         <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-5.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
+                            <a href="{% url 'item-detail' new.pk %}"><img width="324" height="344" src="{{ new.image.first.image.url }}" alt="product preview"></a>
+                            <a href="{% url 'item-detail' new.pk %}"><h3>{{ new.title }}</h3></a>
+                            <span>{{ new.price }} VNĐ</span>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-6.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-7.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-8.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div class="on-sale-wrapper" style="display: none;">
                 <div class="row">
-                    <!--Line 2-->
+                    <!-- Line 1-->
+                    {% for sale in on_sale %}
+                    {% if forloop.counter0 < 4%}
                     <div class="col-6 col-md-3">
                         <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-5.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
+                            <a href="{% url 'item-detail' sale.pk %}"><img width="324" height="344" src="{{ sale.image.first.image.url }}" alt="product preview"></a>
+                            <a href="{% url 'item-detail' sale.pk %}"><h3>{{ sale.title }}</h3></a>
+                            <span>{{sale.get_final_price}} VNĐ</span><br class="d-block d-lg-none"><span class="price-root">{{ sale.price }} VNĐ</span>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-6.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-7.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-8.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="row">
-                    <!--Line 1-->
+                    <!-- Line 2-->
+                    {% for sale in on_sale %}
+                    {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
                     <div class="col-6 col-md-3">
                         <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-1.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
+                            <a href="{% url 'item-detail' sale.pk %}"><img width="324" height="344" src="{{ sale.image.first.image.url }}" alt="product preview"></a>
+                            <a href="{% url 'item-detail' sale.pk %}"><h3>{{ sale.title }}</h3></a>
+                            <span>{{sale.get_final_price}} VNĐ</span><br class="d-block d-lg-none"><span class="price-root">{{ sale.price }} VNĐ</span>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper product-saleoff">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-2.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>194.000 VNĐ</span><br class="d-block d-lg-none"><span class="price-root">216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-3.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="product-wrapper">
-                            <a href="#"><img width="324" height="344" src="{%static 'images/home/product-4.png'%}" alt="product"></a>
-                            <a href="#"><h3>Majesty Palm</h3></a>
-                            <span>216.000 VNĐ</span>
-                        </div>
-                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -490,7 +422,7 @@
                         </li>
                         <li class="d-flex">
                             <div class="align-self-center"><img width="49" height="51" src="{%static 'images/home/email-icon.png'%}" alt="address"></div>
-                            <div class="align-self-center"><a href="mailto:johndoe@mail.com">johndoe@mail.com</a></div>
+                            <div class="align-self-center"><a href="mailto:tubaflowers@gmail.com">tubaflowers@gmail.com</a></div>
                         </li>
                     </ul>
                 </div>

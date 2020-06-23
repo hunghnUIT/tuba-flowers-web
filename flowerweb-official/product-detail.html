@@ -71,7 +71,7 @@
                             <p><span class="font-weight-bold">TAGS :</span>&nbsp
                                 {% with object.tag|split_to_link:"," as tags %}
                                     {% for tag in tags %}
-                                        <a href="{% url 'products-category' tag %}">{{ tag }}</a> 
+                                        <a href="{% url 'products-tag' tag %}">{{ tag }}</a> 
                                     {% endfor %}
                                 {% endwith %} 
                             </p>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-md-10">
                                 <p>{{ object.weight }} kg</p>
-                                <p>{{ object.dimension }}</p>
+                                <p>{{ object.dimension }} cm</p>
                             </div>
                         </div>
                     </div>
