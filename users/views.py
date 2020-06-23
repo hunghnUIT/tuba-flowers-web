@@ -33,7 +33,25 @@ def register(request):
     return render(request, 'user-page-register.html', {'form': form, 'p_form': p_form})
 
 def home(request):
-    return render(request, 'index.html')
+    on_sale = Item.objects.filter(discount_percent__gt=0.01)
+    new_arrival = Item.objects.filter(tag__contains = 'new')
+    contexts = {
+        'on_sale':on_sale,
+        'new_arrival':  new_arrival
+        }
+    return render(request, 'index.html', contexts)
+
+'''
+NOTE: This lines of code for test purpose only 
+from django.http import JsonResponse
+def response_api(request):
+    # temp = Item.objects.values('id','category','title', 'price', 'tag')
+    on_sale = Item.objects.filter(discount_percent__gt=0.01).values('title', 'tag', 'discount_percent')
+    # Data chỉ nhận mỗi kiểu: list bên trong nó là dict (hình như <=> json) ?
+    return JsonResponse(
+        data=list(on_sale),
+        content_type='application/json', status=200, safe=False)
+'''
 '''
 Sang's code
 '''
@@ -100,7 +118,16 @@ def checkout(request):
     checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False)
     
     if not checkout_items: #No item in cart -> Not allowed to checkout.
-        messages.error(request, f'You have no item to checkout.')
+        messages.warning(request, f'You have no item to checkout.')
+        return redirect('cart')
+
+    '''
+        NOTE: Check item stop bussiness and item don't have enough item just for logic insurance
+        NOTE: Need to prevent user add to cart at the begin later.
+    '''
+    items_stop_selling = checkout_items.filter(item__stop_selling=True)
+    if items_stop_selling:
+        messages.warning(request, f'You are having stop bussiness item(s) in your cart. Please remove it then try again.')
         return redirect('cart')
 
     # Check number item available before checkout.

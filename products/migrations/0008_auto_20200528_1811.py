@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='item',
             name='dimension',
-            field=models.CharField(default='? x ? x ? cm', max_length=20),
+            field=models.CharField(default='? x ? x ?', max_length=20),
         ),
         migrations.AddField(
             model_name='item',
