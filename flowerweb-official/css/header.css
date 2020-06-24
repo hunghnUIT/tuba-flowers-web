@@ -24,7 +24,7 @@ header >.container {
     margin-right: 0px !important;
 }
 nav {
-    transition: ease-in-out 0.4s !important;
+    transition: ease-in-out 0.2s !important;
 }
 .black {
     background-color: #F7F7F7 !important;
@@ -121,7 +121,7 @@ div > i + span {
     font-size: 15px;
 }
 .icon-bar-hover a i {
-    transition: .3s ease;
+    transition: .2s ease;
 }
 .dropdown-item-custom{
     display: block;
@@ -146,13 +146,12 @@ div > i + span {
     font-size: 18px;
 }
 .nav-item {
-    font-weight: bold !important;
     transition: 0.2s linear;
 }
 .neumorphism {
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5)  ,-3px -3px 5px #9be1e700;
     border-radius: 5px;
-    padding: 20px 20px 0px 20px;
+    padding: 20px;
     border-collapse: collapse;
 }
 #user {
