@@ -21,5 +21,10 @@ $(document).ready(function () {
         $('.box div div h2').css('font-size', '20px');
         console.log("title's more than 16 letters");
     }
-    
+    var x = 10000;
+    x = x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    $('.price').each(function(i, obj) {
+        var price= parseInt($(this).text());
+        $(this).text(price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}));
+    });
 });

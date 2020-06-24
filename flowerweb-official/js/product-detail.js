@@ -106,4 +106,30 @@ for (i = 0; i < coll.length; i++) {
         }
     });
 }
+$(document).ready(function () {
+    $(".btn-add-to-cart").click(function (e) {
+        var id_item = $('#id-item').text();
+        var quantity = $('#quantity').val();
+        console.log(typeof(id_item));
+        console.log("/add-to-cart/"+id_item+"-quantity="+quantity);
+
+        $.ajax({
+            type: "GET",
+            url: "/add-to-cart/"+id_item+"-quantity="+quantity,
+            cache: false,
+            async: false,
+            dataType: "html",
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            success:function(response){
+                var stringQuantity =$('.cart-number').text();
+                var incr_quantity=parseInt(stringQuantity)+parseInt(quantity);
+                $('.cart-number').text(incr_quantity)
+                alert("Success, "+quantity+" items added to your cart")
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+            },
+        });
+    });
+});
 

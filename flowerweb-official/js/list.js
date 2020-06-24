@@ -43,4 +43,26 @@ $(document).ready(function () {
             },
         });
     });
+// add to cart ajax
+    $('.btn-outline-dark').click(function (e) { 
+        var idItem= $(this).find('#id-item').text();
+        console.log(idItem+" added to your cart")
+        $.ajax({
+            type: "GET",
+            url: "/add-to-cart/"+idItem,
+            cache: false,
+            async: false,
+            dataType: "html",
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            success:function(response){
+                var stringQuantity =$('.cart-number').text();
+                var incr_quantity=parseInt(stringQuantity)+1;
+                $('.cart-number').text(incr_quantity)
+                alert("Success, your cart is "+incr_quantity +" items");
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+            },
+        });
+    });
 });

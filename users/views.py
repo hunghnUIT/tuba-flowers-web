@@ -204,7 +204,7 @@ ItemSelection sẽ là item trong cart, có user có trạng thái ordered và t
 Khi checkout, ItemSelection sẽ có ordered = True, lúc này tạo order mới.
 '''
 @login_required
-def add_to_cart(request, pk):
+def add_to_cart(request, pk, quantity):
     # Get the id of item
     item = get_object_or_404(Item, pk=pk)
     # user_profile = get_object_or_404(Profile, user=request.user)
@@ -217,7 +217,10 @@ def add_to_cart(request, pk):
     # If created a new itemselection -> there is no similar item in cart
     # If not, selected item quantity +1.
     if not created: 
-        selected_item.quantity += 1
+        selected_item.quantity += quantity
+        selected_item.save()
+    else:
+        selected_item.quantity = quantity
         selected_item.save()
     messages.info(request, "This item was added to your cart.")
     return redirect('item-detail', pk)

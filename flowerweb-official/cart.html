@@ -42,11 +42,11 @@ Cart
                                     src="{{ item.item.image.first.image.url }}" alt="item-image" class="img-fluid"
                                     height="120px" width="120px"></a></td>
                         <td class="text-product-cell" data-title="product">{{ item.item.title }}</td>
-                        <td class="text-product-cell" data-title="price">{{ item.item.price }} vnđ</td>
+                        <td class="text-product-cell" data-title="price"><span class="price">{{ item.item.price }}</span></td>
                         <td class="quantity-product-cell" data-title="quantity">
                             <input type="number" required value="{{ item.quantity }}" min=0>
                         </td>
-                        <td class="text-product-cell" data-title="total">{{ item.get_total_item_price }} vnđ</td>
+                        <td class="text-product-cell" data-title="total"><span class="price">{{ item.get_total_item_price }}</span></td>
                         <td class="delete-product-cell text-product-cell" data-title="Remove"><a
                                 href="{% url 'remove-item-from-cart' item.item.pk %}" class="item-link"><i
                                     class="material-icons">remove_shopping_cart</i></a></td>
@@ -115,8 +115,8 @@ Cart
                     <table class="table table-sm table-borderless ">
                         <tbody class="">
                             <tr class="cart-subtotal">
-                                <td data-title="Subtotal">
-                                    {{ total_cost }} VNĐ
+                                <td data-title="Subtotal" class="price">
+                                    {{ total_cost }}
                                 </td>
                             </tr>
                             <tr class="cart-ship-cost">
@@ -128,8 +128,8 @@ Cart
                                 </td>
                             </tr>
                             <tr class="cart-order-total">
-                                <td data-title="Total">
-                                    {{ total_cost }} VNĐ
+                                <td data-title="Total" class="price">
+                                    {{ total_cost }}
                                 </td>
                             </tr>
                             <tr class="cart-checkout">

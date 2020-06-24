@@ -1,5 +1,6 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/product.css' %}">
 <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
@@ -41,23 +42,23 @@
                         </div>
                         <div class="row append-result">
                             {% for item in items %}
-                            <div class="col-md-4 col-6 result">
+                            <div class="col-md-4 col-6 result p-1">
                                 <div class="card product-wrapper">
                                     <a href="{% url 'item-detail' item.pk %}"><img class="img-item img-fluid rounded" src="{{ item.image.first.image.url }}"
                                         alt="Preview item"></a>
-                                    <div class="card-body">
+                                    <div class="card-body p-2">
                                         <a href="{% url 'item-detail' item.pk %}">
                                             <h3 class="card-title text-center">{{ item.title }}</h3>
                                         </a>
-                                        <p class="card-tex text-center"><span>{{ item.price }} VNĐ</span></p>
-                                        <div class="col text-center">
+                                        <p class="card-tex text-center m-0"><span class="price">{{ item.price }}</span></p>
+                                        <div class="add-btn-wrapper col text-center">
                                             <a style="visibility: hidden;
                                   opacity: 0;
                                   transition: visibility 0s, opacity 0.5s linear;" type="button"
                                                 class="btn btn-outline-dark" title="Select this item"><i
                                                     class="fa fa-cart-plus mr-2 p-1"></i><span
                                                     class="p-1 font-weight-bold" style="font-size: large;">Add to
-                                                    cart</span> </a>
+                                                    cart</span><span id="id-item" style="display: none;">{{ item.pk }}</span></a>
                                         </div>
                                     </div>
                                 </div>
