@@ -1,6 +1,7 @@
 ﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -14,13 +15,14 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- Font awesome -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Font material -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'library/swiper/swiper.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    
+
     <link rel="stylesheet" href="{% static 'css/homebanner.css' %}">
     <link rel="stylesheet" href="{% static 'css/overview.css' %}">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
@@ -28,21 +30,26 @@
     <link rel="stylesheet" href="{% static 'css/team.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container">
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target" aria-expanded="false" aria-controls="collapse-target">
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target"
+                    aria-expanded="false" aria-controls="collapse-target">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="index.html" class="navbar-brand"><img  src="{% static 'images/home/logo_transparent.png' %}" alt="logo" width="120px" height="120px"></a>
+                <a href="index.html" class="navbar-brand"><img src="{% static 'images/home/logo_transparent.png' %}"
+                        alt="logo" width="120px" height="120px"></a>
                 <div class="display-block w-100">
-                    <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow " id="collapse_target">
+                    <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow "
+                        id="collapse_target">
                         <div class="clearfix w-100">
-                            <div class="float-left" >
+                            <div class="float-left">
                                 <ul class="navbar-nav">
                                     <li class="parent-home nav-item dropdown">
-                                        <a href="#" role="button" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#home_dropdown">Home
+                                        <a href="#" role="button" class="nav-link dropdown-toggle"
+                                            data-toggle="dropdown" data-target="#home_dropdown">Home
                                             <span class="caret"></span>
                                         </a>
                                         <div class="neumorphism dropdown-menu home" aria-labelledby="home_dropdown">
@@ -52,7 +59,8 @@
                                         </div>
                                     </li>
                                     <li class="parent-page nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                            data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu page" aria-labelledby="page-dropdown">
                                             <a class="dropdown-item" href="user-page.html">My account</a>
                                             <a class="dropdown-item" href="notfound-404.html">Policy</a>
@@ -60,7 +68,8 @@
                                         </div>
                                     </li>
                                     <li class="parent-shop nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                            data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
                                             <a class="dropdown-item" href="product-list.html">Product list</a>
                                             <div class="dropdown-divider"></div>
@@ -74,7 +83,7 @@
                                 </ul>
                             </div>
                             <div title="Today is open" class="float-right" style="margin-top: 8px;">
-                                <i class="fa fa-clock-o" ></i>
+                                <i class="fa fa-clock-o"></i>
                                 <span>Open every days 8:00 - 18:00</span>
                             </div>
                         </div>
@@ -83,30 +92,47 @@
                         <div class="icon-bar">
                             <ul class="navbar-nav">
                                 <li class="icon-bar-hover">
-                                    <a class="btn btn-customize" href="#" data-toggle="modal" data-target="#modal-search-box"><i class="fa fa-search"></i></a>
+                                    <a class="btn btn-customize" href="#" data-toggle="modal"
+                                        data-target="#modal-search-box"><i class="fa fa-search"></i></a>
                                 </li>
                                 <li class="icon-bar-hover">
-                                    <a class="btn btn-customize" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>
+                                    <a class="btn btn-customize" href="{% url 'cart' %}"><i
+                                            class="fa fa-shopping-cart"></i>
                                         <span class="cart-number">0</span>
                                     </a>
                                 </li>
                                 <li class="parent-user dropdown icon-bar-hover">
-                                    <a class="btn btn-customize dropdown-toggle" data-toggle="dropdown" data-target="user" href="#"><i class="fa fa-user"></i></a>
+                                    <a class="btn btn-customize dropdown-toggle" data-toggle="dropdown"
+                                        data-target="user" href="#"><i class="fa fa-user"></i></a>
                                     {% if user.is_authenticated %}
-                                    <div id="user" class="toggler neumorphism dropdown-menu visitor-user align-content-center dropdown-menu-right" aria-labelledby="user">
-                                        <a class="dropdown-item-custom nav-link" href="#">Hello, {{ user.username }}!</a>
+                                    <div id="user"
+                                        class="toggler neumorphism dropdown-menu visitor-user align-content-center dropdown-menu-right"
+                                        aria-labelledby="user">
+                                        <a class="dropdown-item-custom nav-link" href="#">Hello,
+                                            {{ user.username }}!</a>
                                         <div class="dropdown-divider"></div>
-                                        <a title="Go to your account" class="dropdown-item-custom " href="{% url 'profile' %}">My account</a>
-                                        <a title="Go to your account" class="dropdown-item-custom " href="{% url 'orders-detail' %}">My orders</a>
-                                        <a title="Logout" class="dropdown-item-custom " href="{% url 'logout' %}">Log out</a>
+                                        <a title="Go to your account" class="dropdown-item-custom "
+                                            href="{% url 'profile' %}">My account</a>
+                                        <a title="Go to your account" class="dropdown-item-custom "
+                                            href="{% url 'orders-detail' %}">My orders</a>
+                                        <a title="Logout" class="dropdown-item-custom " href="{% url 'logout' %}">Log
+                                            out</a>
                                     </div>
                                     {% else %}
-                                    
-                                    <div id="visitor"  class="neumorphism toggler dropdown-menu visitor-user dropdown-menu-right" aria-labelledby="visitor">
-                                        <a href="{% url 'login' %}" class="nav-link dropdown-item-custom" title="Go to login page">
-                                            <img class="text-center col-12 my-auto" src="{%static '/images/home/welcome-cat.svg'%}" alt="login" height="100px" width="100px">
+
+                                    <div id="visitor"
+                                        class="neumorphism toggler dropdown-menu visitor-user dropdown-menu-right"
+                                        aria-labelledby="visitor">
+                                        <a href="{% url 'login' %}" class="nav-link dropdown-item-custom"
+                                            title="Go to login page">
+                                            <img class="text-center col-12 my-auto"
+                                                src="{%static '/images/home/welcome-cat.svg'%}" alt="login"
+                                                height="100px" width="100px">
                                             <div class=" col-12 pr-1 dropdown-divider"></div>
-                                            <p class="pr-2 mt-2">Go to <span class="initialism text-uppercase">login</span>  or <span class="text-uppercase">register</span> </p></a>
+                                            <p class="pr-2 mt-2">Go to <span
+                                                    class="initialism text-uppercase">login</span> or <span
+                                                    class="text-uppercase">register</span> </p>
+                                        </a>
                                     </div>
                                     {% endif %}
                                 </li>
@@ -120,12 +146,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        
+
                     </div>
                     <div class="modal-body">
                         <div class="input-group" id="input-group">
-                            <input type="text" class="form-control" placeholder="What are you looking for?" name="search" id="search-box">
-                            <div class="input-group-btn " id="input-group-btn"> 
+                            <input type="text" class="form-control" placeholder="What are you looking for?"
+                                name="search" id="search-box">
+                            <div class="input-group-btn " id="input-group-btn">
                                 <button class="btn btn-customize btn-default p-0" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -137,8 +164,8 @@
                     </div>
                 </div>
             </div>
-        </div>          
-</header>
+        </div>
+    </header>
     <section id="banner-section" class="position-relative">
         <img width="100%" height="auto" src="{%static 'images/home/banner_bg.png' %}" alt="home-banner">
         <div class="position-absolute blog-description">
@@ -157,7 +184,8 @@
                         <div class="overview-icon">
                             <img width="32" height="34" src="{% static 'images/home/gift.svg' %}" alt="gift-icon">
                         </div>
-                        <div class="overview-description">Complete your order today and receive Gift Certificate<br class="d-none d-xl-block">
+                        <div class="overview-description">Complete your order today and receive Gift Certificate<br
+                                class="d-none d-xl-block">
                             with<span class="overview-discount"> 20% Off discount</span>.</div>
                     </div>
                 </div>
@@ -166,7 +194,8 @@
                         <div class="overview-icon">
                             <img width="32" height="34" src="{%static 'images/home/send.svg'%}" alt="send-icon">
                         </div>
-                        <div class="overview-description">Free shipping all over the world on<br class="d-none d-xl-block">
+                        <div class="overview-description">Free shipping all over the world on<br
+                                class="d-none d-xl-block">
                             orders over $150.</div>
                     </div>
                 </div>
@@ -275,7 +304,9 @@
     <section id="home-product-section">
         <div class="container text-center">
             <h2 class="product-title">Feature Plant</h2>
-            <div class="new-arrival-title"><img width="65" height="55" src="{%static 'images/home/flower-icon.png'%}" alt="flower-icon"> new arrival <img width="65" height="55" src="{%static 'images/home/flower-right-icon.png'%}" alt="flower-icon"></div>
+            <div class="new-arrival-title"><img width="65" height="55" src="{%static 'images/home/flower-icon.png'%}"
+                    alt="flower-icon"> new arrival <img width="65" height="55"
+                    src="{%static 'images/home/flower-right-icon.png'%}" alt="flower-icon"></div>
             <div class="product-tab-wrapper">
                 <a id="new-arrival-tab" class="product-tab active" href="javascript:void(0)">New arrival</a>
                 <a id="on-sale-tab" class="product-tab" href="javascript:void(0)">On sale</a>
@@ -284,33 +315,39 @@
                 <div class="row">
                     <!-- Line 1-->
                     {% for new in new_arrival %}
-                      {% if forloop.counter0 < 4%}
-                      <div class="col-6 col-md-3">
-                           <div class="card product-wrapper">
-                               <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344" src="{{ new.image.first.image.url }}" alt="product"></a>
-                               <div class="card-body">
-                                   <a href="{% url 'item-detail' new.pk %}"><h3>{{ new.title }}</h3></a>
-                                   <p class="card-tex text-center"> <span>{{ new.price }} VNĐ</span></p>
-                               </div> 
-                           </div> 
-                      </div>
-                      {% endif %}
+                    {% if forloop.counter0 < 4%}
+                    <div class="col-6 col-md-3">
+                        <div class="card product-wrapper">
+                            <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
+                                    src="{{ new.image.first.image.url }}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="{% url 'item-detail' new.pk %}">
+                                    <h3>{{ new.title }}</h3>
+                                </a>
+                                <p class="card-tex text-center"> <span>{{ new.price }} VNĐ</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
-                <div class="row">            
+                <div class="row">
                     <!-- Line 2-->
                     {% for new in new_arrival %}
-                      {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
-                      <div class="col-6 col-md-3">
-                           <div class="card product-wrapper">
-                               <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344" src="{{ new.image.first.image.url }}" alt="product"></a>
-                               <div class="card-body">
-                                   <a href="{% url 'item-detail' new.pk %}"><h3>{{ new.title }}</h3></a>
-                                   <p class="card-tex text-center"> <span>{{ new.price }} VNĐ</span></p>
-                               </div> 
-                           </div> 
-                      </div>
-                      {% endif %}
+                    {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
+                    <div class="col-6 col-md-3">
+                        <div class="card product-wrapper">
+                            <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
+                                    src="{{ new.image.first.image.url }}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="{% url 'item-detail' new.pk %}">
+                                    <h3>{{ new.title }}</h3>
+                                </a>
+                                <p class="card-tex text-center"> <span>{{ new.price }} VNĐ</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -318,38 +355,48 @@
                 <div class="row">
                     <!-- Line 1-->
                     {% for sale in on_sale %}
-                      {% if forloop.counter0 < 4%}
-                      <div class="col-6 col-md-3">
-                          <div class="card product-wrapper">
-                              <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344" src="{{ sale.image.first.image.url }}" alt="product"></a>
-                              <div class="card-body">
-                                  <a href="{% url 'item-detail' sale.pk %}"><h3>{{ sale.title }}</h3></a>
-                                  <p class="card-tex text-center"> <span>{{sale.get_final_price}} VNĐ</span><br class="d-block d-lg-none"><span class="price-root">{{ sale.price }} VNĐ</span></p>
-                              </div> 
-                          </div>   
-                      </div>
-                      {% endif %}
+                    {% if forloop.counter0 < 4%}
+                    <div class="col-6 col-md-3">
+                        <div class="card product-wrapper">
+                            <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
+                                    src="{{ sale.image.first.image.url }}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="{% url 'item-detail' sale.pk %}">
+                                    <h3>{{ sale.title }}</h3>
+                                </a>
+                                <p class="card-tex text-center"> <span>{{sale.get_final_price}} VNĐ</span><br
+                                        class="d-block d-lg-none"><span class="price-root">{{ sale.price }} VNĐ</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 <div class="row">
                     <!-- Line 1-->
                     {% for sale in on_sale %}
-                      {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
-                      <div class="col-6 col-md-3">
-                          <div class="card product-wrapper">
-                              <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344" src="{{ sale.image.first.image.url }}" alt="product"></a>
-                              <div class="card-body">
-                                  <a href="{% url 'item-detail' sale.pk %}"><h3>{{ sale.title }}</h3></a>
-                                  <p class="card-tex text-center"> <span>{{sale.get_final_price}} VNĐ</span><br class="d-block d-lg-none"><span class="price-root">{{ sale.price }} VNĐ</span></p>
-                              </div> 
-                          </div>   
-                      </div>
-                      {% endif %}
+                    {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
+                    <div class="col-6 col-md-3">
+                        <div class="card product-wrapper">
+                            <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
+                                    src="{{ sale.image.first.image.url }}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="{% url 'item-detail' sale.pk %}">
+                                    <h3>{{ sale.title }}</h3>
+                                </a>
+                                <p class="card-tex text-center"> <span>{{sale.get_final_price}} VNĐ</span><br
+                                        class="d-block d-lg-none"><span class="price-root">{{ sale.price }} VNĐ</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 <div class="row">
+                </div>
             </div>
-        </div>
     </section>
     <section id="team-section">
         <div class="container text-center">
@@ -360,29 +407,37 @@
             <div class="row">
                 <div class="col-6 col-md-4 mb-4 mb-md-0">
                     <div class="member-wrapper rounded ">
-                        <a target="_blank" target="_blank" title="Facebook" rel="noopener noreferrer" href="https://www.facebook.com/hunghoang59" class="card-link">
+                        <a target="_blank" target="_blank" title="Facebook" rel="noopener noreferrer"
+                            href="https://www.facebook.com/hunghoang59" class="card-link">
                             <img width="300" height="300" src="{%static 'images/home/hung-avt.png'%}" alt="avar-1">
                         </a>
                         <div class="member-name">
-                            <a target="_blank" title="Facebook" href="https://www.facebook.com/hunghoang59" class="nav-link">Ngoc Hung</a></div>
+                            <a target="_blank" title="Facebook" href="https://www.facebook.com/hunghoang59"
+                                class="nav-link">Ngoc Hung</a></div>
                         <div class="member-name member-position">Founder</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-4 mb-4 mb-md-0">
                     <div class="member-wrapper">
-                        <a target="_blank" title="Facebook" rel="noopener noreferrer" href="https://www.facebook.com/hungphuc.nguyen.2001" class="card-link">
+                        <a target="_blank" title="Facebook" rel="noopener noreferrer"
+                            href="https://www.facebook.com/hungphuc.nguyen.2001" class="card-link">
                             <img width="300" height="300" src="{%static 'images/home/phuc-avt.png'%}" alt="avar-2">
                         </a>
-                        <div class="member-name"><a target="_blank" title="Facebook" href="https://www.facebook.com/hungphuc.nguyen.2001" class="nav-link">Phuc Nguyen</a></div>
+                        <div class="member-name"><a target="_blank" title="Facebook"
+                                href="https://www.facebook.com/hungphuc.nguyen.2001" class="nav-link">Phuc Nguyen</a>
+                        </div>
                         <div class="member-name member-position">manager</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="member-wrapper">
-                        <a target="_blank" title="Facebook" rel="noopener noreferrer" href="https://www.facebook.com/dove.fonghoatuyetnguyet" class="card-link">
+                        <a target="_blank" title="Facebook" rel="noopener noreferrer"
+                            href="https://www.facebook.com/dove.fonghoatuyetnguyet" class="card-link">
                             <img width="300" height="300" src="{%static 'images/home/sang-avt.png'%}" alt="avar-3">
                         </a>
-                        <div class="member-name"><a target="_blank" title="Facebook" href="https://www.facebook.com/dove.fonghoatuyetnguyet" class="nav-link">tanas sang</a></div>
+                        <div class="member-name"><a target="_blank" title="Facebook"
+                                href="https://www.facebook.com/dove.fonghoatuyetnguyet" class="nav-link">tanas sang</a>
+                        </div>
                         <div class="member-name member-position">Florist</div>
                     </div>
                 </div>
@@ -394,11 +449,14 @@
             <div class="row">
                 <div class="col-lg-3 mb-4 mb-lg-0">
                     <div class="footer-col">
-                        <img class="logo-footer" width="211" height="211" src="{%static 'images/home/logo_transparent.png'%}" alt="logo">
+                        <img class="logo-footer" width="211" height="211"
+                            src="{%static 'images/home/logo_transparent.png'%}" alt="logo">
                         <div class="social-wrapper">
                             <a href="#"><img width="46" height="45" src="{%static 'images/home/fb.png'%}" alt="fb"></a>
-                            <a href="#"><img width="46" height="45" src="{%static 'images/home/zalo.png'%}" alt="zalo"></a>
-                            <a href="#"><img width="46" height="45" src="{%static 'images/home/insta.png'%}" alt="instagram"></a>
+                            <a href="#"><img width="46" height="45" src="{%static 'images/home/zalo.png'%}"
+                                    alt="zalo"></a>
+                            <a href="#"><img width="46" height="45" src="{%static 'images/home/insta.png'%}"
+                                    alt="instagram"></a>
                         </div>
                         <div class="footer-slogan">
                             We love plants,<br>
@@ -419,17 +477,23 @@
                     <h3 class="footer-col-title">contact us</h3>
                     <ul>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="{%static 'images/home/address-icon.png'%}" alt="address"></div>
-                            <div class="align-self-center">Sydney road, Billboard Street 2219-11C.<br class="d-none d-xl-block">
+                            <div class="align-self-center"><img width="49" height="51"
+                                    src="{%static 'images/home/address-icon.png'%}" alt="address"></div>
+                            <div class="align-self-center">Sydney road, Billboard Street 2219-11C.<br
+                                    class="d-none d-xl-block">
                                 Apple Town, Your Country.</div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="{%static 'images/home/phone-icon.png'%}" alt="phone"></div>
-                            <div class="align-self-center"><a href="tel:(305) 533-1122">(305) 533-1122</a>, <a href="tel:(305) 112-7788">(305) 112-7788</a></div>
+                            <div class="align-self-center"><img width="49" height="51"
+                                    src="{%static 'images/home/phone-icon.png'%}" alt="phone"></div>
+                            <div class="align-self-center"><a href="tel:(305) 533-1122">(305) 533-1122</a>, <a
+                                    href="tel:(305) 112-7788">(305) 112-7788</a></div>
                         </li>
                         <li class="d-flex">
-                            <div class="align-self-center"><img width="49" height="51" src="{%static 'images/home/email-icon.png'%}" alt="address"></div>
-                            <div class="align-self-center"><a href="mailto:tubaflowers@gmail.com">tubaflowers@gmail.com</a></div>
+                            <div class="align-self-center"><img width="49" height="51"
+                                    src="{%static 'images/home/email-icon.png'%}" alt="address"></div>
+                            <div class="align-self-center"><a
+                                    href="mailto:tubaflowers@gmail.com">tubaflowers@gmail.com</a></div>
                         </li>
                     </ul>
                 </div>
@@ -450,7 +514,8 @@
         <form id="search-form" class="" action="">
             <div class="form-group position-relative">
                 <input type="text" class="form-control" placeholder="Nhập nội dung tìm kiếm...">
-                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12" src="{%static 'images/home/search.svg'%}" alt=""></button>
+                <button class="position-absolute btn-search-submit" type="button"><img width="12" height="12"
+                        src="{%static 'images/home/search.svg'%}" alt=""></button>
             </div>
         </form>
     </div>
@@ -461,4 +526,5 @@
     <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/home-product.js' %}"></script>
 </body>
+
 </html>

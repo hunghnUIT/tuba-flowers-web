@@ -5,6 +5,7 @@ Then install all of it: pip install -r requirements.txt
 
 This is a small project for learning how to create a website for selling flowers.
 Back end: Django.
-Front-end: ReactJS
-Team: 2
+Front-end: HTML, CSS
+Group: 2
 Class: NT109.K21.
+Lecture: Do Thi Huong Lan

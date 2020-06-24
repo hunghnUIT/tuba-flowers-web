@@ -56,7 +56,8 @@
                                     <input id="quantity" value="0" name="quantity" class="qty" type="text" readonly>
                                 </div>
                             </div>
-                            <a class="text-uppercase d-inline-block btn-add-to-cart" href="{{ object.get_add_to_cart_url }}">add to cart</a>
+                            <a class="text-uppercase d-inline-block btn-add-to-cart" href="#object.get_add_to_cart_url">add to cart</a>
+                            <p>available: {{available}}</p>
                         </div>
                         <div class="more-information">
                             <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
@@ -67,7 +68,6 @@
                                     {% endfor %}
                                 {% endwith %} 
                             </p>
-                            <!-- NOT HANDLE SEARCH BY TAG YET -->
                             <p><span class="font-weight-bold">TAGS :</span>&nbsp
                                 {% with object.tag|split_to_link:"," as tags %}
                                     {% for tag in tags %}
@@ -151,42 +151,19 @@
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
                     <!-- Slides -->
+                    {% for item in related_products %}
+                    {% if forloop.counter0 < 8%}
                     <div class="swiper-slide">
                         <div class="card product-wrapper" style="width: 90%;">
-                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-3.png'%}" alt="product"></a>
+                            <a href="#"><img class="img-fluid" width="324" height="344" src="{{ item.image.first.image.url }}" alt="product"></a>
                             <div class="card-body">
-                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
-                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
+                                <a href="#"><h3 class="text-center">{{ item.title }}</h3></a>
+                                <p class="card-tex text-center"> <span>{{ item.price }}</span></p>
                             </div> 
                         </div>  
                     </div>
-                    <div class="swiper-slide">
-                        <div class="card product-wrapper" style="width: 90%;">
-                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-4.png'%}" alt="product"></a>
-                            <div class="card-body">
-                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
-                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
-                            </div> 
-                        </div>  
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card product-wrapper" style="width: 90%;">
-                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-5.png'%}" alt="product"></a>
-                            <div class="card-body">
-                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
-                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
-                            </div> 
-                        </div>  
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card product-wrapper" style="width: 90%;">
-                            <a href="#"><img class="img-fluid" width="324" height="344" src="{%static 'images/home/product-1.png'%}" alt="product"></a>
-                            <div class="card-body">
-                                <a href="#"><h3 class="text-center">Majesty Palm</h3></a>
-                                <p class="card-tex text-center"> <span>216.000 VNĐ</span></p>
-                            </div> 
-                        </div>  
-                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

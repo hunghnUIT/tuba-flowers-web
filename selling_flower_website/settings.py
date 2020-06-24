@@ -139,6 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #Save what media upload to server.
 MEDIA_URL = '/media/'   #Where we can access media from web brower.
 
 LOGIN_REDIRECT_URL = 'home' #This is the url that we will be redirect to after logged in.
+LOGOUT_REDIRECT_URL = 'home'
 
 # Because when we logged out and try to access profile, 
 # url at that momment is: "localhost:8000/accounts/login/?next=/profile"

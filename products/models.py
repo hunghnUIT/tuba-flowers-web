@@ -38,10 +38,10 @@ class Item(models.Model):
     def get_final_price(self):
         return self.price - int(self.discount_percent*self.price)
 
-    def get_add_to_cart_url(self):
-        return reverse("add-to-cart",kwargs={
-            'pk' : self.pk
-        })
+    # def get_add_to_cart_url(self):
+    #     return reverse("add-to-cart",kwargs={
+    #         'pk' : self.pk
+    #     })
     def get_remove_single_item_from_cart_url(self):
         return reverse("remove-single-item-from-cart",kwargs={
             'pk' : self.pk

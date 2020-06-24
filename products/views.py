@@ -101,10 +101,18 @@ class ItemsWithTagListView(ListView): # Choose a tag and it return items contain
 
 class ItemDetailView(DetailView):
     model = Item
-
     template_name = 'product-detail.html'
     # By default, the generic class-based will looking for template <app>/<model>_<viewtype>.html
     # So it's unnecessary to have the line "template_name = 'products/item_detail.html'"
     # as long as we created a file exactly is item_detail.html in templates/products folder
 
-
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemDetailView, self).get_context_data(**kwargs)
+        object = self.get_object()
+        related_products = Item.objects.filter(topic=object.topic).order_by('-number_item_sold')
+        contexts['related_products'] = related_products
+        if object.number_item_left < 1 or object.stop_selling == True:
+            contexts['available'] = False
+        else:
+            contexts['available'] = True
+        return contexts

@@ -33,7 +33,7 @@ def register(request):
     return render(request, 'user-page-register.html', {'form': form, 'p_form': p_form})
 
 def home(request):
-    on_sale = Item.objects.filter(discount_percent__gt=0.01)
+    on_sale = Item.objects.filter(discount_percent__gt=0.01).order_by('-discount_percent')
     new_arrival = Item.objects.filter(tag__contains = 'new')
     contexts = {
         'on_sale':on_sale,
@@ -204,10 +204,9 @@ ItemSelection sẽ là item trong cart, có user có trạng thái ordered và t
 Khi checkout, ItemSelection sẽ có ordered = True, lúc này tạo order mới.
 '''
 @login_required
-def add_to_cart(request, pk):
+def add_to_cart(request, pk, quantity):
     # Get the id of item
     item = get_object_or_404(Item, pk=pk)
-    # user_profile = get_object_or_404(Profile, user=request.user)
     # Create a new ItemSelection if adding item is not exist in cart.
     selected_item, created = ItemSelection.objects.get_or_create(
         item=item,
@@ -216,8 +215,11 @@ def add_to_cart(request, pk):
     )
     # If created a new itemselection -> there is no similar item in cart
     # If not, selected item quantity +1.
-    if not created: 
-        selected_item.quantity += 1
+    if not created:  #If get_or_create above not created a new ItemSelection
+        selected_item.quantity += quantity
+        selected_item.save()
+    else:
+        selected_item.quantity = quantity
         selected_item.save()
     messages.info(request, "This item was added to your cart.")
     return redirect('item-detail', pk)
