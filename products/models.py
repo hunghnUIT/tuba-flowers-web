@@ -4,10 +4,12 @@ from PIL import Image
 from django.utils.html import format_html
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from topic.models import Topic
 
 # Category: string, title: string, description: string, price: int, is_available: true/false, tag: [string, string,...]
 
 TOPIC_CHOICES = (
+    (None, 'None'),
     ('W', 'Wedding'),
     ('B', 'Birthday'),
     ('P', 'Party'),
@@ -26,7 +28,7 @@ class Item(models.Model):
     dimension = models.CharField(max_length=20, default='? x ? x ?')
     discount_percent = models.DecimalField(max_digits=3, decimal_places=2, default=0.00, validators=[MinValueValidator(0.00), MaxValueValidator(1.00)])
     number_item_sold = models.PositiveIntegerField(default=0)    
-    topic = models.CharField(choices=TOPIC_CHOICES, max_length=2,null=False,default='W')
+    topic = models.ForeignKey(Topic, models.SET_NULL, blank=True, null=True,)
     stop_selling = models.BooleanField(default=False)
 
     def __str__(self):

@@ -62,7 +62,7 @@ class ItemsWithTopicListView(ListView): # Choose a topic and it return items wit
     def get_queryset(self): # Get the list of items for this view.
         kw_order_by = self.request.GET.get('order_by')
         topic = self.kwargs.get('topic')
-        items_match = Item.objects.filter(topic = topic[0].capitalize())
+        items_match = Item.objects.filter(topic__title=topic)
         available_items = items_match.filter(stop_selling=False)
         if kw_order_by:
             if kw_order_by == 'asc-price':
