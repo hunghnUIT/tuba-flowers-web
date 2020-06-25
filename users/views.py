@@ -215,7 +215,11 @@ def add_to_cart(request, pk, quantity):
     )
     # If created a new itemselection -> there is no similar item in cart
     # If not, selected item quantity +1.
+<<<<<<< HEAD
     if not created:  #If get_or_create above not created a new ItemSelection
+=======
+    if not created: 
+>>>>>>> gama
         selected_item.quantity += quantity
         selected_item.save()
     else:

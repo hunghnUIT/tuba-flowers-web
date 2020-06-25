@@ -40,7 +40,7 @@
     width:100%;
     height: 300px;
     object-fit: cover;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     transition: 0.8s;
 }
 .product-tab-wrapper {
@@ -51,7 +51,7 @@
     content: "";
     position: absolute;
     top: 0;
-    left: -550px;
+    left: -750px;
     width:180%;
     height: 300px;
     background: rgba(255, 255, 255, 0.5);
@@ -79,18 +79,6 @@
     position: relative;
 }
 
-/* .product-saleoff:after {
-    position: absolute;
-    content: '';
-    width: 100px;
-    height: 100px;
-    top: 0px;
-    right: 0px;
-    background: url(../images/home/saleoff.png) no-repeat;
-    background-size: cover;
-    border-radius: .25rem!important;
-} */
-
 .price-root {
     margin-left: 10px;
     text-decoration: line-through;
@@ -99,15 +87,26 @@
 .product-wrapper:hover {
     box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
 }
+/* shining effect */
 .product-wrapper:hover::before {
     left: 550px;
 }
 .product-wrapper:hover img{
     transform: scale(1.1);
 }
+.add-btn-wrapper {
+    position: relative;
+    top:80px;
+    transition: 0.3s;
+}
+.product-wrapper:hover .add-btn-wrapper{
+    top: 5px;
+    margin-bottom: 10px;
+}
 .product-wrapper:hover .btn-outline-dark{
     visibility: visible !important;
     opacity: 1 !important;
+    top: 5px;
 }
 .btn-outline-dark i {
     opacity: 0 !important;
@@ -166,7 +165,7 @@
     
 .product-wrapper img {
     float: left;
-    width: 255px;
+    width: 100%;
     height: 290px;
     object-fit: cover;
     margin-bottom: 20px;
@@ -179,5 +178,8 @@
         height: 210px;
         object-fit: cover;
         margin-bottom: 20px;
+    }
+    .btn-outline-dark{
+        display: none;
     }
 }

@@ -16,7 +16,9 @@
 {% block title-banner %}Schefflera aptent taciti sociosqu{% endblock %}
 {% block on-page %} {{ object.title }} {% endblock %}
 {% block content %}
-
+        <!-- Id item  -->
+    <span id="id-item" style="display: none;">{{object.pk}}</span>
+        <!--  -->
     <article class="product-detail-section">
         <div class="container mb-5">
             <div class="row">
@@ -47,17 +49,20 @@
                 <div class="col-12 col-lg-5">
                     <div class="detail-information">
                         <h2 class="detail-title">{{ object.title }}</h2>
-                        <p class="detail-price"><span>{{ object.price }} VNĐ</span><span class="root-price">156K VNĐ</span></p>
+                        {% if object.discount_percent > 0.01 %}
+                            <p class="detail-price"><span class="price">{{ object.get_final_price }}</span><span class="root-price price">{{ object.price }}</span></p>
+                        {% else %}
+                        <p class="detail-price"><span class="price font-weight-bold font-italic" style="font-size: x-large;color: #3A5557;">{{ object.price }}</span>
+                        {% endif %}
                         <p class="detail-description">{{ object.description }}</p>
                         <div class="add-to-cart-wrapper">
                             <div class="quantity-wrapper d-inline-block">
                                 <span class="d-inline-block quantity-label">Quantity</span>
                                 <div class="wenumberic-product-detail enumber-control">
-                                    <input id="quantity" value="0" name="quantity" class="qty" type="text" readonly>
+                                    <input id="quantity" value="1" name="quantity" class="qty" type="number" min=1 readonly>
                                 </div>
                             </div>
-                            <a class="text-uppercase d-inline-block btn-add-to-cart" href="#object.get_add_to_cart_url">add to cart</a>
-                            <p>available: {{available}}</p>
+                            <button class="text-uppercase d-inline-block btn-add-to-cart" >add to cart</button>
                         </div>
                         <div class="more-information">
                             <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
