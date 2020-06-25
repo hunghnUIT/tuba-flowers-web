@@ -34,6 +34,7 @@ class UserUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['readonly'] = True
+        self.fields['email'].widget.attrs['readonly'] = True
 
     class Meta: 
         # This class provide a nested namespace for configurations and 

@@ -53,15 +53,15 @@
                                         </a>
                                         <div class="neumorphism dropdown-menu home" aria-labelledby="home_dropdown">
                                             <a class="dropdown-item" href="index.html#blog-section">Blog</a>
-                                            <a class="dropdown-item" href="#home-product-section">Best sellers</a>
-                                            <a class="dropdown-item" href="#team-section">Flower experts</a>
+                                            <a class="dropdown-item" href="{% url 'products-all' %}?order_by=best-seller">Best sellers</a>
+                                            <a class="dropdown-item" href="{% url 'home' %}#team-section">Flower experts</a>
                                         </div>
                                     </li>
                                     <li class="parent-page nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown"
                                             data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu page" aria-labelledby="page-dropdown">
-                                            <a class="dropdown-item" href="user-page.html">My account</a>
+                                            <a class="dropdown-item" href="{% url 'profile' %}">My account</a>
                                             <a class="dropdown-item" href="notfound-404.html">Policy</a>
                                             <a class="dropdown-item" href="notfound-404.html">FAQs</a>
                                         </div>
@@ -70,7 +70,7 @@
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown"
                                             data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
-                                            <a class="dropdown-item" href="product-list.html">Product list</a>
+                                            <a class="dropdown-item" href="{% url 'products-all' %}">Product list</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="notfound-404.html">Wedding</a>
                                             <a class="dropdown-item" href="notfound-404.html">Birthday</a>

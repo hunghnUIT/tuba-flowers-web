@@ -51,7 +51,7 @@
             </div>
             <div class="col-sm-11 col-md-10 col-lg-4 mt-4 mb-4">
                 <div class="card-preview card mb-3 float-right mt-3" style="max-width: 24rem;">
-                    <div class="card-header ">Your order <span id="quantity-product">( 2 items )</span></div>
+                    <div class="card-header ">Your order <span id="quantity-product">( {{checkout_items.count}} items )</span></div>
                     <div class="card-body text-info">
                         <table class="table table-hover product-review-table">
                             <thead>
@@ -63,21 +63,17 @@
                               </tr>
                             </thead>
                             <tbody>
+                              {% for item in checkout_items %}
                               <tr>
-                                <th scope="row">1</th>
-                                <td>The long name for test </td>
-                                <td>250.000 VNĐ</td>
-                                <td class="remove-icon-cell"><a href="#"><i class="text-center fa fa-remove"></i></a></td>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{ item.item.title }}</td>
+                                <td>{{ item.get_total_item_price }} VNĐ</td>
+                                <td class="remove-icon-cell"><a href="{% url 'remove-item-from-cart' item.item.pk %}"><i class="text-center fa fa-remove"></i></a></td>
                               </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>510.000 VNĐ</td>
-                                <td class="remove-icon-cell"><a class="button-link" href="#"><i class="text-center fa fa-remove"></i></a></td>
-                              </tr>
+                              {% endfor %}
                               <tr>
                                 <th colspan="2" scope="row" >Temporary price</th>
-                                <td colspan="2" class="text-right">760.000 VNĐ</td>
+                                <td colspan="2" class="text-right">{{ total_cost }} VNĐ</td>
                               </tr>
                               <tr class="shipping-cost-tr" >
                                 <th scope="row" colspan="2">Shipping cost</th>
@@ -88,7 +84,7 @@
                     </div>
                     <div class="card-footer">
                       <strong style="color: black;">Total:</strong>
-                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold "> 790.000 VNĐ</span>
+                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold "> (FE Handle) VNĐ</span>
                       <p class="font-italic text-right">(VAT inclusive)</p>
                       <a id="order-btn" href="#" class="btn btn-outline-secondary btn-lg w-100 order-btn">Place order</a>
                     </div>

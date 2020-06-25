@@ -155,7 +155,7 @@ def checkout(request):
             'checkout_form': checkout_form
         }
         
-        return render(request, 'users/checkout.html', contexts)
+        return render(request, 'checkout.html', contexts)
     else:
         checkout_form = CheckoutForm(request.POST)
         if checkout_form.is_valid():
@@ -183,7 +183,7 @@ def checkout(request):
             messages.success(request, f'Checkout successfully. Your order will be delivery soon.')
             return redirect('cart')
         else:
-            messages.error(request, f'Checkout failed. Check your info and try again.')
+            messages.danger(request, f'Checkout failed. Check your info and try again.')
             return redirect('checkout')
 
 @login_required
