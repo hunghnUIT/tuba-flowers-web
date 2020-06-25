@@ -67,7 +67,7 @@
                               <tr>
                                 <th scope="row">{{forloop.counter}}</th>
                                 <td>{{ item.item.title }}</td>
-                                <td>{{ item.get_total_item_price }} VNĐ</td>
+                                <td>{{ item.get_final_price }} VNĐ</td>
                                 <td class="remove-icon-cell"><a href="{% url 'remove-item-from-cart' item.item.pk %}"><i class="text-center fa fa-remove"></i></a></td>
                               </tr>
                               {% endfor %}

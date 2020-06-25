@@ -50,7 +50,7 @@
                     <div class="detail-information">
                         <h2 class="detail-title">{{ object.title }}</h2>
                         {% if object.discount_percent > 0.01 %}
-                            <p class="detail-price"><span class="price">{{ object.get_final_price }}</span><span class="root-price price">{{ object.price }}</span></p>
+                            <p class="detail-price"><span class="price font-weight-bold font-italic" style="font-size: x-large;color: #3A5557;">{{ object.get_final_price }}</span><span class="root-price price">{{ object.price }}</span></p>
                         {% else %}
                         <p class="detail-price"><span class="price font-weight-bold font-italic" style="font-size: x-large;color: #3A5557;">{{ object.price }}</span>
                         {% endif %}

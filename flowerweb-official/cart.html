@@ -46,7 +46,7 @@ Cart
                         <td class="quantity-product-cell" data-title="quantity">
                             <input type="number" required value="{{ item.quantity }}" min=0>
                         </td>
-                        <td class="text-product-cell" data-title="total"><span class="price">{{ item.get_total_item_price }}</span></td>
+                        <td class="text-product-cell" data-title="total"><span class="price">{{ item.get_final_price }}</span></td>
                         <td class="delete-product-cell text-product-cell" data-title="Remove"><a
                                 href="{% url 'remove-item-from-cart' item.item.pk %}" class="item-link"><i
                                     class="material-icons">remove_shopping_cart</i></a></td>

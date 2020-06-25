@@ -30,12 +30,14 @@ class UserOrdersAdmin(admin.ModelAdmin):
     
     def short_detail(self, obj):
         # return obj.user_fullname() + " ordered " + str(obj.amount) + " of "  + " to address: " + obj.address
-        return obj.user.username + " ordered to address: " + obj.address + ", receiver: " + obj.receiver
+        return "Address: " + obj.address + "; receiver: " + obj.receiver
 
     short_detail.short_description = 'Short Detail'
 
     def get_items(self, obj):
-        return ", ".join([i.item.title for i in obj.items_ordered.all()])
+        return ", ".join([i.item.title+": "+str(i.quantity) for i in obj.items_ordered.all()])
+    
+    get_items.short_description = 'Items Ordered'
 
     get_items.allow_tags = True
 

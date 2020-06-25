@@ -89,7 +89,7 @@ def profile(request):
 
 def get_user_pending_order(request):
     # get order for the correct user
-    orders = Order.objects.filter(user=request.user, order_status='P') | Order.objects.filter(user=request.user, order_status='S')| Order.objects.filter(user=request.user, order_status='RC')
+    orders = Order.objects.filter(user=request.user, order_status='P') | Order.objects.filter(user=request.user, order_status='S')| Order.objects.filter(user=request.user, order_status='RC')| Order.objects.filter(user=request.user, order_status='AC')
     if orders.exists():
         # get the only order in the list of filtered orders
         return orders
@@ -137,7 +137,7 @@ def checkout(request):
         if number_left < 0:
             failed_items.append(item)
     if failed_items:
-        messages.error(request, f'Checkout failed. We do not have enough '+ ", ".join([i.item.title for i in failed_items]) + ' .')
+        messages.warning(request, f'Checkout failed. We do not have enough '+ ", ".join([i.item.title for i in failed_items]) + ' by now.')
         return redirect('cart')
 
     total_cost = sum(i.get_final_price() for i in checkout_items)
@@ -155,6 +155,7 @@ def checkout(request):
             'checkout_form': checkout_form
         }
         
+        # return render(request, 'users/checkout.html', contexts)
         return render(request, 'checkout.html', contexts)
     else:
         checkout_form = CheckoutForm(request.POST)
@@ -178,12 +179,15 @@ def checkout(request):
                 item.item.save()
                 # Change ItemSelection 'ordered' to True 
                 item.ordered=True
+                # This item's price won't be change after client bought it.
+                # This price is the final price, discounted.
+                item.price_client_bought = item.item.get_final_price()
                 item.save()
 
             messages.success(request, f'Checkout successfully. Your order will be delivery soon.')
             return redirect('cart')
         else:
-            messages.danger(request, f'Checkout failed. Check your info and try again.')
+            messages.warning(request, f'Checkout failed. Check your info and try again.')
             return redirect('checkout')
 
 @login_required
@@ -205,6 +209,9 @@ Khi checkout, ItemSelection sẽ có ordered = True, lúc này tạo order mới
 '''
 @login_required
 def add_to_cart(request, pk, quantity):
+    if quantity == 0:
+        messages.warning(request, f'Unavailable quantity.')
+        return redirect('item-detail', pk)
     # Get the id of item
     item = get_object_or_404(Item, pk=pk)
     # Create a new ItemSelection if adding item is not exist in cart.

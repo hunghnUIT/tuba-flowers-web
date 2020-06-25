@@ -11,7 +11,7 @@ ORDER_STATUS_CHOICES = (
     ('S', 'Shipping'),
     ('C', 'Completed'),
     ('RC', 'Requesting Cancel'),
-    ('AC', 'Accepted Cancellation Request'),
+    ('AC', 'Canceled'), #Accepted cancellation request
 )
 
 class Profile(models.Model):
@@ -41,6 +41,14 @@ class ItemSelection(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=1)
     ordered = models.BooleanField(default=False)
+    price_client_bought = models.PositiveIntegerField(default=0)
+    
+    ''' EXPLAIN "client_bought_price" attribute:
+    - When clients add a item to cart, use item.price*quantity for calculating the total price
+    - But when clients bought item, this item's price is: client_bought_price, which is = item.price
+    - And then the total is client_bought_price*quantity.
+    (*)NOTE: This attribute's value client_bought_price wont be change once clients confirm their order
+    '''
 
     def __str__(self):
         return self.item.title + " - Quantity: " + str(self.quantity)
@@ -53,11 +61,6 @@ class ItemSelection(models.Model):
             return self.get_total_item_price() - int(self.get_total_item_price()*self.item.discount_percent)
         return self.get_total_item_price()
 
-# def get_default_phone(self):
-#     return self.customer_info.phone
-
-# def get_default_address(self):
-#     return self.customer_info.address
 
 class Order(models.Model):
     # This is orders of a user. -> one user to many order.
@@ -80,7 +83,7 @@ class Order(models.Model):
         return self.items_ordered.all()
 
     def get_total_order_price(self):
-        return sum([i.item.price*i.quantity for i in self.items_ordered.all()])
+        return sum([i.price_client_bought*i.quantity for i in self.items_ordered.all()])
 
     get_total_order_price.short_description = 'Total cost'
 
