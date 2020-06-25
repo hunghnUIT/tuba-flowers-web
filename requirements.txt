@@ -39,3 +39,6 @@ virtualenvwrapper-win==1.2.6
 wcwidth==0.1.9
 webencodings==0.5.1
 wrapt==1.11.2
+currencies
+django-allauth
+Pillow
