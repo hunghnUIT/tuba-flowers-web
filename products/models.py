@@ -8,15 +8,6 @@ from topic.models import Topic
 
 # Category: string, title: string, description: string, price: int, is_available: true/false, tag: [string, string,...]
 
-TOPIC_CHOICES = (
-    (None, 'None'),
-    ('W', 'Wedding'),
-    ('B', 'Birthday'),
-    ('P', 'Party'),
-    ('V', 'Valentine'),
-    ('T', 'Tet'),
-)
-
 class Item(models.Model):
     category = models.CharField(max_length=30)
     title = models.CharField(max_length=30)
@@ -63,3 +54,24 @@ class ItemImage(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+# class Blog(models.Model):
+#     title = models.CharField(max_length = 150, unique = True)
+#     brief = models.TextField()
+#     background = models.ImageField(upload_to = 'blog_background')
+#     content = RichTextUploadingField()
+#     posted_date = models.DateField(auto_now_add = True)
+#     # tags = models.ManyToManyField(Tag, blank = True) #Bây giờ tạm ẩn, sau này tách ra làm model riêng sẽ add vô lại.
+
+
+#     def __str__(self):
+#         return self.title
+
+#     def show_background(self):
+#         return mark_safe('<img src="/media/%s" width="100" height="auto"/>' % self.background)
+#     show_background.short_description = ''
+
+#     def get_tags(self):
+#         return ", ".join([t.name for t in self.tags.all()])
+#     get_tags.short_description = 'tags'

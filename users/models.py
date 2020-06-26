@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.urls import reverse
 
 ORDER_STATUS_CHOICES = (
+    ('W', 'Waiting Confirmation'),
     ('P', 'Processing'),
     ('S', 'Shipping'),
     ('C', 'Completed'),
@@ -69,7 +70,7 @@ class Order(models.Model):
     # This have to have a link to products
     items_ordered = models.ManyToManyField(ItemSelection)
     date_ordered = models.DateTimeField(default = timezone.now())
-    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=2,null=False,default='P')
+    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=2,null=False,default='W')
     address = models.CharField(max_length=70)
     phone = models.CharField(max_length=12)
     # This address and phonenumber field will be automatic filled by address in class Profile with front-end handling or we need to extend User model.
