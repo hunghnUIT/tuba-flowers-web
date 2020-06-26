@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 # def handler404(request, *args, **argv):
 #     return render(request, 'notfound-404.html', status=404)
@@ -40,6 +41,31 @@ def home(request):
         'new_arrival':  new_arrival
         }
     return render(request, 'index.html', contexts)
+
+def get_items_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        items = Item.objects.filter(
+            Q(title__icontains=q) | 
+            Q(tag__icontains=q)
+        ).distinct()
+
+        for item in items:
+            queryset.append(item)
+    return list(set(queryset))
+
+def item_search_view(request):
+    contexts = {}
+
+    query = ""
+    if request.GET:
+        query = request.GET['search']
+        contexts['query'] = str(query)
+    
+    items = get_items_queryset(query)
+    contexts['items'] = items
+    return render(request, 'product-list.html', contexts)
 
 '''
 NOTE: This lines of code for test purpose only 
