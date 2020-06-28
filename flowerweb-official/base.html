@@ -72,11 +72,9 @@
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
                                             <a class="dropdown-item" href="{% url 'products-all' %}">Product list</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="notfound-404.html">Wedding</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Birthday</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Party</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Valentine</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Tet</a>
+                                            {% for topic in list_topic %}
+                                                <a class="dropdown-item" href="{% url 'products-topic' topic.title %}">{{ topic.title }}</a>
+                                            {% endfor %}
                                         </div>
                                     </li>
                                 </ul>

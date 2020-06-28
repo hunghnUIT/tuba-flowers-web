@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'ckeditor',
+    'ckeditor_uploader',
 
     #Your own app
     'users.apps.UsersConfig',
@@ -202,3 +204,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+# For ckeditor
+CKEDITOR_UPLOAD_PATH = "ckeditor-upload/"

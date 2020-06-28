@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, ItemImage
+from .models import Item, ItemImage, Blog
 from django.utils.html import format_html # This lib is for show image in admin site.
 
 class ItemAvailableFilter(admin.SimpleListFilter):
@@ -39,6 +39,11 @@ class ProductsItemAdmin(admin.ModelAdmin):
     readonly_fields = ['number_item_sold',]
     list_per_page = 10
 
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ['title', 'brief', 'show_background', 'posted_date']
+    fields = ['title', 'brief', ('background', 'show_background'), 'content', 'posted_date']
+    readonly_fields = ['show_background', 'posted_date']
     
 # Register your models here.
 admin.site.register(Item, ProductsItemAdmin)
+admin.site.register(Blog, BlogAdmin)

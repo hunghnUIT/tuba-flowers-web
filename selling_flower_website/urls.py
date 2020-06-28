@@ -49,6 +49,8 @@ urlpatterns = [
     # For facebook login
     path('accounts/', include('allauth.urls')),
 
+    # For ckeditor
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     #call checkout 
     # path('proceed/',users_views.loadcheckout,name='checkout')
     # Test

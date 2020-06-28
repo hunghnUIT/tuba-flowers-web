@@ -42,9 +42,9 @@ Cart
                                     src="{{ item.item.image.first.image.url }}" alt="item-image" class="img-fluid"
                                     height="120px" width="120px"></a></td>
                         <td class="text-product-cell" data-title="product">{{ item.item.title }}</td>
-                        <td class="text-product-cell" data-title="price"><span class="price">{{ item.item.price }}</span></td>
+                        <td class="text-product-cell" data-title="price"><span class="price">{{ item.item.get_final_price }}</span></td>
                         <td class="quantity-product-cell" data-title="quantity">
-                            <input type="number" required value="{{ item.quantity }}" min=0>
+                            <input type="number" required value="{{ item.quantity }}" min=1>
                         </td>
                         <td class="text-product-cell" data-title="total"><span class="price">{{ item.get_final_price }}</span></td>
                         <td class="delete-product-cell text-product-cell" data-title="Remove"><a
