@@ -5,6 +5,8 @@ from django.utils.html import format_html
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from topic.models import Topic
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils.html import mark_safe
 
 # Category: string, title: string, description: string, price: int, is_available: true/false, tag: [string, string,...]
 
@@ -56,22 +58,22 @@ class ItemImage(models.Model):
             img.save(self.image.path)
 
 
-# class Blog(models.Model):
-#     title = models.CharField(max_length = 150, unique = True)
-#     brief = models.TextField()
-#     background = models.ImageField(upload_to = 'blog_background')
-#     content = RichTextUploadingField()
-#     posted_date = models.DateField(auto_now_add = True)
-#     # tags = models.ManyToManyField(Tag, blank = True) #Bây giờ tạm ẩn, sau này tách ra làm model riêng sẽ add vô lại.
+class Blog(models.Model):
+    title = models.CharField(max_length = 150, unique = True)
+    brief = models.TextField()
+    background = models.ImageField(upload_to = 'blog_background')
+    content = RichTextUploadingField()
+    posted_date = models.DateField(auto_now_add = True)
+    # tags = models.ManyToManyField(Tag, blank = True) #Bây giờ tạm ẩn, sau này tách ra làm model riêng sẽ add vô lại.
 
 
-#     def __str__(self):
-#         return self.title
+    def __str__(self):
+        return self.title
 
-#     def show_background(self):
-#         return mark_safe('<img src="/media/%s" width="100" height="auto"/>' % self.background)
-#     show_background.short_description = ''
+    def show_background(self):
+        return mark_safe('<img src="/media/%s" width="100" height="auto"/>' % self.background)
+    show_background.short_description = 'Background Image'
 
-#     def get_tags(self):
-#         return ", ".join([t.name for t in self.tags.all()])
-#     get_tags.short_description = 'tags'
+    # def get_tags(self):
+    #     return ", ".join([t.name for t in self.tags.all()])
+    # get_tags.short_description = 'tags'
