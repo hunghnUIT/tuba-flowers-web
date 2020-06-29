@@ -130,15 +130,18 @@
 
                     </div>
                     <div class="modal-body">
-                        <div class="input-group" id="input-group">
-                            <input type="text" class="form-control" placeholder="What are you looking for?"
-                                name="search" id="search-box">
-                            <div class="input-group-btn" id="input-group-btn">
-                                <button class="btn btn-customize btn-default p-0" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
+                        <form action="" method="GET">
+                            <div class="input-group" id="input-group">
+                                <input type="text" class="form-control" placeholder="What are you looking for?"
+                                    name="search" id="search-box">
+                                <div class="input-group-btn" id="input-group-btn">
+                                    <button class="btn btn-customize btn-default p-0" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                        
                     </div>
                     <div class="modal-footer">
 
@@ -260,6 +263,9 @@
 <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
 <script src="{% static 'js/header.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>
+<script>
+    document.getElementById("search-box").value = "{{query}}"
+</script>
 {% block JavaScript %}
 {% endblock %}
 </body>
