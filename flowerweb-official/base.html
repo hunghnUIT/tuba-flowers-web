@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -130,10 +131,10 @@
 
                     </div>
                     <div class="modal-body">
-                        <form action="" method="GET">
+                        <form action="{% url 'search' %}" method="GET">
                             <div class="input-group" id="input-group">
                                 <input type="text" class="form-control" placeholder="What are you looking for?"
-                                    name="search" id="search-box">
+                                    name="q" id="search-box" required>
                                 <div class="input-group-btn" id="input-group-btn">
                                     <button class="btn btn-customize btn-default p-0" type="submit">
                                         <i class="fa fa-search"></i>
@@ -263,8 +264,14 @@
 <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
 <script src="{% static 'js/header.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>
+<!-- JS for autocomplete search bar -->
 <script>
-    document.getElementById("search-box").value = "{{query}}"
+    $( function() {
+        $("#search-box").autocomplete({
+            source: "{% url 'auto-search' %}",
+            minLength: 2
+        });
+    } );
 </script>
 {% block JavaScript %}
 {% endblock %}

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -40,7 +41,7 @@
                     aria-expanded="false" aria-controls="collapse-target">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="index.html" class="navbar-brand"><img src="{% static 'images/home/logo_transparent.png' %}"
+                <a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'images/home/logo_transparent.png' %}"
                         alt="logo" width="120px" height="120px"></a>
                 <div class="display-block w-100">
                     <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow "
@@ -148,11 +149,11 @@
                     <div class="modal-header">
 
                     </div>
-                    <form action="" method="GET">
+                    <form action="{% url 'search' %}" method="GET">
                         <div class="modal-body">
                             <div class="input-group" id="input-group">
                                 <input type="text" class="form-control" placeholder="What are you looking for?"
-                                    name="search" id="search-box">
+                                    name="q" id="search-box" required>
                                 <div class="input-group-btn" id="input-group-btn">
                                     <button class="btn btn-customize btn-default p-0" type="submit">
                                         <i class="fa fa-search"></i>
@@ -536,6 +537,32 @@
     <script src="{% static 'js/blog.js' %}"></script>
     <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/home-product.js' %}"></script>
+    <!-- JS for auto complete search bar -->
+    <script> 
+        $( function() {
+            $("#search-box").autocomplete({
+                source: "{% url 'auto-search' %}",
+                minLength: 2
+            });
+            
+            // $("#search-box").autocomplete({
+            //     source: "{% url 'auto-search' %}",
+            //     select: function (event, ui) {
+            //         var elem = $(event.originalEvent.toElement);
+            //         if (elem.hasClass('ac-item-a')) {
+            //             var url = elem.attr('data-url');
+            //             event.preventDefault();
+            //             window.open(url, '_blank ');
+            //         }
+            //     }
+            // }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            //     return $("<li></li>")
+            //         .data("item.autocomplete", item)
+            //         .append('<a>' + item.label + '<span class="ac-item-a" data-url="http://www.nba.com"> View Details</span></a>')
+            //         .appendTo(ul);
+            // };
+        });
+    </script>
 </body>
 
 </html>

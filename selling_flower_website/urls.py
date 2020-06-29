@@ -53,6 +53,10 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('blogs/<int:pk>', products_views.BlogDetailView.as_view(), name='blog-detail'),
     
+    # Search box.
+    path('search/', users_views.item_search_view, name='search'),
+    path('auto-search/', users_views.auto_search, name='auto-search'),
+
     #call checkout 
     # path('proceed/',users_views.loadcheckout,name='checkout')
     # Test

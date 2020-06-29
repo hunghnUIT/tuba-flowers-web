@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
 from topic.models import Topic
+from django.http import JsonResponse
 import random
 
 # def handler404(request, *args, **argv):
@@ -59,13 +60,14 @@ def home(request):
         }
     return render(request, 'index.html', contexts)
 
+# For search button
 def get_items_queryset(query=None):
     queryset = []
     queries = query.split(" ")
     for q in queries:
         items = Item.objects.filter(
             Q(title__icontains=q) | 
-            Q(tag__icontains=q)
+            Q(tag__title__icontains=q)
         ).distinct()
 
         for item in items:
@@ -74,15 +76,28 @@ def get_items_queryset(query=None):
 
 def item_search_view(request):
     contexts = {}
-
     query = ""
-    if request.GET:
-        query = request.GET['search']
+    if request.method == 'GET':
+        query = request.GET['q']
         contexts['query'] = str(query)
     
     items = get_items_queryset(query)
     contexts['items'] = items
     return render(request, 'product-list.html', contexts)
+# End search button
+
+# For autocomplete search
+def auto_search(request):
+    if 'term' in request.GET:
+        q = request.GET.get('term')
+        qs = Item.objects.filter(
+            Q(title__icontains=q) | 
+            Q(tag__title__icontains=q)| 
+            Q(topic__title__icontains=q)
+        ).distinct().values('title')
+        return JsonResponse(data=list(qs), safe=False) #Return json is required for jquery autocomplete
+    return render(request, 'index.html')
+# End autocomplete search
 
 '''
 NOTE: This lines of code for test purpose only 
