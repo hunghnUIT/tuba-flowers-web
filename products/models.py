@@ -10,13 +10,25 @@ from django.utils.html import mark_safe
 
 # Category: string, title: string, description: string, price: int, is_available: true/false, tag: [string, string,...]
 
+class Tag(models.Model):
+    title = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.title
+
+class Category(models.Model):
+    title = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.title
+
 class Item(models.Model):
-    category = models.CharField(max_length=30)
+    category = models.ManyToManyField(Category, blank=True)
     title = models.CharField(max_length=30)
     description = models.TextField(default='')
     price = models.PositiveIntegerField()
     number_item_left = models.PositiveIntegerField(default=1)
-    tag = models.CharField(max_length=50) # This field must be divided by comma (,) between each tag
+    tag = models.ManyToManyField(Tag, blank=True, null=True) # This field must be divided by comma (,) between each tag
     weight = models.DecimalField(max_digits=5, decimal_places=2, default=1.0)
     dimension = models.CharField(max_length=20, default='? x ? x ?')
     discount_percent = models.DecimalField(max_digits=3, decimal_places=2, default=0.00, validators=[MinValueValidator(0.00), MaxValueValidator(1.00)])

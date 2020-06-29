@@ -218,20 +218,19 @@
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
+                            {% for blog in blogs %}
                             <div class="swiper-slide">
                                 <div class="blog-slide-wrapper">
                                     <div class="blog-item text-center">
                                         <div class="blog-item-title">From our latest blog</div>
-                                        <div class="blog-slide-title">Flower Power</div>
-                                        <div class="blog-content">A perfect blend of<br>
-                                            creativity, energy, communication,<br>
-                                            happiness and love.<br>
-                                            Let us arrange a smile for you.
+                                        <div class="blog-slide-title">{{ blog.title }}</div>
+                                        <div class="blog-content">{{ blog.brief }}
                                         </div>
-                                        <a class="blog-see-more" href="#">discover now</a>
+                                        <a class="blog-see-more" href="{% url 'blog-detail' blog.pk%}">discover now</a>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                         <!-- If we need pagination -->
                         <div class="swiper-pagination blog-pagination"></div>

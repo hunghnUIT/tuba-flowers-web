@@ -67,18 +67,14 @@
                         <div class="more-information">
                             <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
                             <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;
-                                {% with object.category|split_to_link:"," as categories %}
-                                    {% for cate in categories %}
-                                        <a href="{% url 'products-category' cate %}">{{ cate }}</a> 
-                                    {% endfor %}
-                                {% endwith %} 
+                                {% for category in object.category.all %}
+                                    <a href="{% url 'products-category' category %}">{{ category|capitalize }}</a> 
+                                {% endfor %}
                             </p>
                             <p><span class="font-weight-bold">TAGS :</span>&nbsp
-                                {% with object.tag|split_to_link:"," as tags %}
-                                    {% for tag in tags %}
-                                        <a href="{% url 'products-tag' tag %}">{{ tag }}</a> 
-                                    {% endfor %}
-                                {% endwith %} 
+                                {% for tag in object.tag.all %}
+                                    <a href="{% url 'products-tag' tag %}">{{ tag }}</a> 
+                                {% endfor %}
                             </p>
                         </div>
                     </div>

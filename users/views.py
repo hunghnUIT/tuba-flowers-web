@@ -3,7 +3,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CheckoutForm, ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Order, ItemSelection
-from products.models import Item
+from products.models import Item, Blog
 from django.utils import timezone
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,7 +37,7 @@ def register(request):
 
 def home(request):
     on_sale = Item.objects.filter(discount_percent__gt=0.01).order_by('-discount_percent')
-    new_arrival = Item.objects.filter(tag__contains = 'new')
+    new_arrival = Item.objects.filter(tag__title = 'new')
     list_topic = Topic.objects.all()
     
     # Due to there is only 4 topic display in homepage, we will random them and get only four topics
@@ -48,11 +48,14 @@ def home(request):
             topic_have_item.append(topic)
     list_topic_random_order = sorted(topic_have_item, key=lambda x: random.random())
     
+    blogs = Blog.objects.all().order_by('-posted_date')[:3] # Get only 3 LASTEST blogs
+
     contexts = {
         'on_sale':on_sale,
         'new_arrival':  new_arrival,
         'list_topic': list_topic,
-        'list_topic_random_order': list_topic_random_order
+        'list_topic_random_order': list_topic_random_order,
+        'blogs': blogs,
         }
     return render(request, 'index.html', contexts)
 

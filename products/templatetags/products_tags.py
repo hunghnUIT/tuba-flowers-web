@@ -14,3 +14,8 @@ def split_to_link(value, arg):
 @register.filter(name='lower')
 def lower(value, arg):
     return value.lower()
+
+
+@register.filter(name='capitalize')
+def capitalize(value):
+    return str(value).capitalize()
