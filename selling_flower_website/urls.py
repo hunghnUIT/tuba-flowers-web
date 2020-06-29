@@ -49,6 +49,10 @@ urlpatterns = [
     # For facebook login
     path('accounts/', include('allauth.urls')),
 
+    # For ckeditor
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('blogs/<int:pk>', products_views.BlogDetailView.as_view(), name='blog-detail'),
+    
     #call checkout 
     # path('proceed/',users_views.loadcheckout,name='checkout')
     # Test
