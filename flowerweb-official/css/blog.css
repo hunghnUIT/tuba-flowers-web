@@ -102,7 +102,12 @@
     width: 34px;
     height: 25px;
 }
-
+.blog-row img {
+    width: 250px !important;
+    height: 160px !important;
+    border-radius: 10px;
+    
+}
 /***RESPONSIVE****/
 @media (min-width: 576px) {
     .blog-row img {

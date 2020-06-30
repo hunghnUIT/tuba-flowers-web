@@ -41,10 +41,9 @@
     height: 300px;
     object-fit: cover;
     margin-bottom: 10px;
-    transition: 0.8s;
+    transition: 0.4s;
 }
 .product-tab-wrapper {
-    margin-bottom: 20px;
     /* overflow: hidden; */
 }
 .product-wrapper:before {
@@ -53,7 +52,7 @@
     top: 0;
     left: -750px;
     width:180%;
-    height: 300px;
+    height: 325px;
     background: rgba(255, 255, 255, 0.5);
     margin-bottom: 20px;
     transition: 0.6s;
@@ -63,18 +62,26 @@
 
 
 .product-wrapper {
-    font-family: AdobeMingStd, sans-serif;
+    font-family: Montserrat-light, sans-serif;
     margin-bottom: 20px;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     transition: 0.3s ;
     overflow: hidden;
 }
 
-.product-wrapper h3 {
+.product-wrapper h5 {
     color: #000000;
     font-size: 1rem;
+    font-family: Montserrat-light, sans-serif;
 }
 
+.card-body >a {
+    text-decoration: none;
+}
+.card-body{
+    padding-top: 0px !important;
+    padding-bottom: 0.5rem !important;
+}
 .product-saleoff {
     position: relative;
 }
@@ -92,21 +99,24 @@
     left: 550px;
 }
 .product-wrapper:hover img{
-    transform: scale(1.1);
+    transform: scale(1.04);
+    opacity: 0.7 !important;
 }
 .add-btn-wrapper {
     position: relative;
     top:80px;
     transition: 0.3s;
 }
+.product-wrapper:hover .price-hide{
+    opacity: 0 !important;
+}
+/* btn add to cart move top */
 .product-wrapper:hover .add-btn-wrapper{
-    top: 5px;
-    margin-bottom: 10px;
+    top: -30px;
 }
 .product-wrapper:hover .btn-outline-dark{
     visibility: visible !important;
     opacity: 1 !important;
-    top: 5px;
 }
 .btn-outline-dark i {
     opacity: 0 !important;
@@ -148,7 +158,7 @@
     }
 
     .product-wrapper h3 {
-        font-size: 1.75rem;
+        font-size: 1.3rem;
     }
 
     #home-product-section .row {
@@ -166,7 +176,7 @@
 .product-wrapper img {
     float: left;
     width: 100%;
-    height: 290px;
+    height: 320px;
     object-fit: cover;
     margin-bottom: 20px;
 }
@@ -177,7 +187,6 @@
         width: 100%;
         height: 210px;
         object-fit: cover;
-        margin-bottom: 20px;
     }
     .btn-outline-dark{
         display: none;

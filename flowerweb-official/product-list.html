@@ -1,9 +1,11 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load products_tags %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/product.css' %}">
 <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
+<link rel="stylesheet" href="{% static 'css/discount.css' %}">
 <span id="list" style="display: none"></span>
 {% endblock %}
 {% block landscape-class %}
@@ -42,15 +44,28 @@
                         </div>
                         <div class="row append-result">
                             {% for item in items %}
-                            <div class="col-md-4 col-6 result p-1">
-                                <div class="card product-wrapper">
+                            <div class="col-md-4 col-6 result p-1 ">
+                                <div class="card product-wrapper border-0">
                                     <a href="{% url 'item-detail' item.pk %}"><img class="img-item img-fluid rounded" src="{{ item.image.first.image.url }}"
                                         alt="Preview item"></a>
+                                    {% if item.discount_percent > 0 %}
+                                        <label class="discount"> <strong>{{ item.discount_percent|display_percent }} %</strong> </label>
+                                    {% endif %}
                                     <div class="card-body p-2">
                                         <a href="{% url 'item-detail' item.pk %}">
-                                            <h3 class="card-title text-center">{{ item.title }}</h3>
+                                            <h5 class="card-title text-center">{{ item.title }}</h5>
                                         </a>
-                                        <p class="card-tex text-center m-0"><span class="price">{{ item.price }}</span></p>
+                                        <div onmousedown="return false" onselectstart="return false">
+                                        {% if item.discount_percent > 0 %}
+                                            <p class="card-tex text-center mb-1">
+                                                <span
+                                                class="price font-weight-bold price-hide" >{{ item.get_final_price }}</span>
+                                            <del class=" price font-italic price-hide" >{{ item.price }}</del></p>
+                                        {% else %}
+                                            <p class="card-tex text-center mb-1"> <span
+                                                class="price font-weight-bold price-hide" >{{ item.price }}</span></p>
+                                        {% endif %}
+                                        </div>
                                         <div class="add-btn-wrapper col text-center">
                                             <a style="visibility: hidden;
                                   opacity: 0;
