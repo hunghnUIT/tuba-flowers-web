@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -42,7 +43,7 @@
                     aria-expanded="false" aria-controls="collapse-target">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="index.html" class="navbar-brand"><img src="{% static 'images/home/logo_transparent.png' %}"
+                <a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'images/home/logo_transparent.png' %}"
                         alt="logo" width="120px" height="120px"></a>
                 <div class="display-block w-100">
                     <div class="collapse navbar-collapse border-bottom border-dark w-100 box-shadow "
@@ -76,11 +77,9 @@
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
                                             <a class="dropdown-item" href="{% url 'products-all' %}">Product list</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="notfound-404.html">Wedding</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Birthday</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Party</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Valentine</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Tet</a>
+                                            {% for topic in list_topic %}
+                                                <a class="dropdown-item" href="{% url 'products-topic' topic.title %}">{{ topic.title }}</a>
+                                            {% endfor %}
                                         </div>
                                     </li>
                                 </ul>
@@ -152,17 +151,20 @@
                     <div class="modal-header">
 
                     </div>
-                    <div class="modal-body">
-                        <div class="input-group" id="input-group">
-                            <input type="text" class="form-control" placeholder="What are you looking for?"
-                                name="search" id="search-box">
-                            <div class="input-group-btn " id="input-group-btn">
-                                <button class="btn btn-customize btn-default p-0" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
+                    <form action="{% url 'search' %}" method="GET">
+                        <div class="modal-body">
+                            <div class="input-group" id="input-group">
+                                <input type="text" class="form-control" placeholder="What are you looking for?"
+                                    name="q" id="search-box" required>
+                                <div class="input-group-btn" id="input-group-btn">
+                                    <button class="btn btn-customize btn-default p-0" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                    
                     <div class="modal-footer">
 
                     </div>
@@ -222,20 +224,19 @@
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
+                            {% for blog in blogs %}
                             <div class="swiper-slide">
                                 <div class="blog-slide-wrapper">
                                     <div class="blog-item text-center">
                                         <div class="blog-item-title">From our latest blog</div>
-                                        <div class="blog-slide-title">Flower Power</div>
-                                        <div class="blog-content">A perfect blend of<br>
-                                            creativity, energy, communication,<br>
-                                            happiness and love.<br>
-                                            Let us arrange a smile for you.
+                                        <div class="blog-slide-title">{{ blog.title }}</div>
+                                        <div class="blog-content">{{ blog.brief }}
                                         </div>
-                                        <a class="blog-see-more" href="#">discover now</a>
+                                        <a class="blog-see-more" href="{% url 'blog-detail' blog.pk%}">discover now</a>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                         <!-- If we need pagination -->
                         <div class="swiper-pagination blog-pagination"></div>
@@ -247,60 +248,41 @@
 
                 </div>
                 <div class="col-lg-7">
-                    <div class="blog-row">
-                        <div class="row text-center">
-                            <div class="col-12 blog-col d-block d-sm-none mb-3 mb-sm-0">
-                                <img width="268" height="168" src="{%static 'images/home/blog-item-1.png'%}" alt="">
-                            </div>
-                            <div class="col-sm-6 blog-col">
-                                <div>Start from 200.000 VNĐ</div>
-                                <div class="blog-col-title">Party Flower</div>
-                                <div><a href="#">Shop collections >></a></div>
-                            </div>
-                            <div class="col-sm-6 blog-col d-none d-sm-block">
-                                <img width="268" height="168" src="{%static 'images/home/blog-item-1.png'%}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-row">
-                        <div class="row text-center">
-                            <div class="col-sm-6 blog-col mb-3 mb-sm-0">
-                                <img width="268" height="168" src="{%static 'images/home/blog-item-2.png'%}" alt="">
-                            </div>
-                            <div class="col-sm-6 blog-col">
-                                <div>Start from 200.000 VNĐ</div>
-                                <div class="blog-col-title">Wedding Flower</div>
-                                <div><a href="#">Shop collections >></a></div>
+                    {% for topic in list_topic_random_order %}
+                    {% if forloop.counter0 < 4 %}
+                        {% if forloop.counter0|divisibleby:2 %}
+                        <div class="blog-row">
+                            <div class="row text-center">
+                                <div class="col-12 blog-col d-block d-sm-none mb-3 mb-sm-0">
+                                    <img width="268" height="168" src="{%static 'images/home/blog-item-1.png'%}" alt="">
+                                </div>
+                                <div class="col-sm-6 blog-col">
+                                    <div>Start from {{ topic.get_min_price_of_topic }} VNĐ</div>
+                                    <div class="blog-col-title">{{ topic.title }} Flower</div>
+                                    <div><a href="{% url 'products-topic' topic.title %}">Shop collections >></a></div>
+                                </div>
+                                <div class="col-sm-6 blog-col d-none d-sm-block">
+                                    <img width="268" height="168" src="{{ topic.image.url }}" alt="">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="blog-row">
-                        <div class="row text-center">
-                            <div class="col-12 blog-col d-block d-sm-none mb-3 mb-sm-0">
-                                <img width="268" height="168" src="{%static 'images/home/blog-item-3.png'%}" alt="">
-                            </div>
-                            <div class="col-sm-6 blog-col">
-                                <div>Start from 200.000 VNĐ</div>
-                                <div class="blog-col-title">Birthday Flower</div>
-                                <div><a href="#">Shop collections >></a></div>
-                            </div>
-                            <div class="col-sm-6 blog-col d-none d-sm-block">
-                                <img width="268" height="168" src="{%static 'images/home/blog-item-3.png'%}" alt="">
+                        {% else %}
+                        <div class="blog-row">
+                            <div class="row text-center">
+                                <div class="col-sm-6 blog-col mb-3 mb-sm-0">
+                                    <img width="268" height="168" src="{{ topic.image.url }}" alt="">
+                                </div>
+                                <div class="col-sm-6 blog-col">
+                                    <div>Start from {{ topic.get_min_price_of_topic }} VNĐ</div>
+                                    <div class="blog-col-title">{{ topic.title }} Flower</div>
+                                    <div><a href="{% url 'products-topic' topic.title %}">Shop collections >></a></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="blog-row">
-                        <div class="row text-center">
-                            <div class="col-sm-6 blog-col mb-3 mb-sm-0">
-                                <img width="268" height="168" src="{%static 'images/home/blog-item-4.png'%}" alt="">
-                            </div>
-                            <div class="col-sm-6 blog-col">
-                                <div>Start from 200.000 VNĐ</div>
-                                <div class="blog-col-title">Valentine Flower</div>
-                                <div><a href="#">Shop collections >></a></div>
-                            </div>
-                        </div>
-                    </div>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    
                 </div>
             </div>
         </div>
@@ -567,6 +549,32 @@
     <script src="{% static 'js/blog.js' %}"></script>
     <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/home-product.js' %}"></script>
+    <!-- JS for auto complete search bar -->
+    <script> 
+        $( function() {
+            $("#search-box").autocomplete({
+                source: "{% url 'auto-search' %}",
+                minLength: 2
+            });
+            
+            // $("#search-box").autocomplete({
+            //     source: "{% url 'auto-search' %}",
+            //     select: function (event, ui) {
+            //         var elem = $(event.originalEvent.toElement);
+            //         if (elem.hasClass('ac-item-a')) {
+            //             var url = elem.attr('data-url');
+            //             event.preventDefault();
+            //             window.open(url, '_blank ');
+            //         }
+            //     }
+            // }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            //     return $("<li></li>")
+            //         .data("item.autocomplete", item)
+            //         .append('<a>' + item.label + '<span class="ac-item-a" data-url="http://www.nba.com"> View Details</span></a>')
+            //         .appendTo(ul);
+            // };
+        });
+    </script>
 </body>
 
 </html>

@@ -18,3 +18,8 @@ def lower(value, arg):
 @register.filter(name='display_percent')
 def lower(value):
     return int(value*100)
+
+@register.filter(name='capitalize')
+def capitalize(value):
+    return str(value).capitalize()
+

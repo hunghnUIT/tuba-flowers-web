@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -74,11 +75,9 @@
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
                                             <a class="dropdown-item" href="{% url 'products-all' %}">Product list</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="notfound-404.html">Wedding</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Birthday</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Party</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Valentine</a>
-                                            <a class="dropdown-item" href="notfound-404.html">Tet</a>
+                                            {% for topic in list_topic %}
+                                                <a class="dropdown-item" href="{% url 'products-topic' topic.title %}">{{ topic.title }}</a>
+                                            {% endfor %}
                                         </div>
                                     </li>
                                 </ul>
@@ -134,15 +133,18 @@
 
                     </div>
                     <div class="modal-body">
-                        <div class="input-group" id="input-group">
-                            <input type="text" class="form-control" placeholder="What are you looking for?"
-                                name="search" id="search-box">
-                            <div class="input-group-btn" id="input-group-btn">
-                                <button class="btn btn-customize btn-default p-0" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
+                        <form action="{% url 'search' %}" method="GET">
+                            <div class="input-group" id="input-group">
+                                <input type="text" class="form-control" placeholder="What are you looking for?"
+                                    name="q" id="search-box" required>
+                                <div class="input-group-btn" id="input-group-btn">
+                                    <button class="btn btn-customize btn-default p-0" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                        
                     </div>
                     <div class="modal-footer">
 
@@ -264,6 +266,15 @@
 <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
 <script src="{% static 'js/header.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>
+<!-- JS for autocomplete search bar -->
+<script>
+    $( function() {
+        $("#search-box").autocomplete({
+            source: "{% url 'auto-search' %}",
+            minLength: 2
+        });
+    } );
+</script>
 {% block JavaScript %}
 {% endblock %}
 </body>

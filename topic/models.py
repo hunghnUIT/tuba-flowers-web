@@ -9,3 +9,10 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_min_price_of_topic(self):
+        items_set = self.item_set.all().order_by('price')
+        min_price_of_topic = 0
+        if items_set:
+            min_price_of_topic = items_set[0].price
+        return min_price_of_topic

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Item
+from .models import Item, Blog
 from django.views.generic import ListView, DetailView
 # from products.models import Property
 
@@ -39,8 +39,7 @@ class ItemsWithCategoryListView(ListView): # Click at an category and it return 
     def get_queryset(self): # Get the list of items for this view.
         kw_order_by = self.request.GET.get('order_by')
         cate = self.kwargs.get('category')
-        items_match = Item.objects.filter(category__contains = cate)
-        available_items = items_match.filter(stop_selling=False)
+        available_items = Item.objects.filter(category__title = cate, stop_selling=False)
         if kw_order_by:
             if kw_order_by == 'asc-price':
                 return available_items.order_by('price')
@@ -61,9 +60,8 @@ class ItemsWithTopicListView(ListView): # Choose a topic and it return items wit
 
     def get_queryset(self): # Get the list of items for this view.
         kw_order_by = self.request.GET.get('order_by')
-        topic = self.kwargs.get('topic')
-        items_match = Item.objects.filter(topic__title=topic)
-        available_items = items_match.filter(stop_selling=False)
+        topic = self.kwargs.get('topic').capitalize()
+        available_items = Item.objects.filter(topic__title=topic, stop_selling=False)
         if kw_order_by:
             if kw_order_by == 'asc-price':
                 return available_items.order_by('price')
@@ -85,8 +83,7 @@ class ItemsWithTagListView(ListView): # Choose a tag and it return items contain
     def get_queryset(self): # Get the list of items for this view.
         kw_order_by = self.request.GET.get('order_by')
         tag = self.kwargs.get('tag')
-        items_match = Item.objects.filter(tag__contains = tag)
-        available_items = items_match.filter(stop_selling=False)
+        available_items = Item.objects.filter(tag__title = tag, stop_selling=False)
         if kw_order_by:
             if kw_order_by == 'asc-price':
                 return available_items.order_by('price')
@@ -110,9 +107,13 @@ class ItemDetailView(DetailView):
         contexts = super(ItemDetailView, self).get_context_data(**kwargs)
         object = self.get_object()
         related_products = Item.objects.filter(topic=object.topic).order_by('-number_item_sold')
-        contexts['related_products'] = related_products
+        contexts['related_products'] = related_products.exclude(title=object.title) # Not include the product being viewed by user.
         if object.number_item_left < 1 or object.stop_selling == True:
             contexts['available'] = False
         else:
             contexts['available'] = True
         return contexts
+
+class BlogDetailView(DetailView):
+    model = Blog
+    template_name = 'products/blog-detail.html'

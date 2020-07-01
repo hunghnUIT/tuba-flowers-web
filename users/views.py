@@ -3,11 +3,15 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CheckoutForm, ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Order, ItemSelection
-from products.models import Item
+from products.models import Item, Blog
 from django.utils import timezone
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Q
+from topic.models import Topic
+from django.http import JsonResponse
+import random
 
 # def handler404(request, *args, **argv):
 #     return render(request, 'notfound-404.html', status=404)
@@ -34,12 +38,66 @@ def register(request):
 
 def home(request):
     on_sale = Item.objects.filter(discount_percent__gt=0.01).order_by('-discount_percent')
-    new_arrival = Item.objects.filter(tag__contains = 'new')
+    new_arrival = Item.objects.filter(tag__title = 'new')
+    list_topic = Topic.objects.all()
+    
+    # Due to there is only 4 topic display in homepage, we will random them and get only four topics
+    # Then we need to show only topics having at least 1 item
+    topic_have_item = []
+    for topic in Topic.objects.all():
+        if topic.get_min_price_of_topic() != 0:
+            topic_have_item.append(topic)
+    list_topic_random_order = sorted(topic_have_item, key=lambda x: random.random())
+    
+    blogs = Blog.objects.all().order_by('-posted_date')[:3] # Get only 3 LASTEST blogs
+
     contexts = {
         'on_sale':on_sale,
-        'new_arrival':  new_arrival
+        'new_arrival':  new_arrival,
+        'list_topic': list_topic,
+        'list_topic_random_order': list_topic_random_order,
+        'blogs': blogs,
         }
     return render(request, 'index.html', contexts)
+
+# For search button
+def get_items_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        items = Item.objects.filter(
+            Q(title__icontains=q) | 
+            Q(tag__title__icontains=q)
+        ).distinct()
+
+        for item in items:
+            queryset.append(item)
+    return list(set(queryset))
+
+def item_search_view(request):
+    contexts = {}
+    query = ""
+    if request.method == 'GET':
+        query = request.GET['q']
+        contexts['query'] = str(query)
+    
+    items = get_items_queryset(query)
+    contexts['items'] = items
+    return render(request, 'product-list.html', contexts)
+# End search button
+
+# For autocomplete search
+def auto_search(request):
+    if 'term' in request.GET:
+        q = request.GET.get('term')
+        qs = Item.objects.filter(
+            Q(title__icontains=q) | 
+            Q(tag__title__icontains=q)| 
+            Q(topic__title__icontains=q)
+        ).distinct().values('title')
+        return JsonResponse(data=list(qs), safe=False) #Return json is required for jquery autocomplete
+    return render(request, 'index.html')
+# End autocomplete search
 
 '''
 NOTE: This lines of code for test purpose only 
@@ -109,9 +167,14 @@ def orders_detail(request):
 def cancel_order(request, pk):
     order = get_object_or_404(Order, pk=pk)
     if order:
-        order.order_status = "RC"
-        order.save()
+        if order.order_status == "W":
+            order.order_status = "RC"
+            order.save()
+            messages.success(request, f'Requested cancel order, waiting for acceptation.')
+        else:
+            messages.warning(request, f'Request failed. The order has been received and being proccessing.')
         return redirect('orders-detail')
+        
 
 @login_required
 def checkout(request):
@@ -143,12 +206,21 @@ def checkout(request):
     total_cost = sum(i.get_final_price() for i in checkout_items)
     
     if request.method == 'GET':
-        checkout_form = CheckoutForm(initial={
-            'receiver': request.user.last_name + " " + request.user.first_name,
-            'phone': request.user.profile.phone,
-            'address': request.user.profile.address
-            }
-        )
+        # Check if client edit the order info.
+        if 'receiver' in request.GET or 'address' in request.GET or 'phone' in request.GET:
+            checkout_form = CheckoutForm(initial={
+                'receiver': request.GET.get('receiver'),
+                'phone': request.GET.get('phone'),
+                'address': request.GET.get('address')
+                }
+            )
+        else: #Just render the checkout page.
+            checkout_form = CheckoutForm(initial={
+                'receiver': request.user.last_name + " " + request.user.first_name,
+                'phone': request.user.profile.phone,
+                'address': request.user.profile.address
+                }
+            )
         contexts={
             'checkout_items': checkout_items,
             'total_cost': total_cost,
@@ -157,7 +229,7 @@ def checkout(request):
         
         # return render(request, 'users/checkout.html', contexts)
         return render(request, 'checkout.html', contexts)
-    else:
+    else: #This is POST method
         checkout_form = CheckoutForm(request.POST)
         if checkout_form.is_valid():
             receiver = checkout_form.cleaned_data['receiver']
@@ -214,6 +286,11 @@ def add_to_cart(request, pk, quantity):
         return redirect('item-detail', pk)
     # Get the id of item
     item = get_object_or_404(Item, pk=pk)
+
+    # Check quantity is bigger than number_item_left?
+    if quantity > item.number_item_left:
+        messages.warning(request, f"Sorry. We don't have enough " +item.title+"by now.")
+        return redirect('item-detail', pk)
     # Create a new ItemSelection if adding item is not exist in cart.
     selected_item, created = ItemSelection.objects.get_or_create(
         item=item,

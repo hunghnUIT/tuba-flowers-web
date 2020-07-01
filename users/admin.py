@@ -35,7 +35,7 @@ class UserOrdersAdmin(admin.ModelAdmin):
     short_detail.short_description = 'Short Detail'
 
     def get_items(self, obj):
-        return ", ".join([i.item.title+": "+str(i.quantity) for i in obj.items_ordered.all()])
+        return format_html("<br>".join([i.item.title+": "+str(i.quantity) for i in obj.items_ordered.all()]))
     
     get_items.short_description = 'Items Ordered'
 
