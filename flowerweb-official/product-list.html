@@ -51,7 +51,7 @@
                                     {% if item.discount_percent > 0 %}
                                         <label class="discount"> <strong>{{ item.discount_percent|display_percent }} %</strong> </label>
                                     {% endif %}
-                                    <div class="card-body p-2">
+                                    <div class="card-body p-1">
                                         <a href="{% url 'item-detail' item.pk %}">
                                             <h5 class="card-title text-center">{{ item.title }}</h5>
                                         </a>

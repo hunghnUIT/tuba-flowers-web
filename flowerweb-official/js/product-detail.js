@@ -145,12 +145,14 @@ $('#myModal').click(function (e) {
         modal.style.display = "none";
     }
 });
+var number_image=parseInt($('#num-image').text()) ;
 var swiper = new Swiper('.preview-products-container', {
-    direction: 'vertical',
+    speed:300,
+    calculationHeight:true,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
     },
     loop:true,
-    slidesPerView:3,
+    slidesPerView: number_image,
   });
