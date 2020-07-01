@@ -41,5 +41,5 @@ webencodings==0.5.1
 wrapt==1.11.2
 currencies
 django-allauth
-ckeditor>=4.0.0
+ckeditor==5.5.0
 gunicorn==20.0.4
