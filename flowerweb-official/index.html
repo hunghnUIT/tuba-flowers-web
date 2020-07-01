@@ -1,4 +1,5 @@
 ﻿{% load static %}
+{% load products_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -301,12 +302,14 @@
                 <div class="row">
                     <!-- Line 1-->
                     {% for new in new_arrival %}
-                    {% if forloop.counter0 < 4%}
+                    {% if forloop.counter0 < 4 %}
                     <div class="col-6 col-md-3 p-2">
                         <div class="card product-wrapper border-0" title="{{ new.title }}">
                             <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ new.image.first.image.url }}" alt="product"></a>
-                                    <label class="discount"> <strong>20 %</strong> </label>
+                                    {% if new.discount_percent > 0 %}
+                                        <label class="discount"> <strong>{{ new.discount_percent|display_percent }} %</strong> </label>
+                                    {% endif %}
                             <div class="card-body ">
                                 <a href="{% url 'item-detail' new.pk %}">
                                     <h5 class="mt-1">{{ new.title }}</h5>
@@ -335,7 +338,9 @@
                         <div class="card product-wrapper border-0" title="{{ new.title }}" >
                             <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ new.image.first.image.url }}" alt="product"></a>
-                                    <label class="discount"> <strong>20 %</strong> </label>
+                                    {% if new.discount_percent > 0 %}
+                                        <label class="discount"> <strong>{{ new.discount_percent|display_percent }} %</strong> </label>
+                                    {% endif %}
                             <div class="card-body ">
                                 <a href="{% url 'item-detail' new.pk %}">
                                     <h5 class="mt-1">{{ new.title }}</h5>
@@ -366,7 +371,9 @@
                         <div class="card product-wrapper border-0" title="{{ sale.title }}">
                             <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ sale.image.first.image.url }}" alt="product"></a>
-                                    <label class="discount"> <strong>20 %</strong> </label>
+                                    {% if sale.discount_percent > 0 %}
+                                        <label class="discount"> <strong>{{ sale.discount_percent|display_percent }} %</strong> </label>
+                                    {% endif %}
                             <div class="card-body">
                                 <a href="{% url 'item-detail' sale.pk %}">
                                     <h5 class="mt-1">{{ sale.title }}</h5>
@@ -396,7 +403,9 @@
                         <div class="card product-wrapper border-0" title="{{ sale.title }}">
                             <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ sale.image.first.image.url }}" alt="product"></a>
-                                    <label class="discount"> <strong>20 %</strong> </label>
+                                    {% if sale.discount_percent > 0 %}
+                                        <label class="discount"> <strong>{{ sale.discount_percent|display_percent }} %</strong> </label>
+                                    {% endif %}
                             <div class="card-body">
                                 <a href="{% url 'item-detail' sale.pk %}">
                                     <h5 class="mt-1">{{ sale.title }}</h5>
