@@ -31,7 +31,7 @@
                         
                       </div>
                       <a href="#" class="btn btn-outline-secondary btn-lg w-100" id="change-address-btn">Change address</a>
-                      <form id="change-address-form" method="POST">
+                      <form id="change-address-form" method="GET" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group mt-2">
                           <label for="new-receiver">New receiver name</label>
@@ -87,26 +87,40 @@
                               <tr>
                                 <th scope="row">{{forloop.counter}}</th>
                                 <td>{{ item.item.title }}</td>
-                                <td>{{ item.get_final_price }} VNĐ</td>
+                                <td class="price">{{ item.get_final_price }} VNĐ</td>
                                 <td class="remove-icon-cell"><a href="{% url 'remove-item-from-cart' item.item.pk %}"><i class="text-center fa fa-remove"></i></a></td>
                               </tr>
                               {% endfor %}
                               <tr>
                                 <th colspan="2" scope="row" >Temporary price</th>
-                                <td colspan="2" class="text-right">{{ total_cost }} VNĐ</td>
+                                <td colspan="2" class="text-right price total-cost">{{ total_cost }}</td>
                               </tr>
                               <tr class="shipping-cost-tr" >
                                 <th scope="row" colspan="2">Shipping cost</th>
-                                <td colspan="2" class="text-right">30.000 VNĐ</td>
+                                <td colspan="2" class="text-right price shipping-cost">30000</td>
                               </tr>
                             </tbody>
                           </table>
                     </div>
                     <div class="card-footer">
                       <strong style="color: black;">Total:</strong>
-                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold "> (FE Handle) VNĐ</span>
+                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold final-cost price"> (FE Handle) VNĐ</span>
                       <p class="font-italic text-right">(VAT inclusive)</p>
-                      <a id="order-btn" href="#" class="btn btn-outline-secondary btn-lg w-100 order-btn">Place order</a>
+                      <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group" style="display: none;">
+                            <legend class="border-bottom mb-4">Information Receiver</legend>
+                
+                            <input type="text" name="receiver" value="{{ checkout_form.receiver.value|default_if_none:'' }}">
+                            <input type="text" name="phone" value="{{ checkout_form.phone.value|default_if_none:'' }}">
+                            <input type="text" name="address" value="{{ checkout_form.address.value|default_if_none:'' }}">
+                            
+                        </fieldset>
+                        <div class="form-group">
+                            <button id="order-btn" type="submit" class="btn btn-outline-secondary btn-lg w-100 order-btn">Place order</button>
+                        </div>
+                    </form>
+                      
                     </div>
                   </div>
             </div>
