@@ -23,3 +23,7 @@ def lower(value):
 def capitalize(value):
     return str(value).capitalize()
 
+SHIPPING_FEE = 30000
+@register.filter(name='add_shipping_fee')
+def add_shipping_fee(value):
+    return value+SHIPPING_FEE

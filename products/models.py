@@ -47,7 +47,8 @@ class Item(models.Model):
 
     # def get_add_to_cart_url(self):
     #     return reverse("add-to-cart",kwargs={
-    #         'pk' : self.pk
+    #         'pk' : self.pk,
+    #         'quantity': 3
     #     })
     def get_remove_single_item_from_cart_url(self):
         return reverse("remove-single-item-from-cart",kwargs={
