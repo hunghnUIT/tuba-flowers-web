@@ -153,6 +153,5 @@ var swiper = new Swiper('.preview-products-container', {
       el: '.swiper-pagination',
       clickable: true,
     },
-    loop:true,
     slidesPerView: number_image,
   });

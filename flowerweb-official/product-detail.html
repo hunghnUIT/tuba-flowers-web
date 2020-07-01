@@ -56,7 +56,7 @@
                                 <span id="num-image" style="display:none;">{{ object.image.all.count }}</span>
                                 {% for image in object.image.all %}
                                 <div class="swiper-slide">
-                                    <div class="thumbs-product-wraps mr-2">
+                                    <div class="thumbs-product-wraps">
                                         <img class="thumbs-product-preview mb-2 border" width="120px" height="auto" src="{{ image.image.url }}" alt="preview-img">
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                 <!-- Modal to popup thumbs-->
                 <!-- The Modal -->
                 
-                <div class="col-12 col-lg-6 col-md-6 col-xl-6 d-in">
+                <div class="col-12 col-lg-7 col-md-7 col-xl-8">
                     <div class="detail-information">
                         <h2 class="detail-title">{{ object.title }}</h2>
                         {% if object.discount_percent > 0 %}

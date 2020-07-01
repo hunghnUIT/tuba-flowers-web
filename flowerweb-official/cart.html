@@ -36,7 +36,8 @@ Cart
                 <tbody>
                     {% if selected_items %}
                     {% for item in selected_items %}
-                    <tr>
+                    <tr class="item-cart">
+                        <td class="text-product-cell d-none id-item" data-title="id">{{ item.item.pk }}</td>
                         <td class="img-product-cell" data-title="thumb"><a
                                 href="{% url 'item-detail' item.item.pk %}"><img
                                     src="{{ item.item.image.first.image.url }}" alt="item-image" class="img-fluid"
@@ -44,7 +45,7 @@ Cart
                         <td class="text-product-cell" data-title="product">{{ item.item.title }}</td>
                         <td class="text-product-cell" data-title="price"><span class="price">{{ item.item.get_final_price }}</span></td>
                         <td class="quantity-product-cell" data-title="quantity">
-                            <input type="number" required value="{{ item.quantity }}" min=1>
+                            <input class="item-quantity" type="number" required value="{{ item.quantity }}" min=1>
                         </td>
                         <td class="text-product-cell" data-title="total"><span class="price">{{ item.get_final_price }}</span></td>
                         <td class="delete-product-cell text-product-cell" data-title="Remove"><a
