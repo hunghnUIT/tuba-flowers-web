@@ -11,4 +11,14 @@ $(document).ready(function () {
             $('#order-btn').show(500);
         }
     });
+    $('#change-address-form').hide();
+    $('#change-address-btn').click(function (e) { 
+        e.preventDefault();
+        $('#change-address-form').show(500);
+        $('#profile-display').hide();
+    });
+    $('#close-form').click(function (e) { 
+        e.preventDefault();
+        $('#change-address-form').hide(500);
+    });
 });

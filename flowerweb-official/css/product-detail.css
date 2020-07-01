@@ -5,7 +5,6 @@
 
 .detail-information {
     color: #1A1717;
-    padding: 20px 0;
 }
 
 .detail-title {
@@ -20,6 +19,7 @@
 .root-price {
     color: #989696;
     text-decoration: line-through;
+    line-height: 20px !important;
 }
 
 .detail-description {
@@ -119,8 +119,9 @@
 }
 
 .tab-header-section a.active {
-    color: #fff;
-    background-color: #F34F3F;
+    color: #fff !important;
+    background-color: #F34F3F !important;
+    
 }
 
 .tab-description, .tab-addinfo, .tab-review {
@@ -165,6 +166,13 @@
     right: 3px;
     background: url(../images/home/saleoff.png) no-repeat;
     background-size: cover;
+}
+.add-to-cart-wrapper {
+    border-bottom: #211d1d49 1px solid;
+    border-top: #211d1d49 1px solid;
+}
+.thumbs-product-wraps {
+    width: fit-content !important;
 }
 @media (min-width: 1200px) {
     .product-title {
@@ -245,12 +253,18 @@
 .active:after {
     content: "-"; /* Unicode character for "minus" sign (-) */
 }
+.active {
+    background-color: #FAFAFA !important;
+}
 
+.carousel-inner div img {
+    overflow: hidden;
+}
 /****RESPONSIVE*****/
 @media (min-width: 1200px) {
     .quantity-wrapper {
         width: auto;
-        margin-bottom: 0;
+        margin: 15px 0px 0px 0px;
     }
 
     .quantity-label {
@@ -262,6 +276,7 @@
     }
 
     .btn-add-to-cart {
+        margin: 15px 0px 10px 0px;
         width: auto;
     }
 

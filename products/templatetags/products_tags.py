@@ -15,7 +15,11 @@ def split_to_link(value, arg):
 def lower(value, arg):
     return value.lower()
 
+@register.filter(name='display_percent')
+def lower(value):
+    return int(value*100)
 
 @register.filter(name='capitalize')
 def capitalize(value):
     return str(value).capitalize()
+

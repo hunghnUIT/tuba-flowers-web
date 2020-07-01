@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{% static 'library/swiper/swiper.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/discount.css' %}">
+    <link rel="stylesheet" href="{% static 'modal-product-detail-css/modal.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/homebanner.css' %}">
     <link rel="stylesheet" href="{% static 'css/overview.css' %}">
@@ -300,17 +302,20 @@
                     <!-- Line 1-->
                     {% for new in new_arrival %}
                     {% if forloop.counter0 < 4%}
-                    <div class="col-6 col-md-3 p-0">
-                        <div class="card product-wrapper ">
+                    <div class="col-6 col-md-3 p-2">
+                        <div class="card product-wrapper border-0" title="{{ new.title }}">
                             <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ new.image.first.image.url }}" alt="product"></a>
-                            <div class="card-body p-0">
+                                    <label class="discount"> <strong>20 %</strong> </label>
+                            <div class="card-body ">
                                 <a href="{% url 'item-detail' new.pk %}">
-                                    <h3 class="mt-1">{{ new.title }}</h3>
+                                    <h5 class="mt-1">{{ new.title }}</h5>
                                 </a>
-                                <p class="card-tex text-center mb-1"> <span
-                                        class="price font-weight-bold">{{ new.price }}</span></p>
-                                <div class="add-btn-wrapper col text-center">
+                                <div onmousedown="return false" onselectstart="return false">
+                                    <p class="card-tex text-center mb-1"> <span
+                                        class="price font-weight-bold price-hide" >{{ new.price }}</span></p>
+                                </div>
+                                <div class="add-btn-wrapper text-center">
                                     <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button" class="btn btn-outline-dark"
                                         title="Select this item"><i class="fa fa-cart-plus mr-2 p-1"></i><span
                                             class="p-1 font-weight-bold" style="font-size: large;">Add to
@@ -326,17 +331,20 @@
                     <!-- Line 2-->
                     {% for new in new_arrival %}
                     {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
-                    <div class="col-6 col-md-3 p-0">
-                        <div class="card product-wrapper">
+                    <div class="col-6 col-md-3 p-2">
+                        <div class="card product-wrapper border-0" title="{{ new.title }}" >
                             <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ new.image.first.image.url }}" alt="product"></a>
-                            <div class="card-body p-0">
+                                    <label class="discount"> <strong>20 %</strong> </label>
+                            <div class="card-body ">
                                 <a href="{% url 'item-detail' new.pk %}">
-                                    <h3 class="mt-1">{{ new.title }}</h3>
+                                    <h5 class="mt-1">{{ new.title }}</h5>
                                 </a>
-                                <p class="card-tex text-center mb-1"> <span
-                                        class="price font-weight-bold">{{ new.price }}</span></p>
-                                <div class="add-btn-wrapper col text-center">
+                                <div onmousedown="return false" onselectstart="return false">
+                                    <p class="card-tex text-center mb-1"> <span
+                                        class="price font-weight-bold price-hide" >{{ new.price }}</span></p>
+                                </div>
+                                <div class="add-btn-wrapper text-center">
                                     <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button" class="btn btn-outline-dark"
                                         title="Select this item"><i class="fa fa-cart-plus mr-2 p-1"></i><span
                                             class="p-1 font-weight-bold" style="font-size: large;">Add to
@@ -354,18 +362,20 @@
                     <!-- Line 1-->
                     {% for sale in on_sale %}
                     {% if forloop.counter0 < 4%}
-                    <div class="col-6 col-md-3">
-                        <div class="card product-wrapper">
+                    <div class="col-6 col-md-3 p-2">
+                        <div class="card product-wrapper border-0" title="{{ sale.title }}">
                             <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ sale.image.first.image.url }}" alt="product"></a>
+                                    <label class="discount"> <strong>20 %</strong> </label>
                             <div class="card-body">
                                 <a href="{% url 'item-detail' sale.pk %}">
-                                    <h3>{{ sale.title }}</h3>
+                                    <h5 class="mt-1">{{ sale.title }}</h5>
                                 </a>
-                                <p class="card-tex text-center"> <span class="price">{{sale.get_final_price}}</span><br
-                                        class="d-block d-lg-none"><span class="price-root price">{{ sale.price }}</span>
-                                </p>
-                                <div class="add-btn-wrapper col text-center">
+                                <div onmousedown="return false" onselectstart="return false">
+                                    <p class="card-tex text-center"> <span class="price price-hide">{{sale.get_final_price}}</span><br
+                                        class="d-block d-lg-none"><span class="price-root price price-hide">{{ sale.price }}</span>
+                                </div>
+                                <div class="add-btn-wrapper text-center">
                                     <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button" class="btn btn-outline-dark"
                                         title="Select this item"><i class="fa fa-cart-plus mr-2 p-1"></i><span
                                             class="p-1 font-weight-bold" style="font-size: large;">Add to
@@ -382,18 +392,20 @@
                     <!-- Line 1-->
                     {% for sale in on_sale %}
                     {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
-                    <div class="col-6 col-md-3">
-                        <div class="card product-wrapper">
+                    <div class="col-6 col-md-3 p-2">
+                        <div class="card product-wrapper border-0" title="{{ sale.title }}">
                             <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ sale.image.first.image.url }}" alt="product"></a>
+                                    <label class="discount"> <strong>20 %</strong> </label>
                             <div class="card-body">
                                 <a href="{% url 'item-detail' sale.pk %}">
-                                    <h3>{{ sale.title }}</h3>
+                                    <h5 class="mt-1">{{ sale.title }}</h5>
                                 </a>
-                                <p class="card-tex text-center"> <span>{{sale.get_final_price}} VNĐ</span><br
-                                        class="d-block d-lg-none"><span class="price-root">{{ sale.price }} VNĐ</span>
-                                </p>
-                                <div class="add-btn-wrapper col text-center">
+                                <div onmousedown="return false" onselectstart="return false">
+                                    <p class="card-tex text-center"> <span class="price price-hide">{{sale.get_final_price}}</span><br
+                                        class="d-block d-lg-none"><span class="price-root price price-hide">{{ sale.price }}</span>
+                                </div>
+                                <div class="add-btn-wrapper text-center">
                                     <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button" class="btn btn-outline-dark"
                                         title="Select this item"><i class="fa fa-cart-plus mr-2 p-1"></i><span
                                             class="p-1 font-weight-bold" style="font-size: large;">Add to

@@ -4,7 +4,7 @@ $(window).on('scroll', function () {
     $('nav').toggleClass('black', window.scrollY >250);
 });
 $('.modal-body').click(function (e) { 
-    if ($(e.target).is('#input-group *'))
+    if ($(e.target).is('#input-group *') || $(e.target).is('.modal-change-address *'))
     {
         return;
     }

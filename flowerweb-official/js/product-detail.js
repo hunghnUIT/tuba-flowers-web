@@ -5,24 +5,26 @@ if(isMobile()) {
     document.querySelector(".tab-mobile").style.display ="none";
     document.querySelector(".tab-desktop").style.display = "block";
 }
+// Get the modal
+var modal = document.getElementById("myModal");
 
-var galleryThumbs = new Swiper('.gallery-thumbs', {
-    direction: 'vertical',
-    spaceBetween: 10,
-    slidesPerView: 3,
-    freeMode: true,
-    watchSlidesVisibility: true,
-    watchSlidesProgress: true
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+$('.thumbs-product-preview').click(function (e) { 
+    e.preventDefault();
+    modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
 });
 
-var galleryTop = new Swiper('.gallery-top', {
-    spaceBetween: 10,
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-    thumbs: {
-        swiper: galleryThumbs
-    }
-});
-
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
 var we = new WeNumberic('.wenumberic-product-detail', {
     stepvalue: 1,
     minvalue: 0,
@@ -133,3 +135,22 @@ $(document).ready(function () {
     });
 });
 
+$('#myModal').click(function (e) { 
+    if ($(e.target).is('#img01'))
+    {
+        return;
+    }
+    else
+    {
+        modal.style.display = "none";
+    }
+});
+var swiper = new Swiper('.preview-products-container', {
+    direction: 'vertical',
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    loop:true,
+    slidesPerView:3,
+  });

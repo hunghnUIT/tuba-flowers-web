@@ -53,11 +53,20 @@
     font-family: SitkaBanner;
     src: url("../fonts/Sitka%20Banner.ttf") format("truetype");
 }
-
+@font-face {
+    font-family: Montserrat-light;
+    src: url("../fonts/Montserrat-Light.ttf") format("truetype");
+}
+@font-face {
+    font-family: Montserrat-medium;
+    src: url("../fonts/Montserrat-Medium.ttf") format("truetype");
+}
 body {
     font-size: 1rem;
-    font-family: leelawad, sans-serif;
+    font-family: Montserrat-light,sans-serif;
     color: #707070;
+    position: relative;
+      height: 100%;
 }
 
 @media (min-width: 1200px) {
