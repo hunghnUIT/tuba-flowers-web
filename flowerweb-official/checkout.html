@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load products_tags %}
 {% block css %}
     <span id="list" style="display: none"></span>
     <link rel="stylesheet" href="{% static 'checkout-css/checkout.css' %}">
@@ -58,7 +59,7 @@
                     <div class="card-body ">
                       <form>
                         <div class="custom-control custom-radio pay-cod">
-                          <input type="radio" class="custom-control-input " id="customRadio" name="example" value="customEx">
+                          <input type="radio" class="custom-control-input " id="customRadio" name="example" value="customEx" checked>
                           <label class="custom-control-label" for="customRadio" ><strong>Pay in cash ( COD )</strong> </label>
                         </div>
                         <div  class="custom-control custom-radio mt-1">
@@ -104,7 +105,7 @@
                     </div>
                     <div class="card-footer">
                       <strong style="color: black;">Total:</strong>
-                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold "> (FE Handle) VNĐ</span>
+                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold "> {{total_cost|add_shipping_fee}} VNĐ</span>
                       <p class="font-italic text-right">(VAT inclusive)</p>
                       <a id="order-btn" href="#" class="btn btn-outline-secondary btn-lg w-100 order-btn">Place order</a>
                     </div>

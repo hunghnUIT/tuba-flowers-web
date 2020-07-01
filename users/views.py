@@ -289,6 +289,34 @@ def add_to_cart(request, pk, quantity):
 
     # Check quantity is bigger than number_item_left?
     if quantity > item.number_item_left:
+        messages.warning(request, f"Sorry. We just have "+ str(item.number_item_left) + " item(s) of " +item.title+" by now.")
+        return redirect('item-detail', pk)
+    # Create a new ItemSelection if adding item is not exist in cart.
+    selected_item, created = ItemSelection.objects.get_or_create(
+        item=item,
+        user=request.user,
+        ordered=False
+    )
+    # If not created new item selection -> exist selected item, selected item quantity += quantity.
+    if not created:  #If get_or_create() not created a new ItemSelection
+        # Total quantity of a item in cart must less than that item's number_item_left.
+        if selected_item.quantity + quantity > item.number_item_left: 
+            messages.warning(request, f"Sorry. We just have "+ str(item.number_item_left) + " item(s) of " +item.title+" by now.")
+            return redirect('item-detail', pk)
+        selected_item.quantity += quantity
+        selected_item.save()
+    else: # If created a new itemselection -> there is no similar item in cart -> create and assign quantity 
+        selected_item.quantity = quantity
+        selected_item.save()
+    messages.info(request, "This item was added to your cart.")
+    return redirect('item-detail', pk)
+
+
+@login_required
+def adjust_quantity(request, pk, quantity):
+    item = get_object_or_404(Item, pk=pk) #Get item adjusting quantity for checking available item
+
+    if quantity > item.number_item_left:
         messages.warning(request, f"Sorry. We don't have enough " +item.title+"by now.")
         return redirect('item-detail', pk)
     # Create a new ItemSelection if adding item is not exist in cart.
@@ -297,17 +325,10 @@ def add_to_cart(request, pk, quantity):
         user=request.user,
         ordered=False
     )
-    # If created a new itemselection -> there is no similar item in cart
-    # If not, selected item quantity +1.
-    if not created:  #If get_or_create above not created a new ItemSelection
-        selected_item.quantity += quantity
-        selected_item.save()
-    else:
-        selected_item.quantity = quantity
-        selected_item.save()
-    messages.info(request, "This item was added to your cart.")
-    return redirect('item-detail', pk)
-
+    selected_item.quantity = quantity
+    selected_item.save()
+    messages.info(request, "{}'s quantity was updated.".format(selected_item.item.title))
+    return redirect('cart')
 
 @login_required
 def remove_item_from_cart(request, pk):

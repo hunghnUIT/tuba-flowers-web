@@ -1,8 +1,7 @@
 $(document).ready(function () {
     $('.shipping-cost-tr').hide();
-    $('#order-btn').hide();
-    $('.pay-cod').click(function (e) { 
-        // $('.shipping-cost-tr').css('display', 'table-row');
+    $('#order-btn').hide();   
+    
         var isChecked = $('#customRadio').prop('checked');
         if(isChecked)
         {
@@ -10,7 +9,6 @@ $(document).ready(function () {
             console.log("clicked")
             $('#order-btn').show(500);
         }
-    });
     $('#change-address-form').hide();
     $('#change-address-btn').click(function (e) { 
         e.preventDefault();
