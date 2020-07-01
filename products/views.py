@@ -107,7 +107,7 @@ class ItemDetailView(DetailView):
         contexts = super(ItemDetailView, self).get_context_data(**kwargs)
         object = self.get_object()
         related_products = Item.objects.filter(topic=object.topic).order_by('-number_item_sold')
-        contexts['related_products'] = related_products
+        contexts['related_products'] = related_products.exclude(title=object.title) # Not include the product being viewed by user.
         if object.number_item_left < 1 or object.stop_selling == True:
             contexts['available'] = False
         else:

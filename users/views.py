@@ -206,12 +206,21 @@ def checkout(request):
     total_cost = sum(i.get_final_price() for i in checkout_items)
     
     if request.method == 'GET':
-        checkout_form = CheckoutForm(initial={
-            'receiver': request.user.last_name + " " + request.user.first_name,
-            'phone': request.user.profile.phone,
-            'address': request.user.profile.address
-            }
-        )
+        # Check if client edit the order info.
+        if 'receiver' in request.GET or 'address' in request.GET or 'phone' in request.GET:
+            checkout_form = CheckoutForm(initial={
+                'receiver': request.GET.get('receiver'),
+                'phone': request.GET.get('phone'),
+                'address': request.GET.get('address')
+                }
+            )
+        else: #Just render the checkout page.
+            checkout_form = CheckoutForm(initial={
+                'receiver': request.user.last_name + " " + request.user.first_name,
+                'phone': request.user.profile.phone,
+                'address': request.user.profile.address
+                }
+            )
         contexts={
             'checkout_items': checkout_items,
             'total_cost': total_cost,
@@ -220,7 +229,7 @@ def checkout(request):
         
         # return render(request, 'users/checkout.html', contexts)
         return render(request, 'checkout.html', contexts)
-    else:
+    else: #This is POST method
         checkout_form = CheckoutForm(request.POST)
         if checkout_form.is_valid():
             receiver = checkout_form.cleaned_data['receiver']

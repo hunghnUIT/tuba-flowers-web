@@ -156,9 +156,9 @@
                     {% if forloop.counter0 < 8%}
                     <div class="swiper-slide">
                         <div class="card product-wrapper" style="width: 90%;">
-                            <a href="#"><img class="img-fluid" width="324" height="344" src="{{ item.image.first.image.url }}" alt="product"></a>
+                            <a href="{% url 'item-detail' item.pk %}"><img class="img-fluid" width="324" height="344" src="{{ item.image.first.image.url }}" alt="product"></a>
                             <div class="card-body">
-                                <a href="#"><h3 class="text-center">{{ item.title }}</h3></a>
+                                <a href="{% url 'item-detail' item.pk %}"><h3 class="text-center">{{ item.title }}</h3></a>
                                 <p class="card-tex text-center"> <span>{{ item.price }}</span></p>
                             </div> 
                         </div>  
