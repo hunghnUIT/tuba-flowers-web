@@ -23,7 +23,7 @@ $(document).ready(function () {
     });
 
     function checkUsername(para) {
-        var pattern =/^[a-zA-Z]*$/;
+        var pattern =/^[a-zA-Z0-9]*$/;
         var nameInput =$('#txt-username').val();
         const temp=para.parent().parent().children('.notice');
         if(pattern.test(nameInput)&& nameInput!=""&&nameInput.length>4)
@@ -176,34 +176,28 @@ $(document).ready(function () {
             return true;
         }
     });
-    $('.login-btn').click(function (e) { 
-        var username =$('#txt-username-login').val();
-        var pass =$('#txt-password-login').val();
-        if (username=="sang123"&pass=="0123456")
-        {
-            window.location.replace("index.html");
-        }
-        else {
-            const temp=$('#login').children().children('.notice');
-            temp.addClass('show');
-            temp.children('.tooltip-text').html("The email or password is incorrect.");
-            $('.status').html('login');
-            return true;
-        }
-    });
     $('#vehicle2').change(function(){
         if(this.checked){
             $("#checkbox-error").hide();
             isValid_checkbox=true;
             console.log(isValid_checkbox);
+            $('.register-btn').prop('disabled', false);
         }
         else
         {
             isValid_checkbox=false;
+            $('.register-btn').prop('disabled', true);
         }
     });
     $('.login-btn').click(function (e) { 
         e.preventDefault();
-        
     });
+    
+    var isChecked = $('#vehicle2').prop('checked');
+    if (!isChecked){
+        $('.register-btn').prop('disabled', true);
+    }
+    else{
+        $('.register-btn').prop('disabled', false);
+    }
 });

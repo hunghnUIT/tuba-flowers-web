@@ -65,7 +65,7 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div>
-                        <h5 id="name">Your name</h5>
+                        <h5 id="name">Username</h5>
                         <input class="input" id="txt-username" type="text" name="username" placeholder="" required>
                     </div>
                     <div class="notice">
@@ -128,62 +128,11 @@
                 <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
                 <label for="vehicle2"> I agree all statements in <a href="#">Terms of services</a></label><br>
                 <div class="link-container">
-                    <a id="go-to-login" href="#login" class="nav-link">I am already member</a>
+                    <a id="go-to-login" href="{% url 'login' %}" class="nav-link">I am already member</a>
                 </div>
-                <input class="btn submit" type="submit" value="Register">
+                <input class="btn submit register-btn" type="submit" value="Register">
             </form>
-            <form id="login" method="POST">
-                {% csrf_token %}
-                <!-- {{ form }} -->
-                <img class="avt-img" src="{% static './images/sign-in/male-avatar.svg' %}" alt="avt">
-                <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
-                </h2>
-                <div class="textbox">
-                    <div class="i">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div>
-                        <h5 id="name">Email or phone number</h5>
-                        <input class="input" id="txt-username-login" type="text" name="username" placeholder=""
-                            required>
-                    </div>
-                    <div class="notice">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span class="tooltip-text"></span>
-                    </div>
-                </div>
-                <div class="textbox">
-                    <div class="i">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div>
-                        <h5 id="password">Password</h5>
-                        <input class="input" id="txt-password-login" type="password" name="password" placeholder=""
-                            required>
-                    </div>
-                    <div class="notice">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span class="tooltip-text"></span>
-                    </div>
-                </div>
-                <div class="link-container">
-                    <a id="create-account" href="#register" class="nav-link">Create an new account</a>
-                </div>
-                <!-- <button class="btn btn-outline-info" type="submit">Login</button> -->
-                <input class="btn submit" type="submit" value="Login">
-                <div class="another-way-login row justify-content-center">
-                    <div class="col-12">
-                        - Or login with other ways:
-                    </div>
-                    <a id="facebook" href="#facebook" class="nav-link col-2 text-right pr-1"
-                        title="Login with facebook">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a id="google" href="#google" class="nav-link col-2 text-left pl-1" title="Login with google">
-                        <i class="fab fa-google-plus-official"></i>
-                    </a>
-                </div>
-            </form>
+            
         </div>
         <!-- end Register -->
     </div>

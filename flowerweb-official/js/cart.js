@@ -52,4 +52,28 @@ $(document).ready(function () {
     });
 
     
+    $('.btn-update-cart').click(function (e) { 
+        e.preventDefault();
+        $(".item-cart").each(function() {
+            var id = $(this).find('.id-item').text();
+            var quantity =$(this).find('.item-quantity').val();
+            console.log(quantity);
+            // compare id to what you want
+            $.ajax({
+                type: "GET",
+                url: "/adjust-quantity/"+id+"-quantity="+quantity,
+                cache: false,
+                async: false,
+                dataType: "html",
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                success:function(response){
+                    alert("Success");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                },
+            });
+        });
+        
+    });
 });
