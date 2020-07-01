@@ -42,3 +42,4 @@ wrapt==1.11.2
 currencies
 django-allauth
 gunicorn==20.0.4
+django-ckeditor==5.9.0
