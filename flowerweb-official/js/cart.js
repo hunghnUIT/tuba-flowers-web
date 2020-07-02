@@ -67,7 +67,7 @@ $(document).ready(function () {
                 dataType: "html",
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 success:function(response){
-                    alert("Success");
+                    alert(responsea);
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert(textStatus);
