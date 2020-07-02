@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Item, Blog
+from .models import Item, Blog, Category
 from django.views.generic import ListView, DetailView
+import random
 # from products.models import Property
 
 class ItemsListView(ListView):
@@ -8,7 +9,7 @@ class ItemsListView(ListView):
     template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
     # template_name= 'products/all_items.html'
     context_object_name = 'items'
-    paginate_by = 12
+    paginate_by = 2 #Will change to 5 later, till finish button pagination.
 
     # Custom a order_by sort by final price.
     # qs = Item.objects.all()
@@ -29,6 +30,12 @@ class ItemsListView(ListView):
                 return available_items.order_by('-number_item_sold')
         else:
             return available_items
+    
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
 
 class ItemsWithCategoryListView(ListView): # Click at an category and it return items with the same category.
     model = Item

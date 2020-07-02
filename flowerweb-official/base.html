@@ -113,7 +113,7 @@
                                             </div>
                                             {% else %}
                                             <div id="visitor"  class="neumorphism toggler dropdown-menu visitor-user dropdown-menu-right" aria-labelledby="visitor">
-                                                <a href="user-page.html" class="nav-link dropdown-item-custom" title="Go to login page">
+                                                <a href="{% url 'login' %}" class="nav-link dropdown-item-custom" title="Go to login page">
                                                     <img class="text-center col-12 my-auto" src="{%static '/images/home/welcome-cat.svg'%}" alt="login" height="100px" width="100px">
                                                     <div class=" col-12 pr-1 dropdown-divider"></div>
                                                     <p class="pr-2 mt-2">Go to <span class="initialism text-uppercase">login</span>  or <span class="text-uppercase">register</span> </p></a>
@@ -234,9 +234,10 @@
                     <li class="d-flex">
                         <div class="align-self-center"><img width="49" height="51"
                                 src="{% static 'images/home/address-icon.png' %}" alt="address"></div>
-                        <div class="align-self-center">Sydney road, Billboard Street 2219-11C.<br
-                                class="d-none d-xl-block">
-                            Apple Town, Your Country.</div>
+                        <div class="align-self-center">University of Information Technology,
+                            <br class="d-none d-xl-block"> Linh Trung Ward, Thu Duc District,
+                            <br class="d-none d-xl-block">Ho Chi Minh City.
+                        </div>
                     </li>
                     <li class="d-flex">
                         <div class="align-self-center"><img width="49" height="51"

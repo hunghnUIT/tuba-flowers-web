@@ -23,11 +23,10 @@
                     <div class="col-xl-3 d-none d-xl-block">
                         <a href="#" class="d-block text-uppercase category-title">categories</a>
                         <ul class="list-unstyled category-list">
-                            <li><a class="text-uppercase" href="javascript:void(0)">cactuses</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">exotic</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">green</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">popular</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">tet</a></li>
+                            {% for cate in categories %}
+                                <li><a class="text-uppercase" href="javascript:void(0)">{{cate.title}}</a></li>
+                            {% endfor %}
+                            
                         </ul>
                     </div>
                     <div class="col-xl-9">
@@ -67,7 +66,7 @@
                                         {% endif %}
                                         </div>
                                         <div class="add-btn-wrapper col text-center">
-                                            <a style="visibility: hidden;77777777777777777
+                                            <a style="visibility: hidden;
                                   opacity: 0;
                                   transition: visibility 0s, opacity 0.5s linear;" type="button"
                                                 class="btn btn-outline-dark" title="Select this item"><i
@@ -84,6 +83,25 @@
                 </div>
             </div>
         </article>
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number}}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num}}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num}}">{{ num }}</a>
+                {% endif %}
+            {% endfor%}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number}}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+            {% endif %}  
+        {% endif %}
         {% endblock %}
         {% block JavaScript %}
         <script src="{% static 'js/list.js' %}"></script>
