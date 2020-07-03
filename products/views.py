@@ -9,7 +9,7 @@ class ItemsListView(ListView):
     template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
     # template_name= 'products/all_items.html'
     context_object_name = 'items'
-    paginate_by = 2 #Will change to 5 later, till finish button pagination.
+    paginate_by = 12
 
     # Custom a order_by sort by final price.
     # qs = Item.objects.all()
@@ -59,6 +59,12 @@ class ItemsWithCategoryListView(ListView): # Click at an category and it return 
         
         return available_items
 
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsWithCategoryListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
+
 class ItemsWithTopicListView(ListView): # Choose a topic and it return items with the same topic.
     model = Item
     template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
@@ -81,6 +87,12 @@ class ItemsWithTopicListView(ListView): # Choose a topic and it return items wit
         
         return available_items
 
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsWithTopicListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
+
 class ItemsWithTagListView(ListView): # Choose a tag and it return items containing that tag.
     model = Item
     template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
@@ -102,6 +114,12 @@ class ItemsWithTagListView(ListView): # Choose a tag and it return items contain
                 return available_items.order_by('-number_item_sold')
         
         return available_items
+    
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsWithTagListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
 
 class ItemDetailView(DetailView):
     model = Item

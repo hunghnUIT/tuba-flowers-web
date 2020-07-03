@@ -92,7 +92,7 @@ $(document).ready(function () {
     });
 
     // Update cart Ajax
-    $('.btn-update-cart').click(function (e) { 
+    $('#btn-update-cart').click(function (e) { 
         e.preventDefault();
         $(".item-cart").each(function() {
             var id = $(this).find('.id-item').text();
@@ -125,4 +125,22 @@ $(document).ready(function () {
         });
         
     });
+});
+
+// When client focus out the quantity box.
+$(".item-quantity").focusout(function(){
+    var quantity = $(this).val();
+    var number_remain = $(this).parent().find('.number-remain').text();
+    if(parseInt(quantity)){
+        if(quantity > number_remain){
+            $(this).val(parseInt(number_remain)) 
+        }
+        else if(quantity<0){
+            $(this).val(1);
+        }
+    }
+    else{
+        $(this).val(1);
+    }
+    
 });

@@ -67,7 +67,8 @@ def get_items_queryset(query=None):
     for q in queries:
         items = Item.objects.filter(
             Q(title__icontains=q) | 
-            Q(tag__title__icontains=q)
+            Q(tag__title__icontains=q) |
+            Q(category__title__icontains=q)
         ).distinct()
 
         for item in items:
