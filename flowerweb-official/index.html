@@ -258,7 +258,7 @@
                                     <img  width="268" height="168" src="{%static 'images/home/blog-item-1.png'%}" alt="">
                                 </div>
                                 <div class="col-sm-6 blog-col">
-                                    <div>Start from {{ topic.get_min_price_of_topic }} VNĐ</div>
+                                    <div>Start from {{ topic.get_min_price_of_topic|add_point }} ₫</div>
                                     <div class="blog-col-title">{{ topic.title }} Flower</div>
                                     <div><a href="{% url 'products-topic' topic.title %}">Shop collections >></a></div>
                                 </div>
@@ -278,7 +278,7 @@
                                     box-shadow: -8px -4px 15px 2px rgba(222,181,181,1);" class="img-fluid " width="220" height="150" src="{{ topic.image.url }}" alt="">
                                 </div>
                                 <div class="col-sm-6 blog-col">
-                                    <div>Start from {{ topic.get_min_price_of_topic }} VNĐ</div>
+                                    <div>Start from {{ topic.get_min_price_of_topic|add_point }} ₫</div>
                                     <div class="blog-col-title">{{ topic.title }} Flower</div>
                                     <div><a href="{% url 'products-topic' topic.title %}">Shop collections >></a></div>
                                 </div>
