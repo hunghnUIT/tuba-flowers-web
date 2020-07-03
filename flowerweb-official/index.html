@@ -255,7 +255,7 @@
                         <div class="blog-row">
                             <div class="row text-center">
                                 <div class="col-12 blog-col d-block d-sm-none mb-3 mb-sm-0">
-                                    <img width="268" height="168" src="{%static 'images/home/blog-item-1.png'%}" alt="">
+                                    <img  width="268" height="168" src="{%static 'images/home/blog-item-1.png'%}" alt="">
                                 </div>
                                 <div class="col-sm-6 blog-col">
                                     <div>Start from {{ topic.get_min_price_of_topic }} VNĐ</div>
@@ -263,7 +263,9 @@
                                     <div><a href="{% url 'products-topic' topic.title %}">Shop collections >></a></div>
                                 </div>
                                 <div class="col-sm-6 blog-col d-none d-sm-block">
-                                    <img class="topic-image" width="268" height="168" src="{{ topic.image.url }}" alt="">
+                                    <img style="border-radius: 20%; -webkit-box-shadow: -8px -4px 15px 2px rgba(222,181,181,1);
+                                    -moz-box-shadow: -8px -4px 15px 2px rgba(222,181,181,1);
+                                    box-shadow: -8px -4px 15px 2px rgba(222,181,181,1);" class="img-fluid " width=" 220" height="150" src="{{ topic.image.url }}" alt="Topic preview">
                                 </div>
                             </div>
                         </div>
@@ -271,7 +273,9 @@
                         <div class="blog-row">
                             <div class="row text-center">
                                 <div class="col-sm-6 blog-col mb-3 mb-sm-0">
-                                    <img width="268" height="168" src="{{ topic.image.url }}" alt="">
+                                    <img style="border-radius: 20%;-webkit-box-shadow: -8px -4px 15px 2px rgba(222,181,181,1);
+                                    -moz-box-shadow: -8px -4px 15px 2px rgba(222,181,181,1);
+                                    box-shadow: -8px -4px 15px 2px rgba(222,181,181,1);" class="img-fluid " width="220" height="150" src="{{ topic.image.url }}" alt="">
                                 </div>
                                 <div class="col-sm-6 blog-col">
                                     <div>Start from {{ topic.get_min_price_of_topic }} VNĐ</div>

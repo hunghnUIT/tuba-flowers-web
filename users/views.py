@@ -37,7 +37,7 @@ def register(request):
     return render(request, 'user-page-register.html', {'form': form, 'p_form': p_form})
 
 def home(request):
-    on_sale = Item.objects.filter(discount_percent__gt=0.01).order_by('-discount_percent')
+    on_sale = Item.objects.filter(discount_percent__gte=0.01).order_by('-discount_percent')
     new_arrival = Item.objects.filter(tag__title = 'new')
     list_topic = Topic.objects.all()
     

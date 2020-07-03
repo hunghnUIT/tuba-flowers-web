@@ -65,8 +65,8 @@ class ItemImage(models.Model):
 
         img = Image.open(self.image.path)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
+        if img.height > 1000 or img.width > 900:
+            output_size = (1000,900)
             img.thumbnail(output_size)
             img.save(self.image.path)
 

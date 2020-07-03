@@ -156,5 +156,5 @@ var swiper = new Swiper('.preview-products-container', {
       el: '.swiper-pagination',
       clickable: true,
     },
-    slidesPerView: number_image,
+    slidesPerView: 3,
   });
