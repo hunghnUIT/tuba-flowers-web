@@ -1,0 +1,271 @@
+.product-detail-section {
+    background-color: #fafafa;
+    padding: 60px 0;
+}
+
+.detail-information {
+    color: #1A1717;
+    padding: 20px 0;
+}
+
+.detail-title {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+}
+
+.detail-price span {
+    margin-right: 20px;
+}
+
+.root-price {
+    color: #989696;
+    text-decoration: line-through;
+}
+
+.detail-description {
+    line-height: 1.67em;
+    text-align: justify;
+    margin-bottom: 30px;
+}
+
+.quantity-wrapper {
+    width: 100%;
+    border: 1px solid #989696;
+    margin-bottom: 20px;
+}
+
+.wenumberic-product-detail {
+    border: none;
+    margin-right: 20px;
+    background-color: unset;
+}
+
+.wenumberic-product-detail .qty {
+    width: 40px;
+    background-color: unset;
+}
+
+.wenumberic-product-detail .reduced {
+    padding: 10px 30px!important;
+    background-image: url(../images/product-detail/minus.png) !important;
+    background-color: unset !important;
+}
+
+.wenumberic-product-detail .increase {
+    padding: 10px 30px!important;
+    background-image: url(../images/product-detail/plus.png) !important;
+    background-color: unset !important;
+}
+
+.quantity-label {
+    color: #989696;
+    margin-right: 18px;
+    padding: 10px 0 10px 10px;
+}
+
+.btn-add-to-cart {
+    width: 100%;
+    text-align: center;
+    padding: 10px 62px;
+    color: #fff;
+    background-color: #000;
+    border: 1px solid;
+    transition: background-color .3s ease,color .3s ease;
+}
+
+.btn-add-to-cart:hover {
+    border: 1px solid;
+    background-color: #fff;
+    color: #1A1717 !important;
+    text-decoration: none;
+
+}
+
+.add-to-cart-wrapper {
+    margin-bottom: 30px;
+}
+
+.more-information {
+    font-size: 0.875rem;
+}
+
+.more-information p {
+    margin-bottom: 10px;
+}
+
+/*****TABS******/
+.tab-content {
+    padding: 30px 0;
+    color: #1A1717;
+    border: 3px solid #fff;
+    margin-bottom: 65px;
+}
+
+.tab-header-section {
+    border-bottom: 3px solid #ffffff;
+}
+
+.tab-header-section a {
+    color: #211D1D;
+    background-color: #ffffff;
+    padding: 10px 25px;
+    font-size: 1.25rem;
+}
+
+.tab-header-section a:hover {
+    color: #fff;
+    background-color: #F34F3F;
+    text-decoration: none;
+}
+
+.tab-header-section a.active {
+    color: #fff;
+    background-color: #F34F3F;
+}
+
+.tab-description, .tab-addinfo, .tab-review {
+    padding: 20px;
+}
+
+/****RELATED PRODUCTS*****/
+.related-products-title {
+    position: relative;
+    color: #1A1717;
+    margin-bottom: 40px;
+}
+
+.related-products-title:after {
+    position: absolute;
+    content: "";
+    width: 100px;
+    height: 2px;
+    background-color: #1A1717;
+    bottom: -15px;
+    left: calc(50% - 50px);
+}
+.product-wrapper {
+    font-family: AdobeMingStd, sans-serif;
+    margin-bottom: 20px;
+    font-size: 0.875rem;
+}
+.product-wrapper img {
+    width: 100%;
+    height: auto;
+}   
+.product-wrapper h3 {
+    color: #000000;
+    font-size: 1rem;
+}
+.product-saleoff:after {
+    position: absolute;
+    content: '';
+    width: 70px;
+    height: 70px;
+    top: 3px;
+    right: 3px;
+    background: url(../images/home/saleoff.png) no-repeat;
+    background-size: cover;
+}
+@media (min-width: 1200px) {
+    .product-title {
+        font-size: 2.5rem;
+    }
+
+    .new-arrival-title {
+        font-size: 2.5rem;
+    }
+
+    .new-arrival-title img {
+        width: 65px;
+    }
+
+    .product-tab {
+        font-size: 1.25rem;
+    }
+
+    .product-wrapper {
+        font-size: 1rem;
+    }
+
+    .product-wrapper h3 {
+        font-size: 1.75rem;
+    }
+
+    #home-product-section .row {
+        margin-bottom: 20px;
+    }
+
+    .product-saleoff:after {
+        width: 140px;
+        height: 140px;
+        top: 5px;
+        right: 5px;
+    }
+}
+/****TABS MOBILE****/
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+    text-transform: uppercase;
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    line-height: 28px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+    background-color: #F34F3F;
+    color: #fff;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.collapsible:after {
+    content: '+'; /* Unicode character for "plus" sign (+) */
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "-"; /* Unicode character for "minus" sign (-) */
+}
+
+/****RESPONSIVE*****/
+@media (min-width: 1200px) {
+    .quantity-wrapper {
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    .quantity-label {
+        margin-right: 10px;
+    }
+
+    .wenumberic-product-detail .reduced, .wenumberic-product-detail .increase {
+        padding: 10px 14px !important;
+    }
+
+    .btn-add-to-cart {
+        width: auto;
+    }
+
+    .tab-description, .tab-addinfo, .tab-review {
+        padding: 0 20px;
+    }
+}

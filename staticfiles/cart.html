@@ -1,0 +1,151 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'cart-css/cart.css' %}">
+<link rel="stylesheet" href="{% static 'cart-css/responsive-cart.css' %}">
+<link rel="stylesheet" href="{% static 'cart-css/order-bill.css' %}">
+<span id="cart" style="display: none"></span>
+{% endblock %}
+{% block landscape-class %}
+    <div class="container-fluid title d-flex align-items-center cart-landscape">
+{% endblock %}
+{% block box-class %}
+    <div class="box wrap w-100 align-items-center cart-box">
+{% endblock %}
+{% block title-banner %}
+Cart
+{% endblock %}
+{% block on-page %}
+ Cart
+{% endblock %}
+{% block content %}
+    <!--table -->
+    <section id="table">
+        <div class="container table-responsive">
+            <table class="table table-light table-striped my-data-table col-12 table-hover" style="width:100%">
+                <thead>
+                    <tr class="list-header">
+                        <th scope="col">Images</th>
+                        <th scope="col">Products</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quality</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if selected_items %}
+                    {% for item in selected_items %}
+                    <tr>
+                        <td class="img-product-cell" data-title="thumb"><a
+                                href="{% url 'item-detail' item.item.pk %}"><img
+                                    src="{{ item.item.image.first.image.url }}" alt="item-image" class="img-fluid"
+                                    height="120px" width="120px"></a></td>
+                        <td class="text-product-cell" data-title="product">{{ item.item.title }}</td>
+                        <td class="text-product-cell" data-title="price"><span class="price">{{ item.item.get_final_price }}</span></td>
+                        <td class="quantity-product-cell" data-title="quantity">
+                            <input type="number" required value="{{ item.quantity }}" min=1>
+                        </td>
+                        <td class="text-product-cell" data-title="total"><span class="price">{{ item.get_final_price }}</span></td>
+                        <td class="delete-product-cell text-product-cell" data-title="Remove"><a
+                                href="{% url 'remove-item-from-cart' item.item.pk %}" class="item-link"><i
+                                    class="material-icons">remove_shopping_cart</i></a></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <td colspan="6">There is no item in your cart.</td>
+                    {% endif %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th data-title="" scope="col" colspan="3" class="text-right text-product-cell">Total:</th>
+                        <th data-title="quantity" scope="col" class="text-center text-product-cell"
+                            style="color: blueviolet;">FE handle</th>
+                        <th data-title="price" scope="col" class="text-center text-product-cell">Giá mới {{ total_cost }} giá cũ <del>{{ old_cost }}</del> vnđ
+                        </th>
+                        <th scope="col" class="text-center text-product-cell">
+                            <button class="text-capitalize btn-custom btn-update-cart">
+                                Update cart
+                            </button>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+    <!--table -->
+    <!-- coupon and bill -->
+    <div class="container coupon-bill-section">
+        <div class="row">
+            <div class="col-sm-12 col-lg-5 p-0">
+                <div class="coupon">
+                    <div class="row coupon-title">
+                        <div class="col-3 p-0">
+                            <h3>
+                                Coupon
+                            </h3>
+                        </div>
+                        <div class="col-9 p-0 border-top">
+                        </div>
+                    </div>
+                    <p>
+                        Enter your coupon code if you have one.
+                    </p>
+                    <input type="text" placeholder="ABC#1X" name="coupon" id="coupon-input">
+                    <button class="text-capitalize btn-custom btn-update-cart">
+                        Apply coupon
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-1 p-0">
+
+            </div>
+            <div class="col-sm-12 col-lg-6 cart-collateral p-0">
+                <div class="cart-total">
+                    <div class="row bill-title">
+                        <div class="col-4 p-0">
+                            <h3>
+                                Cart total
+                            </h3>
+                        </div>
+                        <div class="col-8 p-0 border-top">
+                        </div>
+                    </div>
+                    <table class="table table-sm table-borderless ">
+                        <tbody class="">
+                            <tr class="cart-subtotal">
+                                <td data-title="Subtotal" class="price">
+                                    {{ total_cost }}
+                                </td>
+                            </tr>
+                            <tr class="cart-ship-cost">
+                                <td data-title="Shipping cost">
+                                    <div>
+                                        Enter your address to view shipping options.
+                                        <br> Calculating shipping
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="cart-order-total">
+                                <td data-title="Total" class="price">
+                                    {{ total_cost }}
+                                </td>
+                            </tr>
+                            <tr class="cart-checkout">
+                                <td data-title="proceed-checkout">
+                                    <button class="text-uppercase btn-custom btn-update-cart w-100">
+                                        <a class="nav-link" href="{% url 'checkout' %}">Proceed to checkout</a>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end coupon and bill -->
+{% endblock %}
+{% block JavaScript %}
+{% endblock %}

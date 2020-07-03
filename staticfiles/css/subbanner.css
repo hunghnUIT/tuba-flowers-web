@@ -1,0 +1,57 @@
+.banner-section {
+    padding: 45px 0;
+}
+
+.banner-title {
+    font-size: 1.5rem;
+    display: inline-block;
+    color: #1A1717;
+    font-family: MinionPro, sans-serif;
+    position: relative;
+}
+
+.banner-title:before {
+    position: absolute;
+    content: "";
+    width: 40px;
+    height: 2px;
+    background-color: #707070;
+    top: 15px;
+    left: -50px;
+}
+
+.banner-title:after {
+    position: absolute;
+    content: "";
+    width: 40px;
+    height: 2px;
+    background-color: #707070;
+    top: 15px;
+    right: -50px;
+}
+
+@media (min-width: 1200px) {
+    body {
+        padding-top: 122px;
+    }
+
+    .banner-section {
+        padding: 90px 0;
+    }
+
+    .banner-title:before {
+        width: 60px;
+        top: 23px;
+        left: -75px;
+    }
+
+    .banner-title:after {
+        width: 60px;
+        top: 23px;
+        right: -75px;
+    }
+    
+    .banner-title {
+        font-size: 2rem;
+    }
+}

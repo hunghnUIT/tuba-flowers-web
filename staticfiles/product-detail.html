@@ -1,0 +1,177 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load products_tags %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'library/wenumberic/wenumberic.css' %}">
+<link rel="stylesheet" href="{% static 'css/product-detail.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
+<span id="detail" style="display: none"></span>
+{% endblock %}
+{% block landscape-class %}
+    <div class="container-fluid title d-flex align-items-center detail-landscape">
+{% endblock %}
+{% block box-class %}
+    <div class="box wrap w-100 align-items-center detail-box">
+{% endblock %}
+{% block title-banner %}Schefflera aptent taciti sociosqu{% endblock %}
+{% block on-page %} {{ object.title }} {% endblock %}
+{% block content %}
+        <!-- Id item  -->
+    <span id="id-item" style="display: none;">{{object.pk}}</span>
+        <!--  -->
+    <article class="product-detail-section">
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-md-2 d-none d-lg-block">
+                    <div>
+                        <div class="swiper-container gallery-thumbs">
+                            <div class="swiper-wrapper">
+                                {% for image in object.image.all %}
+                                <div class="swiper-slide">
+                                    <img width="140" height="auto" src="{{ image.image.url }}" alt="preview-img">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 col-lg-5 mx-auto">
+                    <div class="swiper-container gallery-top">
+                        <div class="swiper-wrapper">
+                            {% for image in object.image.all %}
+                            <div class="swiper-slide">
+                                <img width="100%" height="auto" src="{{ image.image.url }}" alt="">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="detail-information">
+                        <h2 class="detail-title">{{ object.title }}</h2>
+                        {% if object.discount_percent > 0.01 %}
+                            <p class="detail-price"><span class="price font-weight-bold font-italic" style="font-size: x-large;color: #3A5557;">{{ object.get_final_price }}</span><span class="root-price price">{{ object.price }}</span></p>
+                        {% else %}
+                        <p class="detail-price"><span class="price font-weight-bold font-italic" style="font-size: x-large;color: #3A5557;">{{ object.price }}</span>
+                        {% endif %}
+                        <p class="detail-description">{{ object.description }}</p>
+                        <div class="add-to-cart-wrapper">
+                            <div class="quantity-wrapper d-inline-block">
+                                <span class="d-inline-block quantity-label">Quantity</span>
+                                <div class="wenumberic-product-detail enumber-control">
+                                    <input id="quantity" value="1" name="quantity" class="qty" type="number" min=1 readonly>
+                                </div>
+                            </div>
+                            <button class="text-uppercase d-inline-block btn-add-to-cart" >add to cart</button>
+                        </div>
+                        <div class="more-information">
+                            <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
+                            <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;
+                                {% for category in object.category.all %}
+                                    <a href="{% url 'products-category' category %}">{{ category|capitalize }}</a> 
+                                {% endfor %}
+                            </p>
+                            <p><span class="font-weight-bold">TAGS :</span>&nbsp
+                                {% for tag in object.tag.all %}
+                                    <a href="{% url 'products-tag' tag %}">{{ tag }}</a> 
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--TAB DESKTOP/ MOBILE-->
+        <div class="tab-desktop">
+            <div class="tab-header-section">
+                <div class="container">
+                    <a id="btn-tab-description" class="text-uppercase detail-tab-style active" href="javascript:void(0)">description</a>
+                    <a id="btn-tab-addinfo" class="text-uppercase detail-tab-style" href="javascript:void(0)">additional information</a>
+                    <a id="btn-tab-review" class="text-uppercase detail-tab-style" href="javascript:void(0)">reviews</a>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="container">
+                    <div class="tab-description">
+                        <h3 class="mb-4">The power of flowers</h3>
+                        <p>{{ object.description }}</p>
+                    </div>
+                    <div class="tab-addinfo" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold">Weight:</p>
+                                <p class="font-weight-bold">Demensions:</p>
+                            </div>
+                            <div class="col-md-10">
+                                <p>{{ object.weight }} kg</p>
+                                <p>{{ object.dimension }} cm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-review" style="display: none;">
+                        <p>Thông tin đang được cập nhật...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-mobile mb-5" style="display: none;">
+            <button type="button" class="collapsible">description</button>
+            <div class="content">
+                <div class="tab-description">
+                    <h3 class="mb-4">The power of flowers</h3>
+                    <p>{{ object.description }}</p>
+                </div>
+            </div>
+            <button type="button" class="collapsible">additional information</button>
+            <div class="content">
+                <div class="tab-addinfo">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold">Weight:</p>
+                            <p class="font-weight-bold">Demensions:</p>
+                        </div>
+                        <div class="col-md-10">
+                            <p>{{ object.weight }} kg</p>
+                            <p>{{ object.dimension }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="collapsible">reviews</button>
+            <div class="content">
+                <div class="tab-review">
+                    <p>Thông tin đang được cập nhật...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2 class="related-products-title text-center">Related Products</h2>
+            <div class="swiper-container related-products-container">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    {% for item in related_products %}
+                    {% if forloop.counter0 < 8%}
+                    <div class="swiper-slide">
+                        <div class="card product-wrapper" style="width: 90%;">
+                            <a href="#"><img class="img-fluid" width="324" height="344" src="{{ item.image.first.image.url }}" alt="product"></a>
+                            <div class="card-body">
+                                <a href="#"><h3 class="text-center">{{ item.title }}</h3></a>
+                                <p class="card-tex text-center"> <span>{{ item.price }}</span></p>
+                            </div> 
+                        </div>  
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
+{% block JavaScript %}
+    <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
+    <script src="{% static 'library/wenumberic/wenumberic.js' %}"></script>
+    <script src="{% static 'js/product-detail.js' %}"></script>
+{% endblock %}

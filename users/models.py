@@ -27,15 +27,15 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
     # This func is overriding save() func already exists in parent class to resize profile pics
-    def save(self, *args, **kwargs): 
-        super().save(*args, **kwargs) # Call save() of parent
+    # def save(self, *args, **kwargs): 
+    #     super().save(*args, **kwargs) # Call save() of parent
 
-        img = Image.open(self.image.path)
+    #     img = Image.open(self.image.path)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300,300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.image.path)
 
 class ItemSelection(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

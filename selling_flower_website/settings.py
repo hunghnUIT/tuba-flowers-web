@@ -24,7 +24,7 @@ SECRET_KEY = 'h*0)%)do=zaugf(=lw+g%*--z#z7tphxn52aai81$^=ti)(t7a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tubaflowers.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','tubaflowers.herokuapp.com','localhost']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'ckeditor',
     'ckeditor_uploader',
+    'storages',
 
     #Your own app
     'users.apps.UsersConfig',
@@ -209,3 +210,13 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # For ckeditor
 CKEDITOR_UPLOAD_PATH = "ckeditor-upload/"
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = 'us-east-2'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

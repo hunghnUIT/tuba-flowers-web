@@ -1,0 +1,139 @@
+/* title */
+.title {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+}
+
+.title >div {
+    background-color: #698467;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.title >.row{
+    background-color: #fff;
+}
+.title-banner {
+    font-weight: bold !important;
+    font-size: larger;
+}
+.box {
+    position: relative;
+    width: 40%;
+    height: 250px;
+    max-width: 600px;
+    padding: 50px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, .5);
+    overflow: hidden;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.box .row .border-top {
+    position: relative;
+    top: 20px;
+}
+.box:before{
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: 20px;
+    bottom: 20px;
+    
+    background-attachment: fixed;
+    filter: blur(4px);
+}
+    /* Use for three pages cart, list, detail */
+.pay-box:before {
+    background-image: url('../images/checkout/payment.png') ;
+}    
+.cart-box:before {
+    background-image: url('../images/cart/cart-landscape.png');
+}
+.list-box:before {
+    background-image: url('../images/product-list/list-landscape.png');
+}
+.detail-box:before {
+    background-image: url('../images/product-detail/product-landscape.png');
+}
+.pay-landscape {
+    background-image: url('../images/checkout/payment.png') !important;
+} 
+.cart-landscape {
+    background-image: url('../images/cart/cart-landscape.png') !important;
+}
+.list-landscape {
+    background-image: url('../images/product-list/list-landscape.png') !important;
+}
+.detail-landscape {
+    background-image: url('../images/product-detail/product-landscape.png') !important;
+}
+    /* Use for three pages cart, list, detail */
+.box > .box-item-inner span a{
+ font-size: 25px;
+ letter-spacing: 1px;
+ padding-right: 10px;
+ color: #fff;
+}
+.box > .box-item-inner span {
+    font-size: 25px;
+    letter-spacing: 1px;
+    padding-left: 10px;
+    color: #fff;
+    position: relative;
+    top:15px;
+}
+.box h2 {
+    position: relative;
+    font-family: MinionPro;
+    color: #fff;
+    font-size: 40px;
+    text-align: center;
+    margin-top:0px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    cursor: default;
+}
+.fa-angle-right {
+    position: relative;
+    top: 12px;
+}
+/* Responsive title-banner */
+@media only screen and (max-width: 1920px) {
+    .box > .box-item-inner {
+        position: relative;
+    }
+  }
+  @media only screen and (max-width: 575px) {
+    .box > .box-item-inner {
+        position: relative;
+	top: 20px;
+    }
+    .box h2 {
+        top: -20px;
+    }
+  }
+  @media only screen and (max-width: 460px) {
+    .box > .box-item-inner {
+        position: relative;
+    }
+    .box h2 {
+        top: -20px;
+        
+    }
+  }
+  @media only screen and (max-width: 360px) {
+    .box > .box-item-inner {
+        position: relative;
+    }
+    .box h2 {
+        top: -20px;
+    }
+  }
+
+    /* title */

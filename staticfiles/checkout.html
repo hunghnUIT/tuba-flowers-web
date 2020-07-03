@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <span id="list" style="display: none"></span>
+    <link rel="stylesheet" href="{% static 'checkout-css/checkout.css' %}">
+{% endblock %}
+{% block landscape-class %}
+    <div class="container-fluid title d-flex align-items-center pay-landscape">
+{% endblock %}
+{% block box-class %}
+    <div class="box wrap w-100 align-items-center pay-box">
+{% endblock %}
+{% block title-banner %}HOME CHECKOUT{% endblock %}
+{% block customizeCheckout %} 
+    <span class="title-banner customize-title">Payment</span>
+{% endblock %}
+{% block content %}
+<article class="checkout-detail-section" style="background-color: #EAEAEB;">
+    <div class="container mb-5">
+        <div class="row justify-content-between ">
+            <div class="card-address col-sm-11 col-md-10 col-lg-8 mb-4">
+                <div class="card w-100 "style="margin-top: 25px !important; margin-left: 20px;">
+                    <div class="card-header">
+                      1. Shipping address
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title font-weight-bolder">Full-name</h5>
+                      <p class="card-text address-text"> <span class="font-weight-bold">Address :</span>  20/56 tổ 10 KP6, Phường Linh Trung, Quận Thủ Đức, Hồ Chí Minh
+                        Việt Nam</p>
+                      <p class="card-text phone-text"><span class="font-weight-bold">Phone :</span> 0868952131</p>
+                      <a href="#" class="btn btn-outline-secondary btn-lg w-100">Change address</a>
+                    </div>
+                  </div>
+                  <div class="card w-100" style="margin-top: 20px !important; margin-left: 20px;">
+                    <div class="card-header">
+                      2. Choose payment method
+                    </div>
+                    <div class="card-body ">
+                      <form>
+                        <div class="custom-control custom-radio pay-cod">
+                          <input type="radio" class="custom-control-input " id="customRadio" name="example" value="customEx">
+                          <label class="custom-control-label" for="customRadio" ><strong>Pay in cash ( COD )</strong> </label>
+                        </div>
+                        <div  class="custom-control custom-radio mt-1">
+                          <input disabled type="radio" class="custom-control-input" id="customRadio2" name="example" value="customEx" >
+                          <label class="custom-control-label" for="customRadio2"><strong>Direct bank transfer<span class="font-italic">(Not supported)</span></strong> </label>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-sm-11 col-md-10 col-lg-4 mt-4 mb-4">
+                <div class="card-preview card mb-3 float-right mt-3" style="max-width: 24rem;">
+                    <div class="card-header ">Your order <span id="quantity-product">( {{checkout_items.count}} items )</span></div>
+                    <div class="card-body text-info">
+                        <table class="table table-hover product-review-table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th class="remove-icon-cell" scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for item in checkout_items %}
+                              <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{ item.item.title }}</td>
+                                <td>{{ item.get_final_price }} VNĐ</td>
+                                <td class="remove-icon-cell"><a href="{% url 'remove-item-from-cart' item.item.pk %}"><i class="text-center fa fa-remove"></i></a></td>
+                              </tr>
+                              {% endfor %}
+                              <tr>
+                                <th colspan="2" scope="row" >Temporary price</th>
+                                <td colspan="2" class="text-right">{{ total_cost }} VNĐ</td>
+                              </tr>
+                              <tr class="shipping-cost-tr" >
+                                <th scope="row" colspan="2">Shipping cost</th>
+                                <td colspan="2" class="text-right">30.000 VNĐ</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="card-footer">
+                      <strong style="color: black;">Total:</strong>
+                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold "> (FE Handle) VNĐ</span>
+                      <p class="font-italic text-right">(VAT inclusive)</p>
+                      <a id="order-btn" href="#" class="btn btn-outline-secondary btn-lg w-100 order-btn">Place order</a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}
+{% block JavaScript %}
+    <script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}

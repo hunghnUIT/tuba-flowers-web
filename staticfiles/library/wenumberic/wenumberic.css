@@ -1,0 +1,107 @@
+.enumber-control {
+    border: 1px solid #ced4da;
+    display: inline-block;
+    vertical-align: middle;
+    height: 38px;
+    -webkit-border-radius: .25rem;
+    -moz-border-radius: .25rem;
+    border-radius: .25rem;
+    overflow: hidden;
+}
+
+.enumber-control button.items-count {
+    cursor: pointer;
+    background-color: #fff;
+    border: none;
+    transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
+    padding: 10px 14px;
+    text-align: center;
+    line-height: normal;
+    font-size: 10px;
+    font-weight: bold;
+    color: #939393;
+    height: 100%;
+
+    display: inline-flex;
+    display: -webkit-inline-flex;
+
+    background-size: 8px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.enumber-control button.items-count:hover {
+    background-color: #fff;
+    border: none;
+    color: #939393;
+}
+
+.enumber-control button.items-count.reduced {
+    background-image: url(icon/minus.svg);
+}
+
+.enumber-control button.items-count.increase {
+    background-image: url(icon/plus.svg);
+}
+
+.enumber-control .qty {
+    font-size: 0.875rem;
+    padding: 0 5px 1px;
+    height: 100%;
+    border: none;
+    text-align: center;
+    width: 75px;
+    vertical-align: top;
+    background-color: #fff;
+    border-radius: 0;
+    color: #333;
+
+    display: inline-flex;
+    display: -webkit-inline-flex;
+}
+
+/*** layout 2 ****/
+.enumber-control.vertical {
+    width: 40px;
+}
+
+.enumber-control.vertical button.items-count {
+    width: 100%;
+}
+
+.enumber-control.vertical .qty {
+    width: 100%;
+}
+
+.enumber-control.vertical button.items-count.reduced {
+    margin-right: 0;
+}
+
+.enumber-control.vertical button.items-count.increase {
+    margin-left: 0;
+}
+
+/**** layout 3 ****/
+.enumber-control.inline {
+
+}
+
+.enumber-control.inline .qty {
+    width: 30px;
+}
+
+.enumber-control.inline button.items-count {
+    padding: 11px;
+    outline: none;
+    width: 30px;
+    height: 30px;
+}
+
+.enumber-control.inline button.items-count.reduced {
+    margin-right: 0;
+}
+
+
+.enumber-control.inline button.items-count.increase {
+    margin-left: 0;
+}
