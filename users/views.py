@@ -316,6 +316,7 @@ def add_to_cart(request, pk, quantity):
 def adjust_quantity(request, pk, quantity):
     item = get_object_or_404(Item, pk=pk) #Get item adjusting quantity for checking available item
 
+    # Need to check quantity = 0 -> Delete item from cart?
     if quantity > item.number_item_left:
         messages.warning(request, f"Sorry. We don't have enough " +item.title+"by now.")
         return redirect('item-detail', pk)

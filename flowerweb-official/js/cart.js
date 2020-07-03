@@ -31,19 +31,59 @@ $(document).ready(function () {
     // add to cart ajax
     $('.btn-outline-dark').click(function (e) { 
         var idItem= $(this).find('#id-item').text();
-        console.log(idItem+" added to your cart")
+        // if(authenticated) -> ajax below.
+        // else: window.location.replace('/login')
+        if($(document).find('#user').length){
+            console.log('User')
+            console.log(idItem+" added to your cart");
+            $.ajax({
+                type: "GET",
+                url: "/add-to-cart/"+idItem+"-quantity="+1,
+                cache: false,
+                async: false,
+                dataType: "html",
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                success:function(response){
+                    // var stringQuantity =$('.cart-number').text();
+                    // var incr_quantity=parseInt(stringQuantity)+1;
+                    // $('.cart-number').text(incr_quantity)
+                var number_item_in_cart = $(response).find(".cart-number");
+                $('.cart-number').replaceWith(number_item_in_cart)
+                alert("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                },
+            });
+        }
+        else{
+            console.log('Visitor');
+            window.location.replace("/login/?next=/add-to-cart/"+ idItem +"-quantity=1");
+        }
+    });
+
+    
+    // Remove item in cart view ajax
+    $(document).on("click",".btn-remove-from-cart", function(){
+        console.log(this.value);//Put link into value equal to href in <a>
         $.ajax({
             type: "GET",
-            url: "/add-to-cart/"+idItem+"-quantity="+1,
+            url: this.value,
             cache: false,
             async: false,
             dataType: "html",
             csrfmiddlewaretoken: '{{ csrf_token }}',
             success:function(response){
-                var stringQuantity =$('.cart-number').text();
-                var incr_quantity=parseInt(stringQuantity)+1;
-                $('.cart-number').text(incr_quantity)
-                alert("Success, your cart is "+incr_quantity +" items");
+                var number_item_in_cart = $(response).find(".cart-number");
+                $('.cart-number').replaceWith(number_item_in_cart) 
+                var cart = $(response).find("#table-cart-items");
+                $('#table-cart-items').replaceWith(cart)    
+                var sub_total = $(response).find("#sub-total");
+                $('#sub-total').replaceWith(sub_total)
+                var total = $(response).find("#total");
+                $('#total').replaceWith(total)
+                var summary_total = $(response).find("#summary-total");
+                $('#summary-total').replaceWith(summary_total)
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert(textStatus);
@@ -51,7 +91,7 @@ $(document).ready(function () {
         });
     });
 
-    
+    // Update cart Ajax
     $('.btn-update-cart').click(function (e) { 
         e.preventDefault();
         $(".item-cart").each(function() {
@@ -67,7 +107,16 @@ $(document).ready(function () {
                 dataType: "html",
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 success:function(response){
-                    alert(responsea);
+                    var number_item_in_cart = $(response).find(".cart-number");
+                    $('.cart-number').replaceWith(number_item_in_cart)  
+                    var cart = $(response).find("#table-cart-items");
+                    $('#table-cart-items').replaceWith(cart)    
+                    var sub_total = $(response).find("#sub-total");
+                    $('#sub-total').replaceWith(sub_total)
+                    var total = $(response).find("#total");
+                    $('#total').replaceWith(total)
+                    var summary_total = $(response).find("#summary-total");
+                    $('#summary-total').replaceWith(summary_total)
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert(textStatus);
