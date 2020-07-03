@@ -108,6 +108,9 @@
     border-radius: 10px;
     
 }
+.topic-image{
+    border-radius: 50px
+}
 /***RESPONSIVE****/
 @media (min-width: 576px) {
     .blog-row img {
