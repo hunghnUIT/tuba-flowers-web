@@ -43,7 +43,7 @@ Cart
                                 href="{% url 'item-detail' item.item.pk %}"><img
                                     src="{{ item.item.image.first.image.url }}" alt="item-image" class="img-fluid"
                                     height="120px" width="120px"></a></td>
-                        <td class="text-product-cell" data-title="product">{{ item.item.title }}</td>
+                        <td class="text-product-cell item-title" data-title="product">{{ item.item.title }}</td>
                         <td class="text-product-cell" data-title="price"><span>{{ item.item.get_final_price|add_point }} ₫</span></td>
                         <td class="quantity-product-cell" data-title="quantity">
                             <input class="item-quantity" type="number" required value="{{ item.quantity }}" min=1 max={{item.item.number_item_left}}>

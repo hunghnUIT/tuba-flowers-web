@@ -97,31 +97,36 @@ $(document).ready(function () {
         $(".item-cart").each(function() {
             var id = $(this).find('.id-item').text();
             var quantity =$(this).find('.item-quantity').val();
-            console.log(quantity);
-            // compare id to what you want
-            $.ajax({
-                type: "GET",
-                url: "/adjust-quantity/"+id+"-quantity="+quantity,
-                cache: false,
-                async: false,
-                dataType: "html",
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                success:function(response){
-                    var number_item_in_cart = $(response).find(".cart-number");
-                    $('.cart-number').replaceWith(number_item_in_cart)  
-                    var cart = $(response).find("#table-cart-items");
-                    $('#table-cart-items').replaceWith(cart)    
-                    var sub_total = $(response).find("#sub-total");
-                    $('#sub-total').replaceWith(sub_total)
-                    var total = $(response).find("#total");
-                    $('#total').replaceWith(total)
-                    var summary_total = $(response).find("#summary-total");
-                    $('#summary-total').replaceWith(summary_total)
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    alert(textStatus);
-                },
-            });
+            var number_remain = $(this).find('.number-remain').text();
+            if(parseInt(quantity)>parseInt(number_remain)){
+                alert("We don't have enough item: "+ $(this).find('.item-title').text());
+            }
+            else{
+                $.ajax({
+                    type: "GET",
+                    url: "/adjust-quantity/"+id+"-quantity="+quantity,
+                    cache: false,
+                    async: false,
+                    dataType: "html",
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    success:function(response){
+                        var number_item_in_cart = $(response).find(".cart-number");
+                        $('.cart-number').replaceWith(number_item_in_cart)  
+                        var cart = $(response).find("#table-cart-items");
+                        $('#table-cart-items').replaceWith(cart)    
+                        var sub_total = $(response).find("#sub-total");
+                        $('#sub-total').replaceWith(sub_total)
+                        var total = $(response).find("#total");
+                        $('#total').replaceWith(total)
+                        var summary_total = $(response).find("#summary-total");
+                        $('#summary-total').replaceWith(summary_total)
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert(textStatus);
+                    },
+                });
+            }
+            
         });
         
     });

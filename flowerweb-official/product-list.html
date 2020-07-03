@@ -25,7 +25,7 @@
                         <a href="#" class="d-block text-uppercase category-title">categories</a>
                         <ul class="list-unstyled category-list">
                             {% for cate in categories %}
-                                <li><a class="text-uppercase" href="javascript:void(0)">{{cate.title}}</a></li>
+                                <li><a class="text-uppercase" href="{% url 'products-category' cate.title|capitalize %}">{{cate.title}}</a></li>
                             {% endfor %}
                             
                         </ul>
@@ -67,9 +67,7 @@
                                         {% endif %}
                                         </div>
                                         <div class="add-btn-wrapper col text-center">
-                                            <a style="visibility: hidden;
-                                  opacity: 0;
-                                  transition: visibility 0s, opacity 0.5s linear;" type="button"
+                                            <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button"
                                                 class="btn btn-outline-dark" title="Select this item"><i
                                                     class="fa fa-cart-plus mr-2 p-1"></i><span
                                                     class="p-1 font-weight-bold" style="font-size: large;">Add to

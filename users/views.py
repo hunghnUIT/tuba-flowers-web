@@ -179,7 +179,7 @@ def cancel_order(request, pk):
 
 @login_required
 def checkout(request):
-    checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False)
+    checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False, quantity__gt=0)
     
     if not checkout_items: #No item in cart -> Not allowed to checkout.
         messages.warning(request, f'You have no item to checkout.')
