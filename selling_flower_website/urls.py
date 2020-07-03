@@ -62,7 +62,7 @@ urlpatterns = [
     # path('proceed/',users_views.loadcheckout,name='checkout')
     # Test
     # path('test/',users_views.response_api,name='test')
-] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     # Thịnh's hint for uploading heroku.
