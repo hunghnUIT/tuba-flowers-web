@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load products_tags %}
 {% block css %}
     <span id="list" style="display: none"></span>
     <link rel="stylesheet" href="{% static 'checkout-css/checkout.css' %}">
@@ -24,11 +25,31 @@
                       1. Shipping address
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title font-weight-bolder">Full-name</h5>
-                      <p class="card-text address-text"> <span class="font-weight-bold">Address :</span>  20/56 tổ 10 KP6, Phường Linh Trung, Quận Thủ Đức, Hồ Chí Minh
-                        Việt Nam</p>
-                      <p class="card-text phone-text"><span class="font-weight-bold">Phone :</span> 0868952131</p>
-                      <a href="#" class="btn btn-outline-secondary btn-lg w-100">Change address</a>
+                      <div id="profile-display">
+                        <h5 class="card-title font-weight-bolder">{{ checkout_form.receiver.value|default_if_none:"" }}</h5>
+                        <p class="card-text address-text"> <span class="font-weight-bold">Address :</span> {{ checkout_form.address.value|default_if_none:"" }} </p>
+                        <p class="card-text phone-text"><span class="font-weight-bold">Phone :</span> {{ checkout_form.phone.value|default_if_none:"" }}</p>
+                        
+                      </div>
+                      <a href="#" class="btn btn-outline-secondary btn-lg w-100" id="change-address-btn">Change address</a>
+                      <form id="change-address-form" method="GET" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group mt-2">
+                          <label for="new-receiver">New receiver name</label>
+                          <input value="{{ checkout_form.receiver.value|default_if_none:'' }}" name="receiver" type="text" class="form-control" id="new-receiver" aria-describedby="name">
+                          <small id="name" class="form-text text-muted">We'll never share your information with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="new-address">New address</label>
+                          <input value="{{ checkout_form.address.value|default_if_none:'' }}" name="address" type="text" class="form-control" id="new-address">
+                        </div>
+                        <div class="form-group">
+                          <label for="new-phone">New phone number</label>
+                          <input name="phone" value="{{ checkout_form.phone.value|default_if_none:'' }}" type="text" class="form-control" id="new-phone">
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="close-form">Close</button>
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                      </form>
                     </div>
                   </div>
                   <div class="card w-100" style="margin-top: 20px !important; margin-left: 20px;">
@@ -38,7 +59,7 @@
                     <div class="card-body ">
                       <form>
                         <div class="custom-control custom-radio pay-cod">
-                          <input type="radio" class="custom-control-input " id="customRadio" name="example" value="customEx">
+                          <input type="radio" class="custom-control-input " id="customRadio" name="example" value="customEx" checked>
                           <label class="custom-control-label" for="customRadio" ><strong>Pay in cash ( COD )</strong> </label>
                         </div>
                         <div  class="custom-control custom-radio mt-1">
@@ -67,26 +88,40 @@
                               <tr>
                                 <th scope="row">{{forloop.counter}}</th>
                                 <td>{{ item.item.title }}</td>
-                                <td>{{ item.get_final_price }} VNĐ</td>
+                                <td class="price">{{ item.get_final_price }} VNĐ</td>
                                 <td class="remove-icon-cell"><a href="{% url 'remove-item-from-cart' item.item.pk %}"><i class="text-center fa fa-remove"></i></a></td>
                               </tr>
                               {% endfor %}
                               <tr>
                                 <th colspan="2" scope="row" >Temporary price</th>
-                                <td colspan="2" class="text-right">{{ total_cost }} VNĐ</td>
+                                <td colspan="2" class="text-right price total-cost">{{ total_cost }}</td>
                               </tr>
                               <tr class="shipping-cost-tr" >
                                 <th scope="row" colspan="2">Shipping cost</th>
-                                <td colspan="2" class="text-right">30.000 VNĐ</td>
+                                <td colspan="2" class="text-right price shipping-cost">30000</td>
                               </tr>
                             </tbody>
                           </table>
                     </div>
                     <div class="card-footer">
                       <strong style="color: black;">Total:</strong>
-                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold "> (FE Handle) VNĐ</span>
+                      <span style="color: rgb(238, 35, 71); letter-spacing: 1px; font-size: 16px;" class="float-right font-weight-bold final-cost price"> {{total_cost|add_shipping_fee}} VNĐ</span>
                       <p class="font-italic text-right">(VAT inclusive)</p>
-                      <a id="order-btn" href="#" class="btn btn-outline-secondary btn-lg w-100 order-btn">Place order</a>
+                      <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group" style="display: none;">
+                            <legend class="border-bottom mb-4">Information Receiver</legend>
+                
+                            <input type="text" name="receiver" value="{{ checkout_form.receiver.value|default_if_none:'' }}">
+                            <input type="text" name="phone" value="{{ checkout_form.phone.value|default_if_none:'' }}">
+                            <input type="text" name="address" value="{{ checkout_form.address.value|default_if_none:'' }}">
+                            
+                        </fieldset>
+                        <div class="form-group">
+                            <button id="order-btn" type="submit" class="btn btn-outline-secondary btn-lg w-100 order-btn">Place order</button>
+                        </div>
+                    </form>
+                      
                     </div>
                   </div>
             </div>

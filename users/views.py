@@ -37,7 +37,7 @@ def register(request):
     return render(request, 'user-page-register.html', {'form': form, 'p_form': p_form})
 
 def home(request):
-    on_sale = Item.objects.filter(discount_percent__gt=0.01).order_by('-discount_percent')
+    on_sale = Item.objects.filter(discount_percent__gte=0.01).order_by('-discount_percent')
     new_arrival = Item.objects.filter(tag__title = 'new')
     list_topic = Topic.objects.all()
     
@@ -67,7 +67,8 @@ def get_items_queryset(query=None):
     for q in queries:
         items = Item.objects.filter(
             Q(title__icontains=q) | 
-            Q(tag__title__icontains=q)
+            Q(tag__title__icontains=q) |
+            Q(category__title__icontains=q)
         ).distinct()
 
         for item in items:
@@ -178,7 +179,7 @@ def cancel_order(request, pk):
 
 @login_required
 def checkout(request):
-    checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False)
+    checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False, quantity__gt=0)
     
     if not checkout_items: #No item in cart -> Not allowed to checkout.
         messages.warning(request, f'You have no item to checkout.')
@@ -206,12 +207,21 @@ def checkout(request):
     total_cost = sum(i.get_final_price() for i in checkout_items)
     
     if request.method == 'GET':
-        checkout_form = CheckoutForm(initial={
-            'receiver': request.user.last_name + " " + request.user.first_name,
-            'phone': request.user.profile.phone,
-            'address': request.user.profile.address
-            }
-        )
+        # Check if client edit the order info.
+        if 'receiver' in request.GET or 'address' in request.GET or 'phone' in request.GET:
+            checkout_form = CheckoutForm(initial={
+                'receiver': request.GET.get('receiver'),
+                'phone': request.GET.get('phone'),
+                'address': request.GET.get('address')
+                }
+            )
+        else: #Just render the checkout page.
+            checkout_form = CheckoutForm(initial={
+                'receiver': request.user.last_name + " " + request.user.first_name,
+                'phone': request.user.profile.phone,
+                'address': request.user.profile.address
+                }
+            )
         contexts={
             'checkout_items': checkout_items,
             'total_cost': total_cost,
@@ -220,7 +230,7 @@ def checkout(request):
         
         # return render(request, 'users/checkout.html', contexts)
         return render(request, 'checkout.html', contexts)
-    else:
+    else: #This is POST method
         checkout_form = CheckoutForm(request.POST)
         if checkout_form.is_valid():
             receiver = checkout_form.cleaned_data['receiver']
@@ -280,6 +290,35 @@ def add_to_cart(request, pk, quantity):
 
     # Check quantity is bigger than number_item_left?
     if quantity > item.number_item_left:
+        messages.warning(request, f"Sorry. We just have "+ str(item.number_item_left) + " item(s) of " +item.title+" by now.")
+        return redirect('item-detail', pk)
+    # Create a new ItemSelection if adding item is not exist in cart.
+    selected_item, created = ItemSelection.objects.get_or_create(
+        item=item,
+        user=request.user,
+        ordered=False
+    )
+    # If not created new item selection -> exist selected item, selected item quantity += quantity.
+    if not created:  #If get_or_create() not created a new ItemSelection
+        # Total quantity of a item in cart must less than that item's number_item_left.
+        if selected_item.quantity + quantity > item.number_item_left: 
+            messages.warning(request, f"Sorry. We just have "+ str(item.number_item_left) + " item(s) of " +item.title+" by now.")
+            return redirect('item-detail', pk)
+        selected_item.quantity += quantity
+        selected_item.save()
+    else: # If created a new itemselection -> there is no similar item in cart -> create and assign quantity 
+        selected_item.quantity = quantity
+        selected_item.save()
+    messages.info(request, "This item was added to your cart.")
+    return redirect('item-detail', pk)
+
+
+@login_required
+def adjust_quantity(request, pk, quantity):
+    item = get_object_or_404(Item, pk=pk) #Get item adjusting quantity for checking available item
+
+    # Need to check quantity = 0 -> Delete item from cart?
+    if quantity > item.number_item_left:
         messages.warning(request, f"Sorry. We don't have enough " +item.title+"by now.")
         return redirect('item-detail', pk)
     # Create a new ItemSelection if adding item is not exist in cart.
@@ -288,17 +327,10 @@ def add_to_cart(request, pk, quantity):
         user=request.user,
         ordered=False
     )
-    # If created a new itemselection -> there is no similar item in cart
-    # If not, selected item quantity +1.
-    if not created:  #If get_or_create above not created a new ItemSelection
-        selected_item.quantity += quantity
-        selected_item.save()
-    else:
-        selected_item.quantity = quantity
-        selected_item.save()
-    messages.info(request, "This item was added to your cart.")
-    return redirect('item-detail', pk)
-
+    selected_item.quantity = quantity
+    selected_item.save()
+    messages.info(request, "{}'s quantity was updated.".format(selected_item.item.title))
+    return redirect('cart')
 
 @login_required
 def remove_item_from_cart(request, pk):

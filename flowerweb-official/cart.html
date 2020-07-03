@@ -1,5 +1,6 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
+{% load products_tags %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'cart-css/cart.css' %}">
 <link rel="stylesheet" href="{% static 'cart-css/responsive-cart.css' %}">
@@ -28,28 +29,38 @@ Cart
                         <th scope="col">Images</th>
                         <th scope="col">Products</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Quality</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Total</th>
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-cart-items">
                     {% if selected_items %}
                     {% for item in selected_items %}
-                    <tr>
+                    <tr class="item-cart">
+                        <td class="text-product-cell d-none id-item" data-title="id">{{ item.item.pk }}</td>
                         <td class="img-product-cell" data-title="thumb"><a
                                 href="{% url 'item-detail' item.item.pk %}"><img
                                     src="{{ item.item.image.first.image.url }}" alt="item-image" class="img-fluid"
                                     height="120px" width="120px"></a></td>
-                        <td class="text-product-cell" data-title="product">{{ item.item.title }}</td>
-                        <td class="text-product-cell" data-title="price"><span class="price">{{ item.item.get_final_price }}</span></td>
+                        <td class="text-product-cell item-title" data-title="product">{{ item.item.title }}</td>
+                        <td class="text-product-cell" data-title="price"><span>{{ item.item.get_final_price|add_point }} ₫</span></td>
                         <td class="quantity-product-cell" data-title="quantity">
-                            <input type="number" required value="{{ item.quantity }}" min=1>
+                            <input class="item-quantity" type="number" required value="{{ item.quantity }}" min=1 max={{item.item.number_item_left}}>
+                            <br>
+                            <span class="text-lowercase font-italic" style="font-size: medium; color: rgb(226, 85, 85);">
+                                <span class="number-remain" >{{item.item.number_item_left}} </span>
+                                {% if item.item.number_item_left <= 1%}
+                                    item
+                                {% else %}
+                                    items
+                                {% endif %}
+                                left</span>
                         </td>
-                        <td class="text-product-cell" data-title="total"><span class="price">{{ item.get_final_price }}</span></td>
-                        <td class="delete-product-cell text-product-cell" data-title="Remove"><a
-                                href="{% url 'remove-item-from-cart' item.item.pk %}" class="item-link"><i
-                                    class="material-icons">remove_shopping_cart</i></a></td>
+                        <td class="text-product-cell" data-title="total"><span>{{ item.get_final_price|add_point }} ₫</span></td>
+                        <td class="delete-product-cell text-product-cell" data-title="Remove">
+                            <button class="border-0 item-link btn-remove-from-cart" value="{% url 'remove-item-from-cart' item.item.pk%}">
+                                <i class="material-icons">remove_shopping_cart</i></button></td>
                     </tr>
                     {% endfor %}
                     {% else %}
@@ -58,13 +69,11 @@ Cart
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th data-title="" scope="col" colspan="3" class="text-right text-product-cell">Total:</th>
-                        <th data-title="quantity" scope="col" class="text-center text-product-cell"
-                            style="color: blueviolet;">FE handle</th>
-                        <th data-title="price" scope="col" class="text-center text-product-cell">Giá mới {{ total_cost }} giá cũ <del>{{ old_cost }}</del> vnđ
-                        </th>
+                        <th data-title="" scope="col" colspan="4" class="text-right text-product-cell">Total:</th>
+                        <th id="summary-total" data-title="quantity" scope="col" class="text-center text-product-cell">{{ total_cost|add_point }} ₫</th>
+                        <!-- <th data-title="price" scope="col" class="text-center text-product-cell"></th> -->
                         <th scope="col" class="text-center text-product-cell">
-                            <button class="text-capitalize btn-custom btn-update-cart">
+                            <button id="btn-update-cart" class="text-capitalize btn-custom btn-update-cart">
                                 Update cart
                             </button>
                         </th>
@@ -115,8 +124,8 @@ Cart
                     <table class="table table-sm table-borderless ">
                         <tbody class="">
                             <tr class="cart-subtotal">
-                                <td data-title="Subtotal" class="price">
-                                    {{ total_cost }}
+                                <td data-title="Subtotal" id="sub-total">
+                                    {{ total_cost|add_point }} ₫
                                 </td>
                             </tr>
                             <tr class="cart-ship-cost">
@@ -128,8 +137,8 @@ Cart
                                 </td>
                             </tr>
                             <tr class="cart-order-total">
-                                <td data-title="Total" class="price">
-                                    {{ total_cost }}
+                                <td data-title="Total" id="total">
+                                    {{ total_cost|add_point }} ₫
                                 </td>
                             </tr>
                             <tr class="cart-checkout">

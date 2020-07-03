@@ -1,9 +1,12 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load products_tags %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/product.css' %}">
 <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
+<link rel="stylesheet" href="{% static 'css/discount.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 <span id="list" style="display: none"></span>
 {% endblock %}
 {% block landscape-class %}
@@ -21,11 +24,10 @@
                     <div class="col-xl-3 d-none d-xl-block">
                         <a href="#" class="d-block text-uppercase category-title">categories</a>
                         <ul class="list-unstyled category-list">
-                            <li><a class="text-uppercase" href="javascript:void(0)">cactuses</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">exotic</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">green</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">popular</a></li>
-                            <li><a class="text-uppercase" href="javascript:void(0)">tet</a></li>
+                            {% for cate in categories %}
+                                <li><a class="text-uppercase" href="{% url 'products-category' cate.title|capitalize %}">{{cate.title}}</a></li>
+                            {% endfor %}
+                            
                         </ul>
                     </div>
                     <div class="col-xl-9">
@@ -42,19 +44,30 @@
                         </div>
                         <div class="row append-result">
                             {% for item in items %}
-                            <div class="col-md-4 col-6 result p-1">
-                                <div class="card product-wrapper">
+                            <div class="col-md-4 col-6 result p-1 ">
+                                <div class="card product-wrapper border-0">
                                     <a href="{% url 'item-detail' item.pk %}"><img class="img-item img-fluid rounded" src="{{ item.image.first.image.url }}"
                                         alt="Preview item"></a>
-                                    <div class="card-body p-2">
+                                    {% if item.discount_percent > 0 %}
+                                        <label class="discount"> <strong>{{ item.discount_percent|display_percent }} %</strong> </label>
+                                    {% endif %}
+                                    <div class="card-body p-1">
                                         <a href="{% url 'item-detail' item.pk %}">
-                                            <h3 class="card-title text-center">{{ item.title }}</h3>
+                                            <h5 class="card-title text-center">{{ item.title }}</h5>
                                         </a>
-                                        <p class="card-tex text-center m-0"><span class="price">{{ item.price }}</span></p>
+                                        <div onmousedown="return false" onselectstart="return false">
+                                        {% if item.discount_percent > 0 %}
+                                            <p class="card-tex text-center mb-1">
+                                                <span
+                                                class="price font-weight-bold price-hide" >{{ item.get_final_price }}</span>
+                                            <del class=" price font-italic price-hide" >{{ item.price }}</del></p>
+                                        {% else %}
+                                            <p class="card-tex text-center mb-1"> <span
+                                                class="price font-weight-bold price-hide" >{{ item.price }}</span></p>
+                                        {% endif %}
+                                        </div>
                                         <div class="add-btn-wrapper col text-center">
-                                            <a style="visibility: hidden;77777777777777777
-                                  opacity: 0;
-                                  transition: visibility 0s, opacity 0.5s linear;" type="button"
+                                            <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button"
                                                 class="btn btn-outline-dark" title="Select this item"><i
                                                     class="fa fa-cart-plus mr-2 p-1"></i><span
                                                     class="p-1 font-weight-bold" style="font-size: large;">Add to
@@ -64,11 +77,34 @@
                                 </div>
                             </div>
                             {% endfor %}
+                            
+                        </div>
+                        <div class="pagination float-right">
+                            {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a class="btn btn-outline-info mb-4 border-0" href="?page=1">First</a>
+                                <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.previous_page_number}}"> <i class="fa fa-angle-double-left"></i> </a>
+                            {% endif %}
+                
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                <a class="btn btn-info mb-4 border-0" href="?page={{ num}}">{{ num }}</a>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a class="btn btn-outline-info mb-4 border-0" href="?page={{ num}}">{{ num }}</a>
+                                {% endif %}
+                            {% endfor%}
+                
+                            {% if page_obj.has_next %}
+                                <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.next_page_number}}"><i class="fa fa-angle-double-right"></i></a>
+                                <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+                            {% endif %}  
+                        {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </article>
+       
         {% endblock %}
         {% block JavaScript %}
         <script src="{% static 'js/list.js' %}"></script>

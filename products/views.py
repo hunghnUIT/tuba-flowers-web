@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Item, Blog
+from .models import Item, Blog, Category
 from django.views.generic import ListView, DetailView
+import random
 # from products.models import Property
 
 class ItemsListView(ListView):
@@ -29,6 +30,12 @@ class ItemsListView(ListView):
                 return available_items.order_by('-number_item_sold')
         else:
             return available_items
+    
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
 
 class ItemsWithCategoryListView(ListView): # Click at an category and it return items with the same category.
     model = Item
@@ -52,6 +59,12 @@ class ItemsWithCategoryListView(ListView): # Click at an category and it return 
         
         return available_items
 
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsWithCategoryListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
+
 class ItemsWithTopicListView(ListView): # Choose a topic and it return items with the same topic.
     model = Item
     template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
@@ -74,6 +87,12 @@ class ItemsWithTopicListView(ListView): # Choose a topic and it return items wit
         
         return available_items
 
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsWithTopicListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
+
 class ItemsWithTagListView(ListView): # Choose a tag and it return items containing that tag.
     model = Item
     template_name = 'product-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
@@ -95,6 +114,12 @@ class ItemsWithTagListView(ListView): # Choose a tag and it return items contain
                 return available_items.order_by('-number_item_sold')
         
         return available_items
+    
+    def get_context_data(self, **kwargs):
+        contexts = super(ItemsWithTagListView, self).get_context_data(**kwargs)
+        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        contexts['categories'] = categories
+        return contexts
 
 class ItemDetailView(DetailView):
     model = Item
@@ -107,7 +132,7 @@ class ItemDetailView(DetailView):
         contexts = super(ItemDetailView, self).get_context_data(**kwargs)
         object = self.get_object()
         related_products = Item.objects.filter(topic=object.topic).order_by('-number_item_sold')
-        contexts['related_products'] = related_products
+        contexts['related_products'] = related_products.exclude(title=object.title) # Not include the product being viewed by user.
         if object.number_item_left < 1 or object.stop_selling == True:
             contexts['available'] = False
         else:

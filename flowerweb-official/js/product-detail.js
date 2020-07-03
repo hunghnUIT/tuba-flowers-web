@@ -5,24 +5,26 @@ if(isMobile()) {
     document.querySelector(".tab-mobile").style.display ="none";
     document.querySelector(".tab-desktop").style.display = "block";
 }
+// Get the modal
+var modal = document.getElementById("myModal");
 
-var galleryThumbs = new Swiper('.gallery-thumbs', {
-    direction: 'vertical',
-    spaceBetween: 10,
-    slidesPerView: 3,
-    freeMode: true,
-    watchSlidesVisibility: true,
-    watchSlidesProgress: true
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+$('.thumbs-product-preview').click(function (e) { 
+    e.preventDefault();
+    modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
 });
 
-var galleryTop = new Swiper('.gallery-top', {
-    spaceBetween: 10,
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-    thumbs: {
-        swiper: galleryThumbs
-    }
-});
-
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
 var we = new WeNumberic('.wenumberic-product-detail', {
     stepvalue: 1,
     minvalue: 0,
@@ -110,26 +112,49 @@ $(document).ready(function () {
     $(".btn-add-to-cart").click(function (e) {
         var id_item = $('#id-item').text();
         var quantity = $('#quantity').val();
-        console.log(typeof(id_item));
-        console.log("/add-to-cart/"+id_item+"-quantity="+quantity);
-
-        $.ajax({
-            type: "GET",
-            url: "/add-to-cart/"+id_item+"-quantity="+quantity,
-            cache: false,
-            async: false,
-            dataType: "html",
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            success:function(response){
-                var stringQuantity =$('.cart-number').text();
-                var incr_quantity=parseInt(stringQuantity)+parseInt(quantity);
-                $('.cart-number').text(incr_quantity)
-                alert("Success, "+quantity+" items added to your cart")
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                alert(textStatus);
-            },
-        });
+        if($(document).find('#user').length){
+            console.log("/add-to-cart/"+id_item+"-quantity="+quantity);
+            $.ajax({
+                type: "GET",
+                url: "/add-to-cart/"+id_item+"-quantity="+quantity,
+                cache: false,
+                async: false,
+                dataType: "html",
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                success:function(response){
+                    var number_item_in_cart = $(response).find(".cart-number");
+                    $('.cart-number').replaceWith(number_item_in_cart)
+                    alert("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                },
+            });
+        }
+        else{
+            console.log('Visitor');
+            window.location.replace("/login/?next=/add-to-cart/"+ id_item +"-quantity="+quantity);
+        }
     });
 });
 
+$('#myModal').click(function (e) { 
+    if ($(e.target).is('#img01'))
+    {
+        return;
+    }
+    else
+    {
+        modal.style.display = "none";
+    }
+});
+var number_image=parseInt($('#num-image').text()) ;
+var swiper = new Swiper('.preview-products-container', {
+    speed:300,
+    calculationHeight:true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    slidesPerView: 3,
+  });

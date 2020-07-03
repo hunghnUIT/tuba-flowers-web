@@ -2,7 +2,7 @@
 {% extends "users/base.html" %}
 {% block content %}
     <h3>Review Your Order</h3>
-    
+    <h3>{{ checkout_form.receiver.value|default_if_none:"Nothing here" }}</h3>
     {% for item in checkout_items %}
     <div class="row">
         <div class="col">
@@ -20,11 +20,37 @@
     </div>
     {% endfor %}
     <span>Total <strong style="color: red;">{{ total_cost }}</strong></span>
-    <form method="POST" enctype="multipart/form-data">
+
+    <h2>View Information</h2>
+    <p>{{ checkout_form.receiver.value|default_if_none:'' }}</p>
+    <p>{{ checkout_form.phone.value|default_if_none:'' }}</p>
+    <p>{{ checkout_form.address.value|default_if_none:'' }}</p>
+    <form method="GET" enctype="multipart/form-data">
         {% csrf_token %}
+        <h2>Edit info form</h2>
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Information Receiver</legend>
-            {{checkout_form}}
+            <!-- {{checkout_form}} -->
+
+            <input type="text" name="receiver" value="{{ checkout_form.receiver.value|default_if_none:'' }}">
+            <input type="text" name="phone" value="{{ checkout_form.phone.value|default_if_none:'' }}">
+            <input type="text" name="address" value="{{ checkout_form.address.value|default_if_none:'' }}">
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-info" type="submit">Apply</button>
+        </div>
+    </form>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Submit form</h2>
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Information Receiver</legend>
+            <!-- {{checkout_form}} -->
+
+            <input type="text" name="receiver" value="{{ checkout_form.receiver.value|default_if_none:'' }}">
+            <input type="text" name="phone" value="{{ checkout_form.phone.value|default_if_none:'' }}">
+            <input type="text" name="address" value="{{ checkout_form.address.value|default_if_none:'' }}">
+            
         </fieldset>
         <div class="form-group">
             <button class="btn btn-info" type="submit">Order</button>

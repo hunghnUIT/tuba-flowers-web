@@ -47,7 +47,8 @@ class Item(models.Model):
 
     # def get_add_to_cart_url(self):
     #     return reverse("add-to-cart",kwargs={
-    #         'pk' : self.pk
+    #         'pk' : self.pk,
+    #         'quantity': 3
     #     })
     def get_remove_single_item_from_cart_url(self):
         return reverse("remove-single-item-from-cart",kwargs={
@@ -64,8 +65,8 @@ class ItemImage(models.Model):
 
         img = Image.open(self.image.path)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
+        if img.height > 1000 or img.width > 900:
+            output_size = (1000,900)
             img.thumbnail(output_size)
             img.save(self.image.path)
 
