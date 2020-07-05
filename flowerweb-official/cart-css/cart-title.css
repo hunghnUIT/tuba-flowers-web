@@ -51,6 +51,9 @@
 .pay-box:before {
     background-image: url('../images/checkout/payment.png') ;
 }    
+.blog-box:before {
+    background-image: url('../images/blog/blog-landscape.png') ;
+}
 .cart-box:before {
     background-image: url('../images/cart/cart-landscape.png');
 }
@@ -59,6 +62,9 @@
 }
 .detail-box:before {
     background-image: url('../images/product-detail/product-landscape.png');
+}
+.blog-landscape {
+    background-image: url('../images/blog/blog-landscape.png') !important;
 }
 .pay-landscape {
     background-image: url('../images/checkout/payment.png') !important;

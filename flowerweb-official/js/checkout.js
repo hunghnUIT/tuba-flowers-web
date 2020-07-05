@@ -18,5 +18,6 @@ $(document).ready(function () {
     $('#close-form').click(function (e) { 
         e.preventDefault();
         $('#change-address-form').hide(500);
+        $('#profile-display').show(500);
     });
 });
