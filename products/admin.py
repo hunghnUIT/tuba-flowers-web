@@ -33,7 +33,7 @@ class ProductsItemAdmin(admin.ModelAdmin):
     inlines = [ItemImagesInline,]
 
     list_display = ('title', 'get_categories', 'price', 'number_item_left', 'discount_percent','get_tags', 'stop_selling')
-    search_fields = ['title', 'category', 'description', 'tag']
+    search_fields = ['title', 'category__title', 'description', 'tag__title']
     list_filter = [ItemAvailableFilter,'stop_selling']
     list_editable = ['price','number_item_left', 'discount_percent','stop_selling']
     readonly_fields = ['number_item_sold',]

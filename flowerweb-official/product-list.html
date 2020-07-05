@@ -18,6 +18,8 @@
         {% block title-banner %}Our Products{% endblock %}
         {% block on-page %} Product List {% endblock %}
         {% block content %}
+        <span id="filter-page-with" class="d-none">{{type}}</span>
+        <span id="kwarg" class="d-none">{{kwarg}}</span>
         <article class="product-section">
             <div class="container">
                 <div class="row">
@@ -25,7 +27,7 @@
                         <a href="#" class="d-block text-uppercase category-title">categories</a>
                         <ul class="list-unstyled category-list">
                             {% for cate in categories %}
-                                <li><a class="text-uppercase" href="javascript:void(0)">{{cate.title}}</a></li>
+                                <li><a class="text-uppercase" href="{% url 'products-category' cate.title|capitalize %}">{{cate.title}}</a></li>
                             {% endfor %}
                             
                         </ul>
@@ -59,21 +61,21 @@
                                         {% if item.discount_percent > 0 %}
                                             <p class="card-tex text-center mb-1">
                                                 <span
-                                                class="price font-weight-bold price-hide" >{{ item.get_final_price }}</span>
-                                            <del class=" price font-italic price-hide" >{{ item.price }}</del></p>
+                                                class="font-weight-bold price-hide" >{{ item.get_final_price|add_point }} ₫</span>
+                                            <del class="font-italic price-hide" >{{ item.price|add_point }} ₫</del></p>
                                         {% else %}
                                             <p class="card-tex text-center mb-1"> <span
-                                                class="price font-weight-bold price-hide" >{{ item.price }}</span></p>
+                                                class="font-weight-bold price-hide" >{{ item.price|add_point }} ₫</span></p>
                                         {% endif %}
                                         </div>
                                         <div class="add-btn-wrapper col text-center">
-                                            <a style="visibility: hidden;
-                                  opacity: 0;
-                                  transition: visibility 0s, opacity 0.5s linear;" type="button"
+                                            <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button"
                                                 class="btn btn-outline-dark" title="Select this item"><i
                                                     class="fa fa-cart-plus mr-2 p-1"></i><span
                                                     class="p-1 font-weight-bold" style="font-size: large;">Add to
-                                                    cart</span><span id="id-item" style="display: none;">{{ item.pk }}</span></a>
+                                                    cart</span><span id="id-item" style="display: none;">{{ item.pk }}</span>
+                                                    <span class="number-item-left d-none">{{item.number_item_left}}</span>
+                                                </a>
                                         </div>
                                     </div>
                                 </div>

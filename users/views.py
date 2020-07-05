@@ -3,12 +3,12 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CheckoutForm, ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Order, ItemSelection
-from products.models import Item, Blog
+from products.models import Item, Blog, Category
 from django.utils import timezone
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, F
 from topic.models import Topic
 from django.http import JsonResponse
 import random
@@ -84,6 +84,7 @@ def item_search_view(request):
     
     items = get_items_queryset(query)
     contexts['items'] = items
+    contexts['categories'] = sorted(Category.objects.all()[:12], key=lambda x: random.random())
     return render(request, 'product-list.html', contexts)
 # End search button
 
@@ -95,7 +96,7 @@ def auto_search(request):
             Q(title__icontains=q) | 
             Q(tag__title__icontains=q)| 
             Q(topic__title__icontains=q)
-        ).distinct().values('title')
+        ).distinct().values('id',value=F('title'))[:8]
         return JsonResponse(data=list(qs), safe=False) #Return json is required for jquery autocomplete
     return render(request, 'index.html')
 # End autocomplete search
@@ -179,7 +180,7 @@ def cancel_order(request, pk):
 
 @login_required
 def checkout(request):
-    checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False)
+    checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False, quantity__gt=0)
     
     if not checkout_items: #No item in cart -> Not allowed to checkout.
         messages.warning(request, f'You have no item to checkout.')

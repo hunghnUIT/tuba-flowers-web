@@ -24,19 +24,23 @@ $(document).ready(function () {
 //    });
     $(".custom-select").change(function () {
         var item = $(this).find(":selected").val();
-
+        var type = $(document).find("#filter-page-with").text();
+        var kwarg = $(document).find("#kwarg").text();
+        
         $.ajax({
             type: "GET",
-            url: "/products/?order_by="+ item,
+            url: "/products/" + type + kwarg +"?order_by="+ item,
             cache: false,
             async: false,
             dataType: "html",
             csrfmiddlewaretoken: '{{ csrf_token }}',
             success:function(response){
-                 html = response;
+                html = response;
                 var htmlFiltered = $(response).find(".result");    
                 //console.log(htmlFiltered); 
                 $('.append-result').html(htmlFiltered);
+                var pagination = $(response).find('.pagination');
+                $('.pagination').replaceWith(pagination);
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert(textStatus);
