@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q, F
 from topic.models import Topic
 from django.http import JsonResponse
+from django.views.generic import ListView
 import random
 
 # def handler404(request, *args, **argv):
@@ -83,8 +84,22 @@ def item_search_view(request):
         contexts['query'] = str(query)
     
     items = get_items_queryset(query)
-    contexts['items'] = items
-    contexts['categories'] = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+
+    if "order_by" in request.GET:
+        kw_order_by = request.GET['order_by']
+        if kw_order_by == 'asc-price':
+            contexts['items'] = sorted(items,key=lambda x: x.price)
+        elif kw_order_by == 'desc-price':
+            contexts['items'] = sorted(items,key=lambda x: x.price, reverse=True)
+        elif kw_order_by == 'by-name':  
+            contexts['items'] = sorted(items,key=lambda x: x.title)
+        elif kw_order_by == 'best-seller':
+            contexts['items'] = sorted(items,key=lambda x: x.number_item_sold, reverse=True)
+    else:
+        contexts['items'] = items
+    contexts['categories'] = sorted(Category.objects.all(), key=lambda x: random.random())
+    contexts['type'] = '/search/'
+    contexts['kwarg'] = query
     return render(request, 'product-list.html', contexts)
 # End search button
 

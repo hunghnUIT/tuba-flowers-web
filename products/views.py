@@ -33,7 +33,7 @@ class ItemsListView(ListView):
     
     def get_context_data(self, **kwargs):
         contexts = super(ItemsListView, self).get_context_data(**kwargs)
-        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        categories = sorted(Category.objects.all(), key=lambda x: random.random())
         contexts['categories'] = categories
         return contexts
 
@@ -61,7 +61,7 @@ class ItemsWithCategoryListView(ListView): # Click at an category and it return 
 
     def get_context_data(self, **kwargs):
         contexts = super(ItemsWithCategoryListView, self).get_context_data(**kwargs)
-        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        categories = sorted(Category.objects.all(), key=lambda x: random.random())
         contexts['categories'] = categories
         contexts['type'] = 'category/'
         contexts['kwarg'] = self.kwargs['category']
@@ -91,7 +91,7 @@ class ItemsWithTopicListView(ListView): # Choose a topic and it return items wit
 
     def get_context_data(self, **kwargs):
         contexts = super(ItemsWithTopicListView, self).get_context_data(**kwargs)
-        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        categories = sorted(Category.objects.all(), key=lambda x: random.random())
         contexts['categories'] = categories
         contexts['type'] = 'topic/'
         contexts['kwarg'] = self.kwargs['topic']
@@ -121,7 +121,7 @@ class ItemsWithTagListView(ListView): # Choose a tag and it return items contain
     
     def get_context_data(self, **kwargs):
         contexts = super(ItemsWithTagListView, self).get_context_data(**kwargs)
-        categories = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+        categories = sorted(Category.objects.all(), key=lambda x: random.random())
         contexts['categories'] = categories
         contexts['type'] = 'tag/'
         contexts['kwarg'] = self.kwargs['tag']
