@@ -51,9 +51,9 @@
                         id="collapse_target">
                         <div class="clearfix w-100">
                             <div class="float-left">
-                                <ul class="navbar-nav">
+                                <ul class="navbar-nav " >
                                     <li class="parent-home nav-item dropdown">
-                                        <a href="#" role="button" class="nav-link dropdown-toggle"
+                                        <a href="#" role="button" class="nav-link  "
                                             data-toggle="dropdown" data-target="#home_dropdown">Home
                                             <span class="caret"></span>
                                         </a>
@@ -64,7 +64,7 @@
                                         </div>
                                     </li>
                                     <li class="parent-page nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                        <a class="nav-link  " data-toggle="dropdown"
                                             data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu page" aria-labelledby="page-dropdown">
                                             <a class="dropdown-item" href="{% url 'profile' %}">My account</a>
@@ -73,7 +73,7 @@
                                         </div>
                                     </li>
                                     <li class="parent-shop nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                        <a class="nav-link  " data-toggle="dropdown"
                                             data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
                                             <a class="dropdown-item" href="{% url 'products-all' %}">Product list</a>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="float-right ">
                         <div class="icon-bar">
-                            <ul class="navbar-nav">
+                            <ul class="navbar-nav" style="flex-direction:row !important;">
                                 <li class="icon-bar-hover">
                                     <a class="btn btn-customize" href="#" data-toggle="modal"
                                         data-target="#modal-search-box"><i class="fa fa-search"></i></a>
@@ -105,7 +105,7 @@
                                     </a>
                                 </li>
                                 <li class="parent-user dropdown icon-bar-hover">
-                                    <a class="btn btn-customize dropdown-toggle" data-toggle="dropdown"
+                                    <a class="btn btn-customize  " data-toggle="dropdown"
                                         data-target="user" href="#"><i class="fa fa-user"></i></a>
                                     {% if user.is_authenticated %}
                                     <div id="user"
@@ -127,16 +127,16 @@
                                     <div id="visitor"
                                         class="neumorphism toggler dropdown-menu visitor-user dropdown-menu-right"
                                         aria-labelledby="visitor">
-                                        <a href="{% url 'login' %}" class="nav-link dropdown-item-custom"
+                                        <div  class="nav-link dropdown-item-custom mx-auto"
                                             title="Go to login page">
                                             <img class="text-center col-12 my-auto"
                                                 src="{%static '/images/home/welcome-cat.svg'%}" alt="login"
                                                 height="100px" width="100px">
                                             <div class=" col-12 pr-1 dropdown-divider"></div>
                                             <p class="pr-2 mt-2">Go to <span
-                                                    class="initialism text-uppercase">login</span> or <span
-                                                    class="text-uppercase">register</span> </p>
-                                        </a>
+                                                class="initialism text-uppercase font-weight-bold login-span" style="color: brown !important; cursor: pointer;">login</span> or <span
+                                                class="text-uppercase font-weight-bold register-span" style="cursor: pointer;">register</span> </p>
+                                        </div>
                                     </div>
                                     {% endif %}
                                 </li>
@@ -152,22 +152,22 @@
                     <div class="modal-header">
 
                     </div>
-                    <form action="{% url 'search' %}" method="GET">
-                        <div class="modal-body">
-                            <div class="input-group" id="input-group">
-                                <input type="text" class="form-control" placeholder="What are you looking for?"
-                                    name="q" id="search-box" required>
-                                <div class="input-group-btn" id="input-group-btn">
-                                    <button class="btn btn-customize btn-default p-0" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
+                    <div class="modal-body">
+                        <form action="{% url 'search' %}" method="GET">
+                            <div class="modal-body">
+                                <div class="input-group" id="input-group">
+                                    <input type="text" class="form-control" placeholder="What are you looking for?"
+                                        name="q" id="search-box" required>
+                                    <div class="input-group-btn" id="input-group-btn">
+                                        <button class="btn btn-customize btn-default p-0" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                    
+                        </form>
+                    </div>
                     <div class="modal-footer">
-
                     </div>
                 </div>
             </div>
@@ -203,7 +203,7 @@
                         </div>
                         <div class="overview-description">Free shipping all over the world on<br
                                 class="d-none d-xl-block">
-                            orders over $150.</div>
+                            orders over 1.000.000 ₫</div>
                     </div>
                 </div>
             </div>

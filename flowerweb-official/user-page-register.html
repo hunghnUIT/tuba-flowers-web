@@ -59,78 +59,127 @@
                 <img class="avt-img" src="{% static './images/sign-in/avt-img.svg' %}" alt="avt">
                 <h2 class="greeting"><a class="nav-link" href="{% url 'home' %}" title="Homepage"><span>o8o</span> welcome</a>
                 </h2>
-                <div class="textbox">
+                <div id="sign-in-info">
+                    <div class="textbox">
 
-                    <div class="i">
-                        <i class="fas fa-user"></i>
+                        <div class="i">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h5 id="name">Username</h5>
+                            <input class="input" id="txt-username" type="text" name="username" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
                     </div>
-                    <div>
-                        <h5 id="name">Username</h5>
-                        <input class="input" id="txt-username" type="text" name="username" placeholder="" required>
+                    <div class="textbox">
+                        <div class="i">
+                            <i class="fas fa-mobile"></i>
+                        </div>
+                        <div>
+                            <h5 id="phone">Your phone number</h5>
+                            <input class="input" id="txt-phone" type="text" name="phone" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
                     </div>
-                    <div class="notice">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span class="tooltip-text"></span>
+                    <div class="textbox">
+                        <div class="i">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5 id="email">Your email</h5>
+                            <input class="input" id="txt-email" type="text" name="email" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
                     </div>
+                    <div class="textbox">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div>
+                            <h5 id="password">Password</h5>
+                            <input class="input" id="txt-password" type="password" name="password1" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
+                    </div>
+                    <div class="textbox">
+                        <div class="i">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <div>
+                            <h5 id="retype">Re-type your password</h5>
+                            <input class="input" id="txt-retype" type="password" name="password2" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger not-empty-allow" >
+                        <strong>Notice!</strong> All of fields mustn't be empty
+                      </div>
+                    <div class="link-container">
+                        <a id="go-to-login" href="{% url 'login' %}" class="nav-link">I am already member</a>
+                    </div>
+                    <input class="btn next-btn" type="button" value="Next step">
                 </div>
-                <div class="textbox">
-                    <div class="i">
-                        <i class="fas fa-mobile"></i>
+                
+                <div id="more-info-sign-in">
+                    <div class="textbox">
+                        <div class="i">
+                            <i class="fa fa-address-card"></i>
+                        </div>
+                        <div>
+                            <h5 id="first-name">Type your first name</h5>
+                            <input class="input" id="txt-first-name" type="text" name="first-name" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
                     </div>
-                    <div>
-                        <h5 id="phone">Your phone number</h5>
-                        <input class="input" id="txt-phone" type="text" name="phone" placeholder="" required>
+                    <div class="textbox">
+                        <div class="i">
+                            <i class="fa fa-address-card-o"></i>
+                        </div>
+                        <div>
+                            <h5 id="last-name">Type your last name</h5>
+                            <input class="input" id="txt-last-name" type="text" name="last-name" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
                     </div>
-                    <div class="notice">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span class="tooltip-text"></span>
+                    <div class="textbox">
+                        <div class="i">
+                            <i class="fa fa-address-book"></i>
+                        </div>
+                        <div>
+                            <h5 id="address">Type your address</h5>
+                            <input class="input" id="txt-address" type="text" name="address" placeholder="" required>
+                        </div>
+                        <div class="notice">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span class="tooltip-text"></span>
+                        </div>
                     </div>
+                    <a href="#" class="nav-link previous-step" >Previous step</a>
+                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                    <label for="vehicle2"> I agree all statements in <a href="#">Terms of services</a></label><br>
+                    <input class="btn submit register-btn" type="submit" value="Register">
                 </div>
-                <div class="textbox">
-                    <div class="i">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div>
-                        <h5 id="email">Your email</h5>
-                        <input class="input" id="txt-email" type="text" name="email" placeholder="" required>
-                    </div>
-                    <div class="notice">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span class="tooltip-text"></span>
-                    </div>
-                </div>
-                <div class="textbox">
-                    <div class="i">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div>
-                        <h5 id="password">Password</h5>
-                        <input class="input" id="txt-password" type="password" name="password1" placeholder="" required>
-                    </div>
-                    <div class="notice">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span class="tooltip-text"></span>
-                    </div>
-                </div>
-                <div class="textbox">
-                    <div class="i">
-                        <i class="fas fa-sync"></i>
-                    </div>
-                    <div>
-                        <h5 id="retype">Re-type your password</h5>
-                        <input class="input" id="txt-retype" type="password" name="password2" placeholder="" required>
-                    </div>
-                    <div class="notice">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span class="tooltip-text"></span>
-                    </div>
-                </div>
-                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-                <label for="vehicle2"> I agree all statements in <a href="#">Terms of services</a></label><br>
-                <div class="link-container">
-                    <a id="go-to-login" href="{% url 'login' %}" class="nav-link">I am already member</a>
-                </div>
-                <input class="btn submit register-btn" type="submit" value="Register">
             </form>
             
         </div>

@@ -2,19 +2,73 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'library/wenumberic/wenumberic.css' %}">
-<link rel="stylesheet" href="{% static 'css/product-detail.css' %}">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
 <span id="detail" style="display: none"></span>
 {% endblock %}
 {% block landscape-class %}
-    <div class="container-fluid title d-flex align-items-center detail-landscape">
+    <div class="container-fluid title d-flex align-items-center blog-landscape">
 {% endblock %}
 {% block box-class %}
-    <div class="box wrap w-100 align-items-center detail-box">
+    <div class="box wrap w-100 align-items-center blog-box">
 {% endblock %}
 {% block title-banner %}Schefflera aptent taciti sociosqu{% endblock %}
 {% block on-page %} {{ object.title }} {% endblock %}
 {% block content %}
-<h1>{{object.title}}</h1>
-<p>{{ object.content|safe }}</p>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+            <div class="entry-meta-inner " >
+                <span class="posted-on">
+                    <a class="card-link" href="#" rel="bookmark">
+                        <i class="fa fa-calendar " style="font-size: 18px;color: gray;"></i>
+                        <time class="entry-date published ml-2" datetime="2019-04-03T03:02:22+00:00">April 3, 2019</time>
+                    </a>
+                </span>
+                <span class="entry-category" > 
+                    <span class="author vcard">
+                        <i class="fas fa-user-shield ml-2" style="font-size: 18px;color: gray;"></i>
+                        <span class="ml-2">post by</span>
+                        <a class="card-link" href="#"> admin</a>
+                    </span>
+                </span>
+            </div>
+            
+            <div class="blog-container mt-4 pt-4" style="border-top: 1px solid grey;">
+                <h1>{{object.title}}</h1>
+                <p>{{ object.content|safe }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+            <h4 style="font-family: MinionPro;text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            box-sizing: inherit;
+            max-width: 100%;
+            clear: both;
+            line-height: 1.2;
+            margin: 0 0 .75em;
+            letter-spacing: 0;
+            font-size: 1.5rem;
+            margin-bottom: 1.6em;
+            border: 1px solid #e5e5e5;
+            text-align: center;
+            padding: 1.125rem;
+            color: #2d2a24;">Recent post</h4>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a class="nav-link" href="">
+                        Don Quixote 
+                    </a>
+                  <div class="image-parent">
+                      <a href="">
+                        <img src="http://www.dothanhspyb.com/pictures/news/5duWAIg6NsHG1glKYSQ1.png" width="200" height="150" class="img-fluid" alt="quixote">
+                      </a>
+                  </div>
+                </li>
+                
+              </ul>
+        </div>
+    </div>
+    <hr class="mb-4" style="height:1px;border-width:0;color:gray;background-color:gray">
+</div>
 {% endblock %}

@@ -50,7 +50,7 @@
                             <div class="float-left">
                                 <ul class="navbar-nav">
                                     <li class="parent-home nav-item dropdown">
-                                        <a href="#" role="button" class="nav-link dropdown-toggle"
+                                        <a href="#" role="button" class="nav-link "
                                             data-toggle="dropdown" data-target="#home_dropdown">Home
                                             <span class="caret"></span>
                                         </a>
@@ -61,7 +61,7 @@
                                         </div>
                                     </li>
                                     <li class="parent-page nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                        <a class="nav-link " data-toggle="dropdown"
                                             data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu page" aria-labelledby="page-dropdown">
                                             <a class="dropdown-item" href="{% url 'profile' %}">My account</a>
@@ -70,7 +70,7 @@
                                         </div>
                                     </li>
                                     <li class="parent-shop nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                        <a class="nav-link " data-toggle="dropdown"
                                             data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
                                             <a class="dropdown-item" href="{% url 'products-all' %}">Product list</a>
@@ -101,7 +101,7 @@
                                     </a>
                                 </li>
                                 <li class="parent-user dropdown icon-bar-hover">
-                                    <a class="btn btn-customize dropdown-toggle" data-toggle="dropdown" data-target="user" href="#"><i
+                                    <a class="btn btn-customize" data-toggle="dropdown" data-target="user" href="#"><i
                                             class="fa fa-user"></i></a>
                                             {% if user.is_authenticated %}
                                             <div id="user" class="toggler neumorphism dropdown-menu visitor-user align-content-center dropdown-menu-right" aria-labelledby="user">
@@ -113,10 +113,13 @@
                                             </div>
                                             {% else %}
                                             <div id="visitor"  class="neumorphism toggler dropdown-menu visitor-user dropdown-menu-right" aria-labelledby="visitor">
-                                                <a href="{% url 'login' %}" class="nav-link dropdown-item-custom" title="Go to login page">
+                                                <div class="nav-link dropdown-item-custom mx-auto" title="Go to login page">
                                                     <img class="text-center col-12 my-auto" src="{%static '/images/home/welcome-cat.svg'%}" alt="login" height="100px" width="100px">
                                                     <div class=" col-12 pr-1 dropdown-divider"></div>
-                                                    <p class="pr-2 mt-2">Go to <span class="initialism text-uppercase">login</span>  or <span class="text-uppercase">register</span> </p></a>
+                                                    <p class="pr-2 mt-2">Go to <span
+                                                        class="initialism text-uppercase font-weight-bold login-span" style="color: brown !important; cursor: pointer;">login</span> or <span
+                                                        class="text-uppercase font-weight-bold register-span" style="cursor: pointer;">register</span> </p>
+                                                </div>
                                             </div>
                                             {% endif %}
                                 </li>

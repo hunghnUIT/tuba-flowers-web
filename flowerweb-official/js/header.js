@@ -2,6 +2,7 @@
 /* Search setting*/
 $(window).on('scroll', function () {
     $('nav').toggleClass('black', window.scrollY >250);
+    $('nav').toggleClass('sticky-top', window.scrollY <=250);
 });
 $('.modal-body').click(function (e) { 
     if ($(e.target).is('#input-group *') || $(e.target).is('.modal-change-address *'))
@@ -23,4 +24,19 @@ var isMobile = function() {
 
     return false;
 };
+$(document).ready(function () {
+    if (window.scrollY==0)
+    {
+        $('nav').addClass('sticky-top');
+    }
+    $('#search-box').focus();
+    $('.login-span').click(function (e) { 
+        window.location.replace("/login");
+        console.log("login");
+    });
+    $('.register-span').click(function (e) { 
+        window.location.replace("/register");
+        console.log("register");
+    });
+});
 
