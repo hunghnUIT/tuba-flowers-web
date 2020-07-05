@@ -1,10 +1,15 @@
 $(document).ready(function () {
+    $('#more-info-sign-in').hide();
+    $('.not-empty-allow').hide();
     var isValid_username=false;
     var isValid_phone=false;
     var isValid_email=false;
     var isValid_password=false;
     var isValid_retype=false;
     var isValid_checkbox=false;
+    var isValid_firstName=false;
+    var isValid_lastName=false;
+    var isValid_address=false;
 
     $('#txt-username').on('input', function (e) {
         checkUsername($(this));
@@ -20,6 +25,16 @@ $(document).ready(function () {
     });
     $('#txt-retype').on('input',function (e) { 
         checkRetype($(this));
+    });
+    
+    $('#txt-first-name').on('input',function (e) { 
+        checkFirstName($(this));
+    });
+    $('#txt-last-name').on('input',function (e) { 
+        checkLastName($(this));
+    });
+    $('#txt-address').on('input',function (e) { 
+        checkAddress($(this));
     });
 
     function checkUsername(para) {
@@ -136,6 +151,55 @@ $(document).ready(function () {
             isValid_retype=false;
         }
     }
+
+    function checkFirstName(para) {
+        var pattern =/^[a-zA-Z]*$/;
+        var firstName =$('#txt-first-name').val();
+        const temp=para.parent().parent().children('.notice');
+        if(pattern.test(firstName)&& firstName!="")
+        {
+            temp.removeClass('show');
+            isValid_firstName=true;
+        }
+        else
+        {
+            temp.addClass('show');
+            temp.children('.tooltip-text').html("Invalid name");
+            isValid_firstName=false;
+        }
+    }
+    function checkLastName(para) {
+        var pattern =/^[a-zA-Z]*$/;
+        var lastName =$('#txt-last-name').val();
+        const temp=para.parent().parent().children('.notice');
+        if(pattern.test(lastName)&& lastName!="")
+        {
+            temp.removeClass('show');
+            isValid_lastName=true;
+        }
+        else
+        {
+            temp.addClass('show');
+            temp.children('.tooltip-text').html("Invalid name");
+            isValid_lastName=false;
+        }
+    }
+    function checkAddress(para) {
+        var address =$('#txt-address').val();
+        const temp=para.parent().parent().children('.notice');
+        if(address!="")
+        {
+            temp.removeClass('show');
+            isValid_address=true;
+        }
+        else
+        {
+            temp.addClass('show');
+            temp.children('.tooltip-text').html("Not be empty");
+            isValid_address=false;
+        }
+    }
+
     function checkCheckbox() {
         var checkbox =document.getElementById('vehicle2');
         if(!checkbox.checked){
@@ -159,20 +223,23 @@ $(document).ready(function () {
     });
     $('.register-btn').click(function (e) { 
         console.log(isValid_checkbox);
-        if (!isValid_email|!isValid_password|!isValid_retype|!isValid_username|!isValid_checkbox)
+        if (!isValid_email|
+            !isValid_password|
+            !isValid_retype|!isValid_username|
+            !isValid_checkbox|
+            !isValid_firstName|
+            !isValid_lastName|
+            !isValid_address)
         {
             if (!isValid_checkbox)
             {
                 alert("Please agree to our terms and conditions");
             }
-            else {
-                alert("Please fill the form correctly");
-                return false;
-            }
+            
         }
         else
         {
-            alert("Submit successfully");
+            
             return true;
         }
     });
@@ -200,4 +267,24 @@ $(document).ready(function () {
     else{
         $('.register-btn').prop('disabled', false);
     }
+    $(".next-btn").click(function (e) { 
+        e.preventDefault();
+        if (!isValid_email|!isValid_password|!isValid_retype|!isValid_username)
+        {
+            $('.not-empty-allow').show();
+           return false;
+        }
+        else
+        {
+            $('.not-empty-allow').hide();
+            $('#sign-in-info').fadeOut(500);
+            $('#more-info-sign-in').fadeIn(500);
+            return true;
+        }
+    });
+    $('.previous-step').click(function (e) { 
+        e.preventDefault();
+        $('#sign-in-info').slideDown(500);
+        $('#more-info-sign-in').slideUp(500);
+    });
 });

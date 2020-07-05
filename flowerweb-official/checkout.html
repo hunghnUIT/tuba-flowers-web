@@ -31,7 +31,7 @@
                         <p class="card-text phone-text"><span class="font-weight-bold">Phone :</span> {{ checkout_form.phone.value|default_if_none:"" }}</p>
                         
                       </div>
-                      <a href="#" class="btn btn-outline-secondary btn-lg w-100" id="change-address-btn">Change address</a>
+                      <a href="#" class="btn btn-outline-secondary btn-lg w-100 mt-2" id="change-address-btn">Change address</a>
                       <form id="change-address-form" method="GET" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group mt-2">

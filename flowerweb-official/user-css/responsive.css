@@ -50,13 +50,17 @@
         display: none;
     }
     .container {
+        position: fixed !important;
         grid-template-columns: 1fr;
+        margin: auto !important;
     }
     .wave {
         display: none;
     }
     .login-container {
        justify-content: center;
+       height: auto;
+       width: auto;
     }
     .notice.show span {
         left: -90px;
