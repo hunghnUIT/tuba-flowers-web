@@ -87,13 +87,13 @@
                         {% endif %}
                         <p class="detail-description">{{ object.description }}</p>
                         <div class="add-to-cart-wrapper">
-                            {% if object.number_item_left != 0 %}
+                            {% if object.number_item_left > 0 %}
                             <div class="stock-status mb-2 pt-4" style=" font-size: 18px;">
-                                <span class="font-weight-bold" style=" color: #A3CD39;">In stock</span> <span class="font-italic">( {{ object.number_item_left  }} remaining items )</span>
+                                <span class="font-weight-bold" style=" color: #A3CD39;">In stock</span> <span class="font-italic">( <span id="number-item-left">{{ object.number_item_left }}</span> remaining items )</span>
                             </div>
                             {% else %}
                             <div class="stock-status mb-2 pt-4" style=" font-size: 18px;">
-                                <span class="font-weight-bold" style=" color: #B73022;">Out stock</span> <span class="font-italic">( {{ object.number_item_left  }} remaining items )</span>
+                                <span class="font-weight-bold" style=" color: #B73022;">Out stock</span> <span class="font-italic">( <span id="number-item-left">{{ object.number_item_left }}</span> remaining items )</span>
                             </div>
                             {% endif %}
                             <div class="quantity-wrapper d-inline-block">

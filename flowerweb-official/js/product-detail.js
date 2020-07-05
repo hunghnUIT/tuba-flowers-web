@@ -113,7 +113,6 @@ $(document).ready(function () {
         var id_item = $('#id-item').text();
         var quantity = $('#quantity').val();
         if($(document).find('#user').length){
-            console.log("/add-to-cart/"+id_item+"-quantity="+quantity);
             $.ajax({
                 type: "GET",
                 url: "/add-to-cart/"+id_item+"-quantity="+quantity,
@@ -122,9 +121,14 @@ $(document).ready(function () {
                 dataType: "html",
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 success:function(response){
+                    var old_number_item_in_cart = $(document).find(".cart-number");
                     var number_item_in_cart = $(response).find(".cart-number");
                     $('.cart-number').replaceWith(number_item_in_cart)
-                    alert("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                    if(parseInt(old_number_item_in_cart.text())===parseInt(number_item_in_cart.text())){
+                        alert("Add to cart failed! This item only have "+ $(document).find("#number-item-left").text() +" items left.")
+                    } else{
+                        alert("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                    }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert(textStatus);

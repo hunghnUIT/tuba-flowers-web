@@ -47,9 +47,15 @@ $(document).ready(function () {
                     // var stringQuantity =$('.cart-number').text();
                     // var incr_quantity=parseInt(stringQuantity)+1;
                     // $('.cart-number').text(incr_quantity)
-                var number_item_in_cart = $(response).find(".cart-number");
-                $('.cart-number').replaceWith(number_item_in_cart)
-                alert("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                    var old_number_item_in_cart = $(document).find(".cart-number");
+                    console.log(old_number_item_in_cart.text());
+                    var number_item_in_cart = $(response).find(".cart-number");
+                    $('.cart-number').replaceWith(number_item_in_cart)
+                    if(parseInt(old_number_item_in_cart.text())===parseInt(number_item_in_cart.text())){
+                    alert("Add to cart failed! This item's number is not enough.")
+                    } else{
+                        alert("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                    }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert(textStatus);
@@ -126,7 +132,6 @@ $(document).ready(function () {
                     },
                 });
             }
-            
         });
         
     });
