@@ -135,6 +135,20 @@
     opacity: 1 !important;
     color: wheat;
 }
+.ui-autocomplete li.ui-menu-item 
+{
+    padding: 3px;  
+}
+.ui-menu-item a{
+    margin: 0;
+    padding: 0px  !important;
+    float: left;
+    clear: left;
+    width: 100%;
+}
+.ui-menu-item a:hover{
+    color: aliceblue;
+}
 /*  */
 @media (min-width: 1200px) {
     .product-title {

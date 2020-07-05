@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -163,6 +163,7 @@
                                     </button>
                                 </div>
                             </div>
+                            <ul id="list-result"></ul>
                         </div>
                     </form>
                     
@@ -326,7 +327,9 @@
                                     <a style="visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;" type="button" class="btn btn-outline-dark"
                                         title="Select this item"><i class="fa fa-cart-plus mr-2 p-1"></i><span
                                             class="p-1 font-weight-bold" style="font-size: large;">Add to
-                                            cart</span><span id="id-item" style="display: none;">{{ new.pk }}</span></a>
+                                            cart</span><span id="id-item" style="display: none;">{{ new.pk }}</span>
+                                            <span class="number-item-left d-none">{{item.number_item_left}}</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -564,29 +567,52 @@
     <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/home-product.js' %}"></script>
     <!-- JS for auto complete search bar -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script> 
-        $( function() {
-            $("#search-box").autocomplete({
-                source: "{% url 'auto-search' %}",
-                minLength: 2
+        $("#search-box").keyup(function(){ 
+            var query = $("#search-box").val();
+            let data = [];
+            $.ajax({
+                type: "GET",
+                url: "/auto-search/?term="+query,
+                cache: false,
+                async: false,
+                dataType: "json",
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                success:function(response){
+                    data = JSON.parse(JSON.stringify(response));
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                },
             });
-            
-            // $("#search-box").autocomplete({
-            //     source: "{% url 'auto-search' %}",
-            //     select: function (event, ui) {
-            //         var elem = $(event.originalEvent.toElement);
-            //         if (elem.hasClass('ac-item-a')) {
-            //             var url = elem.attr('data-url');
-            //             event.preventDefault();
-            //             window.open(url, '_blank ');
-            //         }
-            //     }
-            // }).data("ui-autocomplete")._renderItem = function (ul, item) {
-            //     return $("<li></li>")
-            //         .data("item.autocomplete", item)
-            //         .append('<a>' + item.label + '<span class="ac-item-a" data-url="http://www.nba.com"> View Details</span></a>')
-            //         .appendTo(ul);
-            // };
+            $(this).autocomplete({
+                source: function(request, response){
+                    response($.map(data, function(item) {
+                        return {
+                            id: item.id,
+                            value: item.value
+                        }
+                    }));
+                },
+                minLength: 2,
+                appendTo:"#list-result",
+                select: function (event, ui) {
+                    $(this).val(ui.item.value);
+                    var elem = $(event.originalEvent.toElement);
+                    if (elem.hasClass('ac-item-a')) {
+                        var url = elem.attr('data-url');
+                        event.preventDefault();
+                        window.open(url, '_blank ');
+                    }
+                }
+            }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                return $('<li class="w-100"></li>')
+                    .data("item.autocomplete", item)
+                    .append('<a><span class="ac-item-a" data-url="/products/item/'+ item.id +'"> '+ item.label +'</span></a>')
+                    .appendTo(ul);
+            }
         });
     </script>
 </body>

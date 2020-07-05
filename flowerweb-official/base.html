@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -144,8 +144,8 @@
                                 </div>
                             </div>
                         </form>
-                        
                     </div>
+                    <ul id="list-result"></ul>
                     <div class="modal-footer">
 
                     </div>
@@ -268,13 +268,53 @@
 <script src="{% static 'js/header.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>
 <!-- JS for autocomplete search bar -->
-<script>
-    $( function() {
-        $("#search-box").autocomplete({
-            source: "{% url 'auto-search' %}",
-            minLength: 2
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script> 
+    $("#search-box").keyup(function(){ 
+        var query = $("#search-box").val();
+        let data = [];
+        $.ajax({
+            type: "GET",
+            url: "/auto-search/?term="+query,
+            cache: false,
+            async: false,
+            dataType: "json",
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            success:function(response){
+                data = JSON.parse(JSON.stringify(response));
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+            },
         });
-    } );
+        $(this).autocomplete({
+            source: function(request, response){
+                response($.map(data, function(item) {
+                    return {
+                        id: item.id,
+                        value: item.value
+                    }
+                }));
+            },
+            minLength: 2,
+            appendTo:"#list-result",
+            select: function (event, ui) {
+                $(this).val(ui.item.value);
+                var elem = $(event.originalEvent.toElement);
+                if (elem.hasClass('ac-item-a')) {
+                    var url = elem.attr('data-url');
+                    event.preventDefault();
+                    window.open(url, '_blank ');
+                }
+            }
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $('<li class="w-100"></li>')
+                .data("item.autocomplete", item)
+                .append('<a><span class="ac-item-a" data-url="/products/item/'+ item.id +'"> '+ item.label +'</span></a>')
+                .appendTo(ul);
+        };
+    });
 </script>
 {% block JavaScript %}
 {% endblock %}
