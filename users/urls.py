@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 urlpatterns = [
     path('orders_detail', views.load_account_order, name="orders-detail"),
     path('orders_detail/cancel/<int:pk>', views.cancel_order, name="request-cancel-order"),
-    path('profile', views.load_account_order, name="profile"),
+    path('profile', views.profile, name="profile"),
     # path('cart/', views.cart, name='cart'),
     path('cart/checkout', views.checkout, name='checkout'),
     path('password-change', auth_views.PasswordChangeView.as_view(

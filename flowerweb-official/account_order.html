@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-3 border-right d-none d-xl-block">
-                    <div class="account-title">Hi, Dang Khiet Nghi</div>
+                    <div class="account-title">Hi, {{user.username}}</div>
                     <ul class="account-left-sidebar pl-0">
                         <li>
                             <a href="#" class="my-account-link">
@@ -38,47 +38,65 @@
                 <div class="col-12 col-xl-9 content-wrapper">
                     <div class="my-order-wrapper">
                         <div class="account-title">My Order</div>
+                        {% if orders %}
+                        {% for order in orders %}
                         <div class="order-item p-2">
                             <div class="row">
                                 <div class="col-6 col-md-3 mb-3 mb-xl-0">
-                                    <div>Mã đơn: P01248612</div>
-                                    <div>Ngày đặt: 4/7/2020</div>
+                                    <div>Order ID: {{order.pk}}</div>
+                                    <div>Date ordered: {{order.date_ordered.date}}</div>
                                 </div>
                                 <div class="col-6 col-md-4">
-                                    <div>Thành tiền:</div>
-                                    <div>1,700,000 VNĐ</div>
+                                    <div>Total cost:</div>
+                                    <div class="price">{{order.get_total_order_price}}</div>
                                 </div>
                                 <div class="col-6 col-md-2">
-                                    <div>Thanh toán:</div>
-                                    <div>Tiền mặt</div>
+                                    <div>Payment:</div>
+                                    <div>Cash</div>
                                 </div>
                                 <div class="col-6 col-md-2">
-                                    <div class="font-weight-bold">Trạng thái:</div>
-                                    <div class="font-weight-bold">Chờ xác nhận</div>
+                                    <div class="font-weight-bold">Order status:</div>
+                                    {% if order.order_status == '1' %}
+                                        <div class="font-weight-bold">Waiting Confirmation</div>
+                                    {% elif order.order_status == '2' %}
+                                        <div class="font-weight-bold">Processing</div>
+                                    {% elif order.order_status == '3' %}
+                                        <div class="font-weight-bold">Shipping</div>
+                                    {% elif order.order_status == '5' %}
+                                        <div class="font-weight-bold">Requesting Cancel</div> 
+                                    {% elif order.order_status == '6' %}
+                                        <div class="font-weight-bold">Canceled</div>    
+                                    {% endif %}
                                 </div>
                                 <div class="col-6 col-md-1">
-                                    <button class="cancel-request btn" data-toggle="modal" data-target="#exampleModal">
+                                    <a href="{{ order.get_cancel_order_url }}" class="cancel-request btn" data-toggle="modal" data-target="#exampleModal">
                                         <i class="material-icons" style="font-size:24px; vertical-align: middle !important;">cancel</i>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="">
+                            You have no order in progress.
+                        </div>
+                        {% endif %}
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  ...
+                                    Are you sure want to cancel this order?
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                  <button type="button" class="btn btn-danger">Cancel order</button>
                                 </div>
                               </div>
                             </div>

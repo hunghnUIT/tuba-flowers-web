@@ -134,6 +134,15 @@ Sang's code
 def loadcheckout(request):
     return render (request,'checkout.html')
 
+def get_user_pending_order(request):
+    # get order for the correct user
+    all_orders =  Order.objects.filter(user=request.user)
+    proccessing_orders = all_orders.exclude(order_status='4').order_by('-date_ordered')
+    if proccessing_orders.exists():
+        # get the only order in the list of filtered orders
+        return proccessing_orders
+    return 0
+    # return orders
 
 @login_required
 def profile(request):
@@ -156,24 +165,18 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    existing_orders = get_user_pending_order(request)
+    print(existing_orders)
     contexts = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'orders': existing_orders
     }
 
-    return render(request, 'users/profile.html', contexts)
+    return render(request, 'account_order.html', contexts)
 # Sang tạo 
 def load_account_order(request):
     return render(request, 'account_order.html')
-
-def get_user_pending_order(request):
-    # get order for the correct user
-    orders = Order.objects.filter(user=request.user, order_status='P') | Order.objects.filter(user=request.user, order_status='S')| Order.objects.filter(user=request.user, order_status='RC')| Order.objects.filter(user=request.user, order_status='AC')
-    if orders.exists():
-        # get the only order in the list of filtered orders
-        return orders
-    return 0
-    # return orders
 
 @login_required
 def orders_detail(request):
@@ -188,8 +191,8 @@ def orders_detail(request):
 def cancel_order(request, pk):
     order = get_object_or_404(Order, pk=pk)
     if order:
-        if order.order_status == "W":
-            order.order_status = "RC"
+        if order.order_status == "1":
+            order.order_status = "5"
             order.save()
             messages.success(request, f'Requested cancel order, waiting for acceptation.')
         else:
