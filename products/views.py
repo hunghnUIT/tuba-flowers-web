@@ -123,7 +123,7 @@ class ItemsWithTagListView(ListView): # Choose a tag and it return items contain
         contexts = super(ItemsWithTagListView, self).get_context_data(**kwargs)
         categories = sorted(Category.objects.all(), key=lambda x: random.random())
         contexts['categories'] = categories
-        contexts['type'] = 'tag/'
+        contexts['type'] = 'tag='
         contexts['kwarg'] = self.kwargs['tag']
         return contexts
 

@@ -26,9 +26,10 @@ def register(request):
             username = form.cleaned_data.get('username')
             new_user = User.objects.get(username=username)
             p_form.instance=new_user.profile # Indicating who this phone number belong to.
-            p_form.save()
-            # print(form.cleaned_data)
-
+            if p_form.is_valid():
+                p_form.save()
+            else:
+                print('invalid')
             messages.success(request, f'Your account {username} has been created. You can login now.')
             return redirect('login')
     
