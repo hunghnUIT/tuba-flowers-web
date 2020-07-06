@@ -7,12 +7,12 @@ from django.utils import timezone
 from django.urls import reverse
 
 ORDER_STATUS_CHOICES = (
-    ('W', 'Waiting Confirmation'),
-    ('P', 'Processing'),
-    ('S', 'Shipping'),
-    ('C', 'Completed'),
-    ('RC', 'Requesting Cancel'),
-    ('AC', 'Canceled'), #Accepted cancellation request
+    ('1', 'Waiting Confirmation'),
+    ('2', 'Processing'),
+    ('3', 'Shipping'),
+    ('4', 'Completed'),
+    ('5', 'Requesting Cancel'),
+    ('6', 'Canceled'), #Accepted cancellation request
 )
 
 class Profile(models.Model):
@@ -70,13 +70,18 @@ class Order(models.Model):
     # This have to have a link to products
     items_ordered = models.ManyToManyField(ItemSelection)
     date_ordered = models.DateTimeField(default = timezone.now())
-    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=2,null=False,default='W')
+    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=2,null=False,default='1')
     address = models.CharField(max_length=70)
     phone = models.CharField(max_length=12)
-    # This address and phonenumber field will be automatic filled by address in class Profile with front-end handling or we need to extend User model.
 
-    
-    
+    # Not allow to change order status backward.
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        original = Order.objects.filter(pk=self.pk)
+        if original:
+            if int(self.order_status) < int(original[0].order_status):
+                self.order_status = original[0].order_status
+        super(Order, self).save(force_insert, force_update,*args, **kwargs)
+
     def __str__(self):
         return self.user.last_name + " " + self.user.first_name + " ordered " + ", ".join([i.item.title for i in self.items_ordered.all()])
 
@@ -95,9 +100,3 @@ class Order(models.Model):
         return reverse("request-cancel-order",kwargs={
             'pk' : self.pk
         })
-
-
-# These code below are under constructing, purpose: Validate phone number input.
-# class PhoneModel(models.Model):
-#         phone_regex = RegexValidator(regex=r'^\+?0?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-#         phone = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
