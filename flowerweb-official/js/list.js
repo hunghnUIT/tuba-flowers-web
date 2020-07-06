@@ -26,10 +26,17 @@ $(document).ready(function () {
         var item = $(this).find(":selected").val();
         var type = $(document).find("#filter-page-with").text();
         var kwarg = $(document).find("#kwarg").text();
-        
+        if(type !== "/search/"){
+            type = "/products/" + type;
+            kwarg = kwarg + "?";
+        }
+        else{
+            kwarg = "?q=" + kwarg +"&"
+        }
+        var url = type + kwarg + "order_by="+ item;
         $.ajax({
             type: "GET",
-            url: "/products/" + type + kwarg +"?order_by="+ item,
+            url: url,
             cache: false,
             async: false,
             dataType: "html",
