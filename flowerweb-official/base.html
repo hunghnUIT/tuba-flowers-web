@@ -130,27 +130,25 @@
             </div>
         </nav>
         <div class="modal fade" id="modal-search-box">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-dialog transparent width-100">
+                <div class="modal-content transparent  modal-content-custom">
                     <div class="modal-header">
 
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body modal-body-custom">
                         <form action="{% url 'search' %}" method="GET">
-                            <div class="input-group" id="input-group">
-                                <input type="text" class="form-control" placeholder="What are you looking for?"
-                                    name="q" id="search-box" required>
-                                <div class="input-group-btn" id="input-group-btn">
-                                    <button class="btn btn-customize btn-default p-0" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
+                                <div class="input-group" id="input-group">
+                                    <input type="text" class="form-control" placeholder="What are you looking for?"
+                                        name="q" id="search-box" required>
+                                    <div class="input-group-btn" id="input-group-btn">
+                                        <button class="btn btn-customize btn-default p-0" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
-                    <ul id="list-result"></ul>
                     <div class="modal-footer">
-
                     </div>
                 </div>
             </div>
@@ -176,7 +174,7 @@
                         <div class="col-md-1 col-sm-1 border-top p-0">
                         </div>
                         <div class="col-md-4 col-sm-6 p-0">
-                            <h2 class="text-capitalize">{% block title-banner %}Schefflera aptent taciti sociosqu{% endblock %}</h2>
+                            <h2 class="text-capitalize " style="text-shadow: 2px 2px 2px black;">{% block title-banner %}Schefflera aptent taciti sociosqu{% endblock %}</h2>
                         </div>
                         <div class="col-md-1 col-sm-1 border-top p-0">
                             
@@ -185,7 +183,7 @@
                         </div>
                     </div>
                     <div class="box-item-inner">
-                        <span><a class="btn-link" href="{% url 'home' %}"  typeof="WebPage" title="Go to home">
+                        <span><a class="btn-lin" href="{% url 'home' %}"  typeof="WebPage" title="Go to home" style="text-shadow: 2px 2px 2px black;">
                             o8o 
                         </a>
                     </span>
@@ -271,7 +269,7 @@
 <script src="{% static 'js/header.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>
 <!-- JS for autocomplete search bar -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script> 
     $("#search-box").keyup(function(){ 

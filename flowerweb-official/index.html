@@ -147,12 +147,11 @@
             </div>
         </nav>
         <div class="modal fade" id="modal-search-box">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-dialog transparent width-100">
+                <div class="modal-content transparent  modal-content-custom">
                     <div class="modal-header">
-
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body modal-body-custom">
                         <form action="{% url 'search' %}" method="GET">
                                 <div class="input-group" id="input-group">
                                     <input type="text" class="form-control" placeholder="What are you looking for?"
@@ -226,10 +225,11 @@
                             {% for blog in blogs %}
                             <div class="swiper-slide">
                                 <div class="blog-slide-wrapper">
-                                    <div class="blog-item text-center">
-                                        <div class="blog-item-title">From our latest blog</div>
-                                        <div class="blog-slide-title">{{ blog.title }}</div>
-                                        <div class="blog-content">{{ blog.brief }}
+                                    <div class="blog-item" style="text-shadow: 0px 2px 2px #000000;cursor: default;">
+                                        <img class="img-fluid background-blog" src="{{ blog.background.url }}" alt="background-blog">
+                                        <div class="blog-item-title" style="position: absolute;">From our latest blog</div>
+                                        <div class="blog-slide-title text-uppercase">{{ blog.title }}</div>
+                                        <div class="blog-content" style="text-align: center; padding:0px 10px 0px 10px; position: absolute;">{{ blog.brief }}
                                         </div>
                                         <a class="blog-see-more" href="{% url 'blog-detail' blog.pk%}">discover now</a>
                                     </div>
