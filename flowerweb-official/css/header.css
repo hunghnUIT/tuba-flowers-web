@@ -51,10 +51,10 @@ div > i + span {
     cursor: pointer;
 }
  /*----- Search-modal configuration -----*/
- .modal-dialog,.modal-content{
+ .transparent{
     background-color: rgba(0, 0, 0, 0.3) !important;
 }
-.modal-dialog {
+.width-100 {
     width: 100% !important;
     height: 100% !important;
     margin: 0;
@@ -62,7 +62,7 @@ div > i + span {
     max-width: none !important;
   }
   
-  .modal-content {
+  .modal-content-custom {
     height: auto !important;
     min-height: 100% !important;
     border-radius: 0;

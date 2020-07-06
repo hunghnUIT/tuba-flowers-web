@@ -162,6 +162,9 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', contexts)
+# Sang tạo 
+def load_account_order(request):
+    return render(request, 'account_order.html')
 
 def get_user_pending_order(request):
     # get order for the correct user

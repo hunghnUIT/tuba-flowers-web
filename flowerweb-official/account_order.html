@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/account_order.css' %}">
+{% endblock %}
+{% block landscape-class %}
+    <div class="container-fluid title d-flex align-items-center pay-landscape">
+{% endblock %}
+{% block box-class %}
+    <div class="box wrap w-100 align-items-center pay-box">
+{% endblock %}
+{% block title-banner %}Personal Information{% endblock %}
+{% block customizeCheckout %} 
+    <span class="title-banner customize-title" style="text-shadow: 2px 2px 2px black;">Username</span>
+{% endblock %}
+{% block content %}
+    <article class="account-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-3 border-right d-none d-xl-block">
+                    <div class="account-title">Hi, Dang Khiet Nghi</div>
+                    <ul class="account-left-sidebar pl-0">
+                        <li>
+                            <a href="#" class="my-account-link">
+                                <svg width="17" height="17" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg>
+                                &nbsp;&nbsp;My Infomartion
+                            </a>
+                        </li>
+                        <li>
+                            <a class="active my-order-link" href="#">
+                                <svg width="17" height="17" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M704 1536q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm896 0q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm128-1088v512q0 24-16.5 42.5t-40.5 21.5l-1044 122q13 60 13 70 0 16-24 64h920q26 0 45 19t19 45-19 45-45 19h-1024q-26 0-45-19t-19-45q0-11 8-31.5t16-36 21.5-40 15.5-29.5l-177-823h-204q-26 0-45-19t-19-45 19-45 45-19h256q16 0 28.5 6.5t19.5 15.5 13 24.5 8 26 5.5 29.5 4.5 26h1201q26 0 45 19t19 45z"/></svg>
+                                &nbsp;&nbsp;My Order
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-xl-9 content-wrapper">
+                    <div class="my-order-wrapper">
+                        <div class="account-title">My Order</div>
+                        <div class="order-item p-2">
+                            <div class="row">
+                                <div class="col-6 col-md-3 mb-3 mb-xl-0">
+                                    <div>Mã đơn: P01248612</div>
+                                    <div>Ngày đặt: 4/7/2020</div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div>Thành tiền:</div>
+                                    <div>1,700,000 VNĐ</div>
+                                </div>
+                                <div class="col-6 col-md-2">
+                                    <div>Thanh toán:</div>
+                                    <div>Tiền mặt</div>
+                                </div>
+                                <div class="col-6 col-md-2">
+                                    <div class="font-weight-bold">Trạng thái:</div>
+                                    <div class="font-weight-bold">Chờ xác nhận</div>
+                                </div>
+                                <div class="col-6 col-md-1">
+                                    <button class="cancel-request btn" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="material-icons" style="font-size:24px; vertical-align: middle !important;">cancel</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  ...
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-profile-wrapper">
+                        <div class="card w-50">
+                            <img class="card-img-top img-fluid bg-cover bg-bottom h-56 md:h-auto md:w-56" src="https://images.unsplash.com/photo-1438262267532-2db13fcceca2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                              <button type="button" 
+                                    class="btn btn-outline-secondary btn-edit-profile w-100" 
+                                    data-toggle="modal" 
+                                    data-target="#edit-modal">Edit</button>
+                                <!-- Modal -->
+                    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-Label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="edit-modal-Label">Edit personal information</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="lbl-first-name">First name</label>
+                                            <input type="text" class="form-control" id="input-first-name" placeholder="New first name">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="lbl-last-name">Last name</label>
+                                            <input type="text" class="form-control" id="input-last-name" placeholder="New last name">
+                                          </div>
+                                        <div class="form-group">
+                                          <label for="lbl-Phone">Phone</label>
+                                          <input type="phone" class="form-control" id="input-phone" placeholder="New phone number">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="lbl-address">Address</label>
+                                          <input type="text" class="form-control" id="input-address" placeholder="New address">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lbl-password">Password</label>
+                                            <input type="password" class="form-control" id="input-password" placeholder="New password">
+                                          </div>
+                                      </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+                            <div class="card-footer">
+                              <small class="text-muted">Last updated 3 mins ago</small>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
+
+{% block JavaScript %}
+    <script src="{% static 'js/account_order.js' %}"></script>
+    <!--js cũng tương tự css-->
+{% endblock %}
