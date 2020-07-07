@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 from products.models import Item
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.html import format_html # This lib is for show image in admin site.
 
 ORDER_STATUS_CHOICES = (
     ('1', 'Waiting Confirmation'),
@@ -86,7 +87,7 @@ class Order(models.Model):
         return self.user.last_name + " " + self.user.first_name + " ordered " + ", ".join([i.item.title for i in self.items_ordered.all()])
 
     def get_cart_items(self):
-        return self.items_ordered.all()
+        return "\n".join([i.item.title+": "+str(i.quantity) for i in self.items_ordered.all()])
 
     def get_total_order_price(self):
         return sum([i.price_client_bought*i.quantity for i in self.items_ordered.all()])

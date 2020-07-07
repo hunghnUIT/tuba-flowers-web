@@ -30,9 +30,11 @@
     <!-- from cart-css -->
     {% block css %}
     {% endblock %}
+    
 </head>
 
 <body>
+    <span class="site d-none">base</span>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top "
             style="background-color: #EAEAEB !important;">
@@ -108,7 +110,6 @@
                                                 <div class="dropdown-item-custom text-right font-weight-bold font-italic" href="#" style="font-size: 18px; cursor: pointer;">Hello, {{ user.username }}!</div>
                                                 <div class="dropdown-divider"></div>
                                                 <a title="Go to your account" class="dropdown-item-custom " href="{% url 'profile' %}">My account</a>
-                                                <a title="Go to your order list" class="dropdown-item-custom " href="{% url 'orders-detail' %}">My order</a>
                                                 <a title="Logout" class="dropdown-item-custom " href="{% url 'logout' %}">Log out</a>
                                             </div>
                                             {% else %}

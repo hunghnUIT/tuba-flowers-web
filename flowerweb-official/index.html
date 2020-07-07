@@ -37,6 +37,7 @@
 </head>
 
 <body>
+    <span class="site d-none">index</span>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container">
@@ -117,8 +118,6 @@
                                         <div class="dropdown-divider"></div>
                                         <a title="Go to your account" class="dropdown-item-custom "
                                             href="{% url 'profile' %}">My account</a>
-                                        <a title="Go to your account" class="dropdown-item-custom "
-                                            href="{% url 'orders-detail' %}">My orders</a>
                                         <a title="Logout" class="dropdown-item-custom " href="{% url 'logout' %}">Log
                                             out</a>
                                     </div>

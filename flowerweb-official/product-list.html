@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
 <link rel="stylesheet" href="{% static 'css/discount.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+<link rel="stylesheet" href="{% static 'css/swiper-list.css' %}">
+
 <span id="list" style="display: none"></span>
 {% endblock %}
 {% block landscape-class %}
@@ -23,7 +25,7 @@
         <article class="product-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-3 d-none d-xl-block">
+                    <div class="col-xl-3 d-none d-xl-block pr-0">
                         <a href="#" class="d-block text-uppercase category-title">categories</a>
                         <ul class="list-unstyled category-list">
                             {% for cate in categories %}
@@ -34,9 +36,22 @@
                             
                         </ul>
                     </div>
-                    <div class="col-xl-9">
-                        <div class="container p-0 border border-0 mb-2 rounded d-flex justify-content-end mr-0 ">
-                            <form class="pb-2 ml-2" action=""> {% csrf_token %}
+                    <div class="col-xl-9 pl-0">
+                        <div class="container p-0 border border-0 mb-2 rounded d-flex justify-content-end mr-0 " style="cursor: default; background-color: white;">
+                            <div class="swiper-container topics-container float-left rounded">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+                                    {% for topic in list_topic %}
+                                    <a class="swiper-slide p-2 slide-topics" href="{% url 'products-topic' topic.title %}" style="color: black;text-decoration: none;">
+                                        <div class="title-topic">
+                                           {{ topic.title }}
+                                        </div>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <form class="pb-2 ml-2 align-item" style="margin-top: auto; margin-bottom: auto;" action=""> {% csrf_token %}
                                 <select class="browser-default custom-select " name="order_by" id="item">
                                     <option disabled selected value="">Choose your option</option>
                                     <option value="asc-price">Ascending Price</option>
@@ -46,7 +61,7 @@
                                 </select>
                             </form>
                         </div>
-                        <div class="row append-result">
+                        <div class="row append-result" style="margin-left: 0px;">
                             {% for item in items %}
                             <div class="col-md-4 col-6 result p-1 ">
                                 <div class="card product-wrapper border-0">

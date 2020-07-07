@@ -40,41 +40,57 @@
                         <div class="account-title">My Order</div>
                         {% if orders %}
                         {% for order in orders %}
+                        {% if order.order_status == '6' %}
+                        {% else %}
                         <div class="order-item p-2">
-                            <div class="row">
-                                <div class="col-6 col-md-3 mb-3 mb-xl-0">
+                            <div class="row justify-content-center align-self-center">
+                                <div class="col-6 col-md-3 mb-3 mb-xl-0 my-auto">
                                     <div>Order ID: {{order.pk}}</div>
                                     <div>Date ordered: {{order.date_ordered.date}}</div>
                                 </div>
-                                <div class="col-6 col-md-4">
+                                <div class="col-6 col-md-2 my-auto">
                                     <div>Total cost:</div>
                                     <div class="price">{{order.get_total_order_price}}</div>
                                 </div>
-                                <div class="col-6 col-md-2">
+                                <div class="col-6 col-md-2 my-auto">
                                     <div>Payment:</div>
                                     <div>Cash</div>
                                 </div>
-                                <div class="col-6 col-md-2">
-                                    <div class="font-weight-bold">Order status:</div>
+                                <div class="col-6 col-md-2 my-auto" >
+                                    <div class="font-weight-bold" class="order-status">Order status:</div>
                                     {% if order.order_status == '1' %}
-                                        <div class="font-weight-bold">Waiting Confirmation</div>
+                                        <div class="font-weight-bold" class="order-status">Waiting Confirmation</div>
+                                    </div>
+                                        <div class="col-6 col-md-1 my-auto">
+                                            <a href="#" data-id="{{ order.get_cancel_order_url }}"  class="cancel-request btn" data-toggle="modal" data-target="#modal-be-sure">
+                                                <i class="material-icons" style="font-size:24px; vertical-align: middle !important;">cancel</i>
+                                            </a>
+                                        </div>
+                                    
                                     {% elif order.order_status == '2' %}
-                                        <div class="font-weight-bold">Processing</div>
+                                        <div class="font-weight-bold" class="order-status">Processing</div>
+                                    </div>
                                     {% elif order.order_status == '3' %}
-                                        <div class="font-weight-bold">Shipping</div>
+                                        <div class="font-weight-bold" class="order-status">Shipping</div>
+                                    </div>
                                     {% elif order.order_status == '5' %}
-                                        <div class="font-weight-bold">Requesting Cancel</div> 
-                                    {% elif order.order_status == '6' %}
-                                        <div class="font-weight-bold">Canceled</div>    
+                                        <div class="font-weight-bold" class="order-status">Requesting Cancel</div> 
+                                    </div>
                                     {% endif %}
-                                </div>
-                                <div class="col-6 col-md-1">
-                                    <a href="{{ order.get_cancel_order_url }}" class="cancel-request btn" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="material-icons" style="font-size:24px; vertical-align: middle !important;">cancel</i>
+                                <div class="col-6 col-md-1 my-auto">
+                                    <a class="detail-request card-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapse-{{order.pk}}">
+                                        Detail
                                     </a>
                                 </div>
                             </div>
+                            
                         </div>
+                        <div class="collapse collapse-{{order.pk}}" id="collapse-{{order.pk}}">
+                            <div class="card card-body">
+                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            </div>
+                        </div>
+                        {% endif %}
                         {% endfor %}
                         {% else %}
                         <div class="">
@@ -82,21 +98,21 @@
                         </div>
                         {% endif %}
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade modal-be-sure" id="modal-be-sure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                  <h5 class="modal-title modal-title-sure" id="exampleModalLabel" style="cursor:default;">Confirmation</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body modal-body-sure " style="cursor:default;">
                                     Are you sure want to cancel this order?
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-danger">Cancel order</button>
+                                  <button type="button" class="btn btn-danger" id="request-cancel">Request cancel</button>
                                 </div>
                               </div>
                             </div>
