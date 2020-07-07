@@ -12,7 +12,7 @@
 {% block box-class %}
     <div class="box wrap w-100 align-items-center blog-box">
 {% endblock %}
-{% block title-banner %}Discovering the beauty of flowers{% endblock %}
+{% block title-banner %}Discovering & meaning of flowers{% endblock %}
 {% block on-page %} Blog List {% endblock %}
 {% block content %}
 <div class="container mt-4">
@@ -24,8 +24,8 @@
         <img class="img-fluid article-img mr-2" width="150" height="150" src="{{blog.background.url}}" alt="Blog background">
         <div class="media-body">
             <div class="article-metadata">
-            <a class="mr-2" href="#">admin</a>
-            <small class="text-muted">{{ blog.posted_date | date:"F d, Y"}}</small>
+            <a class="mr-2" href="#"><i class="fas fa-user mr-2" style="font-size: 18px;color: gray;"></i>admin</a>
+            <small class="text-muted"><i class="fa fa-calendar mr-2" style="font-size: 18px;color: gray;"></i>{{ blog.posted_date | date:"F d, Y"}}</small>
             </div>
             <h2><a class="article-title" href="{% url 'blog-detail' blog.pk %}" style="color: grey; font-weight: bold;">{{ blog.title }}</a></h2>
             <p class="article-content">{{ blog.brief }}</p>
