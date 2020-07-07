@@ -145,6 +145,22 @@ class ItemDetailView(DetailView):
             contexts['available'] = True
         return contexts
 
+class BlogListView(ListView):
+    model = Blog
+    template_name = 'blog-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
+    # template_name= 'products/all_items.html'
+    context_object_name = 'blogs'
+    paginate_by = 8
+    ordering = '-posted_date'
+
 class BlogDetailView(DetailView):
     model = Blog
-    template_name = 'products/blog-detail.html'
+    template_name = 'blog-detail.html'
+
+    def get_context_data(self, **kwargs):
+        contexts = super(BlogDetailView, self).get_context_data(**kwargs)
+        object = self.get_object()
+        blogs = Blog.objects.exclude(pk=object.pk) # Not include the one you seeing.
+        recent_blogs = blogs.order_by('-posted_date')[:5] # Get 5 LASTEST blogs
+        contexts['recent_blogs'] = recent_blogs
+        return contexts

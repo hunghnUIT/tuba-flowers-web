@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'library/wenumberic/wenumberic.css' %}">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
+<span id="detail" style="display: none"></span>
+{% endblock %}
+{% block landscape-class %}
+    <div class="container-fluid title d-flex align-items-center blog-landscape">
+{% endblock %}
+{% block box-class %}
+    <div class="box wrap w-100 align-items-center blog-box">
+{% endblock %}
+{% block title-banner %}Discovering the beauty of flowers{% endblock %}
+{% block on-page %} Blog List {% endblock %}
+{% block content %}
+<div class="container mt-4">
+    {%for blog in blogs%}
+    <article class="media content-section mb-4 p-2" style="border: 1px solid #b9b7b7;
+                                                            border-radius: 10px;
+                                                            box-shadow: 5px 8px #d8d7d7;">
+        <!-- <img class="rounded-circle article-img" src="{{ blog.author.profile.image.url }}"> -->
+        <img class="img-fluid article-img mr-2" width="150" height="150" src="{{blog.background.url}}" alt="Blog background">
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">admin</a>
+            <small class="text-muted">{{ blog.posted_date | date:"F d, Y"}}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'blog-detail' blog.pk %}" style="color: grey; font-weight: bold;">{{ blog.title }}</a></h2>
+            <p class="article-content">{{ blog.brief }}</p>
+        </div>
+    </article>
+{% endfor %}
+</div>
+{% endblock %}

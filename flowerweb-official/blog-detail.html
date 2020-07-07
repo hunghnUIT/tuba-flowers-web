@@ -55,17 +55,18 @@
             padding: 1.125rem;
             color: #2d2a24;">Recent post</h4>
             <ul class="list-group">
+                {% for blog in recent_blogs %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a class="nav-link" href="">
-                        Don Quixote 
+                    <a class="nav-link" href="{% url 'blog-detail' blog.pk %}">
+                        {{blog.title}} 
                     </a>
                   <div class="image-parent">
-                      <a href="">
-                        <img src="http://www.dothanhspyb.com/pictures/news/5duWAIg6NsHG1glKYSQ1.png" width="200" height="150" class="img-fluid" alt="quixote">
+                      <a href="{% url 'blog-detail' blog.pk %}">
+                        <img src="{{object.background.url}}" width="200" height="150" class="img-fluid" alt="preview blog">
                       </a>
                   </div>
                 </li>
-                
+                {% endfor %}
               </ul>
         </div>
     </div>
