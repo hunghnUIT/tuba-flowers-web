@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Item, Blog, Category
 from django.views.generic import ListView, DetailView
 import random
-# from products.models import Property
+from django.contrib.auth.models import User
 
 class ItemsListView(ListView):
     model = Item
@@ -145,6 +145,34 @@ class ItemDetailView(DetailView):
             contexts['available'] = True
         return contexts
 
+class BlogListView(ListView):
+    model = Blog
+    template_name = 'blog-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
+    # template_name= 'products/all_items.html'
+    context_object_name = 'blogs'
+    paginate_by = 1
+    ordering = '-posted_date'
+
 class BlogDetailView(DetailView):
     model = Blog
-    template_name = 'products/blog-detail.html'
+    template_name = 'blog-detail.html'
+
+    def get_context_data(self, **kwargs):
+        contexts = super(BlogDetailView, self).get_context_data(**kwargs)
+        object = self.get_object()
+        blogs = Blog.objects.exclude(pk=object.pk) # Not include the one you seeing.
+        recent_blogs = blogs.order_by('-posted_date')[:5] # Get 5 LASTEST blogs
+        contexts['recent_blogs'] = recent_blogs
+        return contexts
+
+class BlogByUserListView(ListView):
+    # Return blog list of a user
+    model = Blog
+    template_name = 'blog-list.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'blogs' #The same name to variable declared in context of home func.
+    # ordering = ['-date_posted'] # We still can put this line here but more convenient to stay below
+    paginate_by = 5
+
+    def get_queryset(self): # Get the list of items for this view.
+        user = get_object_or_404(User, username = self.kwargs.get('author'))
+        return Blog.objects.filter(author=user).order_by('-posted_date') # Or author= user.id is the same
