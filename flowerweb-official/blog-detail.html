@@ -20,16 +20,16 @@
         <div class="col-12 col-md-8 col-lg-8 col-xl-8">
             <div class="entry-meta-inner " >
                 <span class="posted-on">
-                    <a class="card-link" href="#" rel="bookmark">
+                    <!-- <a class="card-link" href="#" rel="bookmark"> -->
                         <i class="fa fa-calendar " style="font-size: 18px;color: gray;"></i>
                         <time class="entry-date published ml-2" datetime="2019-04-03T03:02:22+00:00">{{object.posted_date}}</time>
-                    </a>
+                    <!-- </a> -->
                 </span>
                 <span class="entry-category" > 
                     <span class="author vcard">
                         <i class="fas fa-user ml-2" style="font-size: 18px;color: gray;"></i>
-                        <span class="ml-2">post by</span>
-                        <a class="card-link" href="#"> admin</a>
+                        <span class="ml-2">posted by</span>
+                        <a class="card-link" href="{% url 'blogs-by-user' object.author %}"> {{object.author}}</a>
                     </span>
                 </span>
             </div>
@@ -37,6 +37,12 @@
             <div class="blog-container mt-4 pt-4" style="border-top: 1px solid grey;">
                 <h1>{{object.title}}</h1>
                 <p>{{ object.content|safe }}</p>
+                <h6 class="font-weight-bold font-italic">Tags: 
+                    {% for tag in object.tags.all %}
+                        <a href="{% url 'products-tag' tag %}">{{ tag }}</a> ,
+                    {% endfor %}
+                    ...
+                </h6>
             </div>
         </div>
         <div class="col-12 col-md-4 col-lg-4 col-xl-4">
@@ -62,7 +68,7 @@
                     </a>
                   <div class="image-parent">
                       <a href="{% url 'blog-detail' blog.pk %}">
-                        <img src="{{object.background.url}}" width="200" height="150" class="img-fluid" alt="preview blog">
+                        <img src="{{blog.background.url}}" width="200" height="150" class="img-fluid" alt="preview blog">
                       </a>
                   </div>
                 </li>

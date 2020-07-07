@@ -54,6 +54,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('blogs/<int:pk>', products_views.BlogDetailView.as_view(), name='blog-detail'),
     path('blogs/', products_views.BlogListView.as_view(), name='blog-list'),
+    path('blogs/author=<str:author>', products_views.BlogByUserListView.as_view(), name= 'blogs-by-user'),
     
     # Search box.
     path('search/', users_views.item_search_view, name='search'),

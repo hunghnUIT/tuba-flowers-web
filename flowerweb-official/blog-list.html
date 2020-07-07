@@ -21,10 +21,10 @@
                                                             border-radius: 10px;
                                                             box-shadow: 5px 8px #d8d7d7;">
         <!-- <img class="rounded-circle article-img" src="{{ blog.author.profile.image.url }}"> -->
-        <img class="img-fluid article-img mr-2" width="150" height="150" src="{{blog.background.url}}" alt="Blog background">
+        <a href="{% url 'blog-detail' blog.pk %}"><img class="img-fluid article-img mr-2" width="150" height="150" src="{{blog.background.url}}" alt="Blog background"></a>
         <div class="media-body">
             <div class="article-metadata">
-            <a class="mr-2" href="#"><i class="fas fa-user mr-2" style="font-size: 18px;color: gray;"></i>admin</a>
+            <a class="mr-2" href="{% url 'blogs-by-user' blog.author %}"><i class="fas fa-user mr-2" style="font-size: 18px;color: gray;"></i>{{blog.author}}</a>
             <small class="text-muted"><i class="fa fa-calendar mr-2" style="font-size: 18px;color: gray;"></i>{{ blog.posted_date | date:"F d, Y"}}</small>
             </div>
             <h2><a class="article-title" href="{% url 'blog-detail' blog.pk %}" style="color: grey; font-weight: bold;">{{ blog.title }}</a></h2>
@@ -32,5 +32,27 @@
         </div>
     </article>
 {% endfor %}
+<div class="pagination float-right">
+    {% if is_paginated %}
+    {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4 border-0" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.previous_page_number}}"> <i class="fa fa-angle-double-left"></i> </a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4 border-0" href="?page={{ num}}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ num}}">{{ num }}</a>
+        {% endif %}
+    {% endfor%}
+
+    {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.next_page_number}}"><i class="fa fa-angle-double-right"></i></a>
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+    {% endif %}  
+{% endif %}
+</div>
+<hr class="mb-4" style="height:1px;border-width:0;color:gray;background-color:gray">
 </div>
 {% endblock %}
