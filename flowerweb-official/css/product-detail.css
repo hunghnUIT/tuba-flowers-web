@@ -264,7 +264,7 @@
 @media (min-width: 1200px) {
     .quantity-wrapper {
         width: auto;
-        margin: 15px 0px 0px 0px;
+        margin: 5px 0px 0px 0px;
     }
 
     .quantity-label {
@@ -276,7 +276,7 @@
     }
 
     .btn-add-to-cart {
-        margin: 15px 0px 10px 0px;
+        margin: 5px 0px 10px 0px;
         width: auto;
     }
 

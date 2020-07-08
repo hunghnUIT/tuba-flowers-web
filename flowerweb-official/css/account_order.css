@@ -53,3 +53,10 @@
 .cancel-request:hover i {
     color: #D02B3C;
 }
+.detail-request {
+    transition: 0.3s linear;
+}
+.detail-request:hover {
+    font-weight: bold;
+    font-size: 17px;
+}

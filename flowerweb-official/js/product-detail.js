@@ -109,6 +109,8 @@ for (i = 0; i < coll.length; i++) {
     });
 }
 $(document).ready(function () {
+    $('#success').hide();
+    $('#fail').hide();
     $(".btn-add-to-cart").click(function (e) {
         var id_item = $('#id-item').text();
         var quantity = $('#quantity').val();
@@ -125,9 +127,15 @@ $(document).ready(function () {
                     var number_item_in_cart = $(response).find(".cart-number");
                     $('.cart-number').replaceWith(number_item_in_cart)
                     if(parseInt(old_number_item_in_cart.text())===parseInt(number_item_in_cart.text())){
-                        alert("Add to cart failed! This item only have "+ $(document).find("#number-item-left").text() +" items left.")
+                        $('#fail').text("Add to cart failed! This item only have "+ $(document).find("#number-item-left").text() +" items left.");
+                        $('#fail').slideDown(500,function(){
+                            $('#fail').fadeOut(2000);
+                        });
                     } else{
-                        alert("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                        $('#success').text("Success, your cart is having "+number_item_in_cart.text() +" items now.");
+                        $('#success').slideDown(500,function(){
+                            $('#success').fadeOut(2000);
+                        });
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -140,6 +148,7 @@ $(document).ready(function () {
             window.location.replace("/login/?next=/add-to-cart/"+ id_item +"-quantity="+quantity);
         }
     });
+
 });
 
 $('#myModal').click(function (e) { 
