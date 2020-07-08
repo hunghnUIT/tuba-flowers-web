@@ -100,8 +100,20 @@ Cart
                     <p>
                         Enter your coupon code if you have one.
                     </p>
-                    <input type="text" placeholder="ABC#1X" name="coupon" id="coupon-input">
-                    <button class="text-capitalize btn-custom btn-update-cart">
+                    {% if coupon %}
+                        <input type="text" placeholder="ABC#1X" name="coupon" value="{{coupon.code}}" id="coupon-input">
+                        <div class="alert alert-success mt-3" role="alert">
+                            Congratulation! Your order will be discount {{coupon.percent}}%.
+                        </div>
+                    {% else %}
+                        <input type="text" placeholder="ABC#1X" name="coupon" id="coupon-input">
+                        {% if code == "404" %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                Invalid coupon. Try again.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <button id="btn-apply-coupon" class="text-capitalize btn-custom btn-update-cart">
                         Apply coupon
                     </button>
                 </div>

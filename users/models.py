@@ -6,6 +6,8 @@ from products.models import Item
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.html import format_html # This lib is for show image in admin site.
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 ORDER_STATUS_CHOICES = (
     ('1', 'Waiting Confirmation'),
@@ -15,6 +17,7 @@ ORDER_STATUS_CHOICES = (
     ('5', 'Requesting Cancel'),
     ('6', 'Canceled'), #Accepted cancellation request
 )
+SHIPPING_FEE = 30000
 
 class Profile(models.Model):
     # One user has only one profile and the same in return.
@@ -63,6 +66,14 @@ class ItemSelection(models.Model):
             return self.get_total_item_price() - int(self.get_total_item_price()*self.item.discount_percent)
         return self.get_total_item_price()
 
+class Coupon(models.Model):
+    code = models.CharField(max_length = 6, unique = True)
+    percent = models.PositiveSmallIntegerField(validators = [MinValueValidator(1), MaxValueValidator(100)], null = True, blank = True)
+    is_active = models.BooleanField(default=False)
+    # expire will be add later if we have time.
+
+    def __str__(self):
+        return self.code
 
 class Order(models.Model):
     # This is orders of a user. -> one user to many order.
@@ -74,6 +85,7 @@ class Order(models.Model):
     order_status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=2,null=False,default='1')
     address = models.CharField(max_length=70)
     phone = models.CharField(max_length=12)
+    discount_percent_from_coupon = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(100)], default=0)
 
     # Not allow to change order status backward.
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
@@ -90,7 +102,9 @@ class Order(models.Model):
         return "\n".join([i.item.title+": "+str(i.quantity) for i in self.items_ordered.all()])
 
     def get_total_order_price(self):
-        return sum([i.price_client_bought*i.quantity for i in self.items_ordered.all()])
+        total = sum([i.price_client_bought*i.quantity for i in self.items_ordered.all()])
+        discount_amount = total*self.discount_percent_from_coupon//100 
+        return total-discount_amount+SHIPPING_FEE
 
     get_total_order_price.short_description = 'Total cost'
 
