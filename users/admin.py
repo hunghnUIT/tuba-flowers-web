@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Order, ItemSelection
+from .models import Profile, Order, ItemSelection, Coupon
 from products.models import Item
 from django.utils.html import format_html # This lib is for show image in admin site.
 
@@ -46,3 +46,4 @@ class UserOrdersAdmin(admin.ModelAdmin):
 admin.site.register(Profile, UsersProfileAdmin)
 admin.site.register(Order, UserOrdersAdmin)
 admin.site.register(ItemSelection)
+admin.site.register(Coupon)

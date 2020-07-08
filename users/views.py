@@ -12,7 +12,10 @@ from django.db.models import Q, F
 from topic.models import Topic
 from django.http import JsonResponse
 from django.views.generic import ListView
+from users.models import Coupon
+from django.core.exceptions import ObjectDoesNotExist
 import random
+import time
 
 # def handler404(request, *args, **argv):
 #     return render(request, 'notfound-404.html', status=404)
@@ -201,6 +204,17 @@ def cancel_order(request, pk):
         
 
 @login_required
+def add_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code, is_active=False)
+        request.session['code_coupon']= coupon.code
+        now = int(time.time())
+        request.session['timeout_coupon'] = now + 60 #If user not checkout with 60s, delete coupon and require to fill it again
+    except ObjectDoesNotExist:
+        print('Not exist coupon')
+    return redirect('cart')
+
+@login_required
 def checkout(request):
     checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False, quantity__gt=0)
     
@@ -259,12 +273,22 @@ def checkout(request):
             receiver = checkout_form.cleaned_data['receiver']
             phone = checkout_form.cleaned_data['phone']
             address = checkout_form.cleaned_data['address']
-
+            
+            discount_percent_from_coupon = 0
+            if 'code_coupon' in request.session:
+                coupon = Coupon.objects.get(code=request.session['code_coupon']) # Definitely this will get one due to add_coupon function above
+                discount_percent_from_coupon = coupon.percent
+                coupon.is_active = True
+                coupon.save()
+                # Delete session after using it.
+                del request.session['code_coupon']
+            
             new_order = Order.objects.create(
                 user=request.user,
                 receiver=receiver,
                 phone=phone,
-                address=address
+                address=address,
+                discount_percent_from_coupon=discount_percent_from_coupon
             )
 
             for item in checkout_items:
@@ -290,11 +314,18 @@ def checkout(request):
 def cart(request):
     selected_items = ItemSelection.objects.filter(user=request.user,ordered=False)
     total_cost = sum(i.get_final_price() for i in selected_items)
-    old_cost = sum(i.get_total_item_price() for i in selected_items)
+    code_coupon = None
+    if 'code_coupon' in request.session and 'timeout_coupon' in request.session:
+        #Not time out yet: timeout is less than now.
+        if request.session['timeout_coupon'] >= int(time.time()): 
+            code_coupon = request.session['code_coupon']
+        else: #Time out, delete it from session.
+            del request.session['code_coupon']
+            print('Deleted')
     contexts={
             'selected_items':selected_items,
             'total_cost': total_cost,
-            'old_cost': old_cost,
+            'code_coupon': code_coupon
     }
     return render(request, 'cart.html', contexts)
 

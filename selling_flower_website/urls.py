@@ -60,6 +60,9 @@ urlpatterns = [
     path('search/', users_views.item_search_view, name='search'),
     path('auto-search/', users_views.auto_search, name='auto-search'),
 
+    # Add coupon
+    path('add-coupon/<str:code>', users_views.add_coupon, name='add-coupon'),
+
     #call checkout 
     # path('proceed/',users_views.loadcheckout,name='checkout')
     # Test
