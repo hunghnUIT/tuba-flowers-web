@@ -137,6 +137,27 @@ $(document).ready(function () {
     });
 });
 
+// btn-apply-coupon
+$(document).on("click","#btn-apply-coupon", function(){
+    var coupon = $(this).parent().find('#coupon-input').val();
+    console.log(coupon)
+    $.ajax({
+        type: "GET",
+        url: "/add-coupon/"+coupon,
+        cache: false,
+        async: false,
+        dataType: "html",
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        success:function(response){
+            var div_coupon = $(response).find(".coupon");
+            $('.coupon').replaceWith(div_coupon)
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert(textStatus);
+        },
+    });
+});
+
 // When client focus out the quantity box.
 $(".item-quantity").focusout(function(){
     var quantity = $(this).val();

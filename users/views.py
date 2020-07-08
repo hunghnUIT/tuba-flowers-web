@@ -177,9 +177,9 @@ def profile(request):
     }
 
     return render(request, 'account_order.html', contexts)
-# Sang tạo 
-def load_account_order(request):
-    return render(request, 'account_order.html')
+# # Sang tạo 
+# def load_account_order(request):
+#     return render(request, 'account_order.html')
 
 @login_required
 def orders_detail(request):
@@ -209,13 +209,19 @@ def add_coupon(request, code):
         coupon = Coupon.objects.get(code=code, is_active=False)
         request.session['code_coupon']= coupon.code
         now = int(time.time())
-        request.session['timeout_coupon'] = now + 60 #If user not checkout with 60s, delete coupon and require to fill it again
+        # request.session['timeout_coupon'] = now + 60 #If user not checkout with 60s, delete coupon and require to fill it again
+        request.session['timeout_coupon'] = now + 1 #Show at least 1s
     except ObjectDoesNotExist:
+        request.session['code_coupon']= '404'
+        now = int(time.time())
+        request.session['timeout_coupon'] = now + 1 
         print('Not exist coupon')
     return redirect('cart')
 
 @login_required
 def checkout(request):
+    if 'code_coupon' in request.session and request.session['code_coupon'] == '404':
+        del request.session['code_coupon']
     checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False, quantity__gt=0)
     
     if not checkout_items: #No item in cart -> Not allowed to checkout.
@@ -314,19 +320,27 @@ def checkout(request):
 def cart(request):
     selected_items = ItemSelection.objects.filter(user=request.user,ordered=False)
     total_cost = sum(i.get_final_price() for i in selected_items)
-    code_coupon = None
-    if 'code_coupon' in request.session and 'timeout_coupon' in request.session:
-        #Not time out yet: timeout is less than now.
-        if request.session['timeout_coupon'] >= int(time.time()): 
-            code_coupon = request.session['code_coupon']
-        else: #Time out, delete it from session.
-            del request.session['code_coupon']
-            print('Deleted')
     contexts={
             'selected_items':selected_items,
             'total_cost': total_cost,
-            'code_coupon': code_coupon
     }
+    coupon = None
+    if 'code_coupon' in request.session and 'timeout_coupon' in request.session and request.session['code_coupon'] != "404":
+        #Not time out yet: timeout is less than now.
+        if request.session['timeout_coupon'] >= int(time.time()): 
+            coupon = Coupon.objects.get(code=request.session['code_coupon'])
+
+            # Add discount amount to html
+            contexts['discount_amount'] = total_cost*coupon.percent//100
+        else: #Time out, delete it from session.
+            del request.session['code_coupon']
+    elif 'code_coupon' in request.session and request.session['code_coupon'] == '404':
+        if request.session['timeout_coupon'] < int(time.time()): 
+            del request.session['code_coupon']
+        else:
+            contexts['code'] = '404'
+
+    contexts['coupon'] = coupon
     return render(request, 'cart.html', contexts)
 
 
