@@ -207,3 +207,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # For ckeditor
 CKEDITOR_UPLOAD_PATH = "ckeditor-upload/"
+
+# Setting for Session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
