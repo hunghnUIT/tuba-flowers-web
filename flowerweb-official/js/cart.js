@@ -29,7 +29,7 @@ $(document).ready(function () {
     });
     
     // add to cart ajax
-    $('.btn-outline-dark').click(function (e) { 
+    $(document).on("click",".btn-outline-dark", function(){
         var idItem= $(this).find('#id-item').text();
         // if(authenticated) -> ajax below.
         // else: window.location.replace('/login')
