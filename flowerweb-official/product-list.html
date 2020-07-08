@@ -65,6 +65,7 @@
                             {% for item in items %}
                             <div class="col-md-4 col-6 result p-1 ">
                                 <div class="card product-wrapper border-0">
+                                    <span class="number-item-left d-none">{{item.number_item_left}}</span>
                                     <a href="{% url 'item-detail' item.pk %}"><img class="img-item img-fluid rounded" src="{{ item.image.first.image.url }}"
                                         alt="Preview item"></a>
                                     {% if item.discount_percent > 0 %}

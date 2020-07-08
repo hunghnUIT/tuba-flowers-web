@@ -46,5 +46,14 @@ $('.modal-body-custom').click(function (e) {
         window.location.replace("/register");
         console.log("register");
     });
+
+    $('.product-wrapper').each(function(){
+        // console.log($(this).text()+"\n");
+        if (parseInt($(this).find('.number-item-left').text())==0)
+        {
+            console.log($(this).find('.number-item-left').text());
+            $(this).addClass('sold-out');
+        }
+    });
 });
 

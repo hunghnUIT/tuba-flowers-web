@@ -22,6 +22,14 @@ $(document).ready(function () {
 //             }
 //         } 
 //    });
+$('.product-wrapper').each(function(){
+    // console.log($(this).text()+"\n");
+    if (parseInt($(this).find('.number-item-left').text())==0)
+    {
+        console.log($(this).find('.number-item-left').text());
+        $(this).addClass('sold-out');
+    }
+});
     $(".custom-select").change(function () {
         var item = $(this).find(":selected").val();
         var type = $(document).find("#filter-page-with").text();

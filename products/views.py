@@ -150,7 +150,7 @@ class BlogListView(ListView):
     template_name = 'blog-list.html' # Format of the file's name: <app>/<model>_<viewtype>.html
     # template_name= 'products/all_items.html'
     context_object_name = 'blogs'
-    paginate_by = 1
+    paginate_by = 8
     ordering = '-posted_date'
 
 class BlogDetailView(DetailView):
