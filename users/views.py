@@ -140,7 +140,7 @@ def loadcheckout(request):
 def get_user_pending_order(request):
     # get order for the correct user
     all_orders =  Order.objects.filter(user=request.user)
-    proccessing_orders = all_orders.exclude(order_status='4').order_by('-date_ordered')
+    proccessing_orders = all_orders.exclude(order_status='6').order_by('-date_ordered')
     if proccessing_orders.exists():
         # get the only order in the list of filtered orders
         return proccessing_orders

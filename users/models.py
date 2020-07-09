@@ -13,7 +13,7 @@ ORDER_STATUS_CHOICES = (
     ('1', 'Waiting Confirmation'),
     ('2', 'Processing'),
     ('3', 'Shipping'),
-    ('4', 'Completed'),
+    ('4', 'Finished'),
     ('5', 'Requesting Cancel'),
     ('6', 'Canceled'), #Accepted cancellation request
 )
