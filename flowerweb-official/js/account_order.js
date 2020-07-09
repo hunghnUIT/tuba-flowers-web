@@ -1,3 +1,19 @@
+var btnViewDetails = document.querySelectorAll(".btn-view-detail");
+
+// btnViewDetails.forEach((item) => {
+//    item.addEventListener("click", (e) => {
+//        document.querySelector(".popup-detail-order").classList.remove("d-none");
+//    });
+// });
+$('.btn-view-detail').click(function(e){
+    var id=$(this).find('span').text();
+    $('#detail-'+id).removeClass('d-none');
+    $('#close-detail-'+id).click(function(e){
+        console.log("abc");
+        $(document).find('#detail-'+id).addClass("d-none");
+    })
+})
+
 $(document).ready(function () {
     $('.my-profile-wrapper').hide();
     $('.my-order-link').click(function (e) {
@@ -15,18 +31,6 @@ $(document).ready(function () {
         console.log("clicked-account");
         $('.my-profile-wrapper').slideDown();
         $('.my-order-wrapper').slideUp();
-    });
-
-    $('.detail-request').click(function (e) {
-        $('#modal-be-sure').on('show.bs.modal', function (e) {
-            var detail = $('.detail-hide').text();
-            $('.modal-body-sure').text(detail);
-            $('.modal-title-sure').text("Detail order");
-        })
-        $('#request-cancel').hide();
-        $('#modal-be-sure').on('hidden.bs.modal', function (e) {
-            $('#request-cancel').show();
-        })
     });
 
     $('#modal-be-sure').on('show.bs.modal', function (e) {
