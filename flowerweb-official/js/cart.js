@@ -84,10 +84,8 @@ $(document).ready(function () {
                 $('.cart-number').replaceWith(number_item_in_cart) 
                 var cart = $(response).find("#table-cart-items");
                 $('#table-cart-items').replaceWith(cart)    
-                var sub_total = $(response).find("#sub-total");
-                $('#sub-total').replaceWith(sub_total)
-                var total = $(response).find("#total");
-                $('#total').replaceWith(total)
+                var div_cart_total = $(response).find(".cart-total");
+                $('.cart-total').replaceWith(div_cart_total)
                 var summary_total = $(response).find("#summary-total");
                 $('#summary-total').replaceWith(summary_total)
             },
@@ -120,12 +118,12 @@ $(document).ready(function () {
                         $('.cart-number').replaceWith(number_item_in_cart)  
                         var cart = $(response).find("#table-cart-items");
                         $('#table-cart-items').replaceWith(cart)    
-                        var sub_total = $(response).find("#sub-total");
-                        $('#sub-total').replaceWith(sub_total)
-                        var total = $(response).find("#total");
-                        $('#total').replaceWith(total)
+                        var div_cart_total = $(response).find(".cart-total");
+                        $('.cart-total').replaceWith(div_cart_total)
                         var summary_total = $(response).find("#summary-total");
                         $('#summary-total').replaceWith(summary_total)
+                        var div_coupon = $(response).find(".coupon");
+                        $('.coupon').replaceWith(div_coupon)
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         alert(textStatus);
@@ -141,21 +139,31 @@ $(document).ready(function () {
 $(document).on("click","#btn-apply-coupon", function(){
     var coupon = $(this).parent().find('#coupon-input').val();
     console.log(coupon)
-    $.ajax({
-        type: "GET",
-        url: "/add-coupon/"+coupon,
-        cache: false,
-        async: false,
-        dataType: "html",
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        success:function(response){
-            var div_coupon = $(response).find(".coupon");
-            $('.coupon').replaceWith(div_coupon)
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            alert(textStatus);
-        },
-    });
+    if (coupon == ""){
+        $( "#btn-apply-coupon" ).before( '<div class="alert alert-danger mt-3" role="alert">You have to enter the coupon first.</div>' );
+        $(".alert .alert-danger").text('Test message here');
+    }
+    else{
+        $.ajax({
+            type: "GET",
+            url: "/add-coupon/"+coupon,
+            cache: false,
+            async: false,
+            dataType: "html",
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            success:function(response){
+                var div_coupon = $(response).find(".coupon");
+                $('.coupon').replaceWith(div_coupon)
+                var cart = $(response).find("#table-cart-items");
+                $('#table-cart-items').replaceWith(cart) 
+                var div_cart_total = $(response).find(".cart-total");
+                $('.cart-total').replaceWith(div_cart_total)
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+            },
+        });
+    }
 });
 
 // When client focus out the quantity box.

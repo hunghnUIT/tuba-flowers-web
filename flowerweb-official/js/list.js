@@ -30,7 +30,8 @@ $('.product-wrapper').each(function(){
         $(this).addClass('sold-out');
     }
 });
-    $(".custom-select").change(function () {
+    $('.custom-select').on('change', function() {
+    // $(".custom-select").change(function () {
         var item = $(this).find(":selected").val();
         var type = $(document).find("#filter-page-with").text();
         var kwarg = $(document).find("#kwarg").text();

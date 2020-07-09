@@ -70,7 +70,7 @@ Cart
                 <tfoot>
                     <tr>
                         <th data-title="" scope="col" colspan="4" class="text-right text-product-cell">Total:</th>
-                        <th id="summary-total" data-title="quantity" scope="col" class="text-center text-product-cell">{{ total_cost|add_point }} ₫</th>
+                        <th id="summary-total" data-title="quantity" scope="col" class="text-center text-product-cell">{{ sub_total|add_point }} ₫</th>
                         <!-- <th data-title="price" scope="col" class="text-center text-product-cell"></th> -->
                         <th scope="col" class="text-center text-product-cell">
                             <button id="btn-update-cart" class="text-capitalize btn-custom btn-update-cart">
@@ -137,7 +137,7 @@ Cart
                         <tbody class="">
                             <tr class="cart-subtotal">
                                 <td data-title="Subtotal" id="sub-total">
-                                    {{ total_cost|add_point }} ₫
+                                    {{ sub_total|add_point }} ₫
                                 </td>
                             </tr>
                             <tr class="cart-ship-cost">
@@ -150,7 +150,7 @@ Cart
                             </tr>
                             <tr class="cart-order-discount">
                                 <td data-title="Discount" id="discount">
-                                    0 ₫
+                                    {{ discount_amount|add_point|default_if_none:"0" }} ₫
                                 </td>
                             </tr>
                             <tr class="cart-order-total">
