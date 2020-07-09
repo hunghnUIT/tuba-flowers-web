@@ -33,33 +33,41 @@
                                 &nbsp;&nbsp;My Order
                             </a>
                         </li>
+                        <li>
+                            <a class="my-change-password" href="#">
+                                <svg width="17" height="17" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M704 1536q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm896 0q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm128-1088v512q0 24-16.5 42.5t-40.5 21.5l-1044 122q13 60 13 70 0 16-24 64h920q26 0 45 19t19 45-19 45-45 19h-1024q-26 0-45-19t-19-45q0-11 8-31.5t16-36 21.5-40 15.5-29.5l-177-823h-204q-26 0-45-19t-19-45 19-45 45-19h256q16 0 28.5 6.5t19.5 15.5 13 24.5 8 26 5.5 29.5 4.5 26h1201q26 0 45 19t19 45z"/></svg>
+                                &nbsp;&nbsp;Change password
+                            </a>
+                        </li>
                     </ul>
                 </div>
+                <!-- Order list -->
                 <div class="col-12 col-xl-9 content-wrapper">
+                    <!-- Order list -->
                     <div class="my-order-wrapper">
                         <div class="account-title">My Order</div>
                         {% if orders %}
                         {% for order in orders %}
                         {% if order.order_status == '6' %}
                         {% else %}
-                        <div class="order-item p-2">
+                        <div class="order-item p-2" style="color: black;">
                             <div class="row justify-content-center align-self-center">
                                 <div class="col-6 col-md-3 mb-3 mb-xl-0 my-auto">
-                                    <div>Order ID: {{order.pk}}</div>
-                                    <div>Date ordered: {{order.date_ordered}}</div>
+                                    <div><strong> Order ID:</strong> {{order.pk}}</div>
+                                    <div> <strong>Date ordered:</strong>  {{order.date_ordered}}</div>
                                 </div>
                                 <div class="col-6 col-md-2 my-auto">
-                                    <div>Total cost:</div>
+                                    <div><strong>Total cost:</strong> </div>
                                     <div class="price">{{order.get_total_order_price}}</div>
                                 </div>
                                 <div class="col-6 col-md-2 my-auto">
-                                    <div>Payment:</div>
-                                    <div>Cash</div>
+                                    <div><strong>Payment:</strong> </div>
+                                    <div> Cash </div>
                                 </div>
                                 <div class="col-6 col-md-2 my-auto" >
                                     <div class="font-weight-bold" class="order-status">Order status:</div>
                                     {% if order.order_status == '1' %}
-                                        <div class="font-weight-bold" class="order-status">Waiting Confirmation</div>
+                                        <div class="" class="order-status">Waiting Confirmation</div>
                                     </div>
                                         <div class="col-6 col-md-1 my-auto">
                                             <a href="#" data-id="{{ order.get_cancel_order_url }}"  class="cancel-request btn" data-toggle="modal" data-target="#modal-be-sure">
@@ -68,17 +76,17 @@
                                         </div>
                                     
                                     {% elif order.order_status == '2' %}
-                                        <div class="font-weight-bold" class="order-status">Processing</div>
+                                        <div class="" class="order-status">Processing</div>
                                     </div>
                                     {% elif order.order_status == '3' %}
-                                        <div class="font-weight-bold" class="order-status">Shipping</div>
+                                        <div class="" class="order-status">Shipping</div>
                                     </div>
                                     {% elif order.order_status == '5' %}
-                                        <div class="font-weight-bold" class="order-status">Requesting Cancel</div> 
+                                        <div class="" class="order-status">Requesting Cancel</div> 
                                     </div>
                                     {% endif %}
                                 <div class="col-6 col-md-1 my-auto">
-                                    <a class="detail-request card-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapse-{{order.pk}}">
+                                    <a class="btn-view-detail card-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapse-{{order.pk}}">
                                         Detail
                                     </a>
                                 </div>
@@ -97,6 +105,88 @@
                             You have no order in progress.
                         </div>
                         {% endif %}
+                        <!-- POPUP DETAIL -->
+                        <div class="position-fixed popup-detail-order d-none">
+                            <div class="order-detail-content bg-white position-absolute">
+                                <div class="row h-100">
+                                    <div class="col-12 col-lg-6 col-xl-8 bg-white overflow-auto scrollbar scrollbar-rare-wind h-100 order-2 order-lg-1">
+                                        <div class="product-item px-3 py-3">
+                                            <div class="row">
+                                                <div class="col-4 col-xl-3">
+                                                    <img width="136" height="136"
+                                                         src="http://127.0.0.1:8000/media/product_thumbnail/download_8.jpg" alt="rose">
+                                                </div>
+                                                <div class="col-8 col-xl-9 d-flex">
+                                                    <div class="product-item-info align-self-center">
+                                                        <h2 class="product-item-title">Red Rose</h2>
+                                                        <div class="d-flex">
+                                                            <div class="mr-xl-5">
+                                                                <p class="mb-0">
+                                                                    <span>Price:</span>&nbsp;
+                                                                    <span>900,000 VNĐ</span>
+                                                                </p>
+                                                                <p class="mb-0 d-block d-xl-none">
+                                                                    <span>Quantity:</span>&nbsp;
+                                                                    <span>02</span>
+                                                                </p>
+                                                                <p class="mb-0 d-none d-xl-block">
+                                                                    <span>Price root:</span>&nbsp;
+                                                                    <span class="price-root">1,000,000 VNĐ</span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="d-none d-xl-block">
+                                                                <p>
+                                                                    <span>Quantity:</span>&nbsp;
+                                                                    <span>02</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <p class="mb-0 product-topic d-none d-xl-block">
+                                                            <span>Topic:</span>&nbsp;
+                                                            <span>Flower Meaning</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-xl-4 pr-0 pr-xl-3 pl-3 pl-sm-0 order-1 order-lg-2">
+                                        <div class="py-3 px-3 detail-order h-100">
+                                            <h2 class="text-center detail-order-title">Detail Order</h2>
+                                            <div>
+                                                <p class="clearfix">
+                                                    <span>Order No:</span>&nbsp;
+                                                    <span class="float-right">P01231244</span>
+                                                </p>
+                                                <p class="clearfix">
+                                                    <span>Date:</span>&nbsp;
+                                                    <span class="float-right">4/7/2020</span>
+                                                </p>
+                                                <p class="clearfix">
+                                                    <span>Status:</span>&nbsp;
+                                                    <span class="float-right">Waiting for confirmation</span>
+                                                </p>
+                                            </div>
+                                            <hr>
+                                            <div class="total-row">
+                                                <p class="clearfix">
+                                                    <span>Payment Method:</span>&nbsp;
+                                                    <span class="float-right">Cash</span>
+                                                </p>
+                                                <p class="clearfix font-weight-bold total-line">
+                                                    <span>Total:</span>&nbsp;
+                                                    <span class="float-right">1,700,000 VNĐ</span>
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <a class="btn-success btn-custom btn-discard-close float-right" href="javascript:void(0)">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Popup detail -->
                         <!-- Modal -->
                         <div class="modal fade modal-be-sure" id="modal-be-sure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -128,7 +218,7 @@
                                     class="btn btn-outline-secondary btn-edit-profile w-100" 
                                     data-toggle="modal" 
                                     data-target="#edit-modal">Edit</button>
-                                <!-- Modal -->
+                                <!-- Modal profile-->
                     <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-Label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
