@@ -162,14 +162,14 @@ def profile(request):
             p_form.save()
             messages.success(request, f'Your account profile has been updated!')
             return redirect('profile')
-
+        
     else: # This case we are trying to get the page only.
         # Give argument "instance" to give current user info to those forms
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     existing_orders = get_user_pending_order(request)
-    print(existing_orders)
+    # print(existing_orders)
     contexts = {
         'u_form': u_form,
         'p_form': p_form,
@@ -209,8 +209,8 @@ def add_coupon(request, code):
         coupon = Coupon.objects.get(code=code, is_active=False)
         request.session['code_coupon']= coupon.code
         now = int(time.time())
-        # request.session['timeout_coupon'] = now + 60 #If user not checkout with 60s, delete coupon and require to fill it again
-        request.session['timeout_coupon'] = now + 1 #Show at least 1s
+        request.session['timeout_coupon'] = now + 30 #If user not checkout with 60s, delete coupon and require to fill it again
+        # request.session['timeout_coupon'] = now + 1 #Show at least 1s
     except ObjectDoesNotExist:
         request.session['code_coupon']= '404'
         now = int(time.time())
@@ -220,8 +220,15 @@ def add_coupon(request, code):
 
 @login_required
 def checkout(request):
-    if 'code_coupon' in request.session and request.session['code_coupon'] == '404':
-        del request.session['code_coupon']
+    discount_percent_from_coupon = 0
+    coupon = None
+    if 'code_coupon' in request.session: 
+        if request.session['code_coupon'] == '404':
+            del request.session['code_coupon']
+        else:
+            coupon = Coupon.objects.get(code=request.session['code_coupon']) # Definitely this will get one due to add_coupon function above
+            discount_percent_from_coupon = coupon.percent
+
     checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False, quantity__gt=0)
     
     if not checkout_items: #No item in cart -> Not allowed to checkout.
@@ -247,7 +254,8 @@ def checkout(request):
         messages.warning(request, f'Checkout failed. We do not have enough '+ ", ".join([i.item.title for i in failed_items]) + ' by now.')
         return redirect('cart')
 
-    total_cost = sum(i.get_final_price() for i in checkout_items)
+    sub_total = sum(i.get_final_price() for i in checkout_items)
+    discount_amount = sub_total*discount_percent_from_coupon//100
     
     if request.method == 'GET':
         # Check if client edit the order info.
@@ -267,8 +275,10 @@ def checkout(request):
             )
         contexts={
             'checkout_items': checkout_items,
-            'total_cost': total_cost,
-            'checkout_form': checkout_form
+            'sub_total': sub_total,
+            'checkout_form': checkout_form,
+            'discount_amount': discount_amount,
+            'total_cost': sub_total - discount_amount
         }
         
         # return render(request, 'users/checkout.html', contexts)
@@ -280,14 +290,14 @@ def checkout(request):
             phone = checkout_form.cleaned_data['phone']
             address = checkout_form.cleaned_data['address']
             
-            discount_percent_from_coupon = 0
-            if 'code_coupon' in request.session:
-                coupon = Coupon.objects.get(code=request.session['code_coupon']) # Definitely this will get one due to add_coupon function above
-                discount_percent_from_coupon = coupon.percent
-                coupon.is_active = True
-                coupon.save()
-                # Delete session after using it.
-                del request.session['code_coupon']
+            # discount_percent_from_coupon = 0
+            # if 'code_coupon' in request.session:
+            #     coupon = Coupon.objects.get(code=request.session['code_coupon']) # Definitely this will get one due to add_coupon function above
+            #     discount_percent_from_coupon = coupon.percent
+            #     coupon.is_active = True
+            #     coupon.save()
+            #     # Delete session after using it.
+            #     del request.session['code_coupon']
             
             new_order = Order.objects.create(
                 user=request.user,
@@ -296,6 +306,11 @@ def checkout(request):
                 address=address,
                 discount_percent_from_coupon=discount_percent_from_coupon
             )
+            if coupon:
+                coupon.is_active = True
+                coupon.save()
+                # Delete session after using it.
+                del request.session['code_coupon']
 
             for item in checkout_items:
                 new_order.items_ordered.add(item)
@@ -319,19 +334,20 @@ def checkout(request):
 @login_required
 def cart(request):
     selected_items = ItemSelection.objects.filter(user=request.user,ordered=False)
-    total_cost = sum(i.get_final_price() for i in selected_items)
+    sub_total = sum(i.get_final_price() for i in selected_items)
     contexts={
             'selected_items':selected_items,
-            'total_cost': total_cost,
+            'sub_total': sub_total,
     }
     coupon = None
+    discount_amount = 0
     if 'code_coupon' in request.session and 'timeout_coupon' in request.session and request.session['code_coupon'] != "404":
         #Not time out yet: timeout is less than now.
         if request.session['timeout_coupon'] >= int(time.time()): 
             coupon = Coupon.objects.get(code=request.session['code_coupon'])
-
+            request.session['timeout_coupon'] = int(time.time()) + 30
             # Add discount amount to html
-            contexts['discount_amount'] = total_cost*coupon.percent//100
+            contexts['discount_amount'] = discount_amount = sub_total*coupon.percent//100
         else: #Time out, delete it from session.
             del request.session['code_coupon']
     elif 'code_coupon' in request.session and request.session['code_coupon'] == '404':
@@ -341,6 +357,7 @@ def cart(request):
             contexts['code'] = '404'
 
     contexts['coupon'] = coupon
+    contexts['total_cost'] = sub_total - discount_amount
     return render(request, 'cart.html', contexts)
 
 

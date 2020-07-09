@@ -2,278 +2,377 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/account_order.css' %}">
+<link rel="stylesheet" href="{% static 'css/account_order.css' %}">
 {% endblock %}
 {% block landscape-class %}
-    <div class="container-fluid title d-flex align-items-center pay-landscape">
-{% endblock %}
-{% block box-class %}
+<div class="container-fluid title d-flex align-items-center pay-landscape">
+    {% endblock %}
+    {% block box-class %}
     <div class="box wrap w-100 align-items-center pay-box">
-{% endblock %}
-{% block title-banner %}Personal Information{% endblock %}
-{% block customizeCheckout %} 
-    <span class="title-banner customize-title" style="text-shadow: 2px 2px 2px black;">Username</span>
-{% endblock %}
-{% block content %}
-    <article class="account-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-3 border-right d-none d-xl-block">
-                    <div class="account-title">Hi, {{user.username}}</div>
-                    <ul class="account-left-sidebar pl-0">
-                        <li>
-                            <a href="#" class="my-account-link">
-                                <svg width="17" height="17" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg>
-                                &nbsp;&nbsp;My Infomartion
-                            </a>
-                        </li>
-                        <li>
-                            <a class="active my-order-link" href="#">
-                                <svg width="17" height="17" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M704 1536q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm896 0q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm128-1088v512q0 24-16.5 42.5t-40.5 21.5l-1044 122q13 60 13 70 0 16-24 64h920q26 0 45 19t19 45-19 45-45 19h-1024q-26 0-45-19t-19-45q0-11 8-31.5t16-36 21.5-40 15.5-29.5l-177-823h-204q-26 0-45-19t-19-45 19-45 45-19h256q16 0 28.5 6.5t19.5 15.5 13 24.5 8 26 5.5 29.5 4.5 26h1201q26 0 45 19t19 45z"/></svg>
-                                &nbsp;&nbsp;My Order
-                            </a>
-                        </li>
-                        <li>
-                            <a class="my-change-password" href="#">
-                                <svg width="17" height="17" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M704 1536q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm896 0q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm128-1088v512q0 24-16.5 42.5t-40.5 21.5l-1044 122q13 60 13 70 0 16-24 64h920q26 0 45 19t19 45-19 45-45 19h-1024q-26 0-45-19t-19-45q0-11 8-31.5t16-36 21.5-40 15.5-29.5l-177-823h-204q-26 0-45-19t-19-45 19-45 45-19h256q16 0 28.5 6.5t19.5 15.5 13 24.5 8 26 5.5 29.5 4.5 26h1201q26 0 45 19t19 45z"/></svg>
-                                &nbsp;&nbsp;Change password
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Order list -->
-                <div class="col-12 col-xl-9 content-wrapper">
+        {% endblock %}
+        {% block title-banner %}Personal Information{% endblock %}
+        {% block customizeCheckout %}
+        <span class="title-banner customize-title" style="text-shadow: 2px 2px 2px black;">Username</span>
+        {% endblock %}
+        {% block content %}
+        <article class="account-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3 border-right d-none d-xl-block">
+                        <div class="account-title">Hi, {{user.username}}</div>
+                        <ul class="account-left-sidebar pl-0">
+                            <li>
+                                <a href="#" class="my-account-link">
+                                    <svg width="17" height="17" viewBox="0 0 1792 1792"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z" />
+                                    </svg>
+                                    &nbsp;&nbsp;My Infomartion
+                                </a>
+                            </li>
+                            <li>
+                                <a class="active my-order-link" href="#">
+                                    <svg width="17" height="17" viewBox="0 0 1792 1792"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M704 1536q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm896 0q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm128-1088v512q0 24-16.5 42.5t-40.5 21.5l-1044 122q13 60 13 70 0 16-24 64h920q26 0 45 19t19 45-19 45-45 19h-1024q-26 0-45-19t-19-45q0-11 8-31.5t16-36 21.5-40 15.5-29.5l-177-823h-204q-26 0-45-19t-19-45 19-45 45-19h256q16 0 28.5 6.5t19.5 15.5 13 24.5 8 26 5.5 29.5 4.5 26h1201q26 0 45 19t19 45z" />
+                                    </svg>
+                                    &nbsp;&nbsp;My Order
+                                </a>
+                            </li>
+                            <li>
+                                <a class="my-change-password" href="{% url 'password-change' %}">
+                                    <svg width="17" height="17" viewBox="0 0 1792 1792"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M704 1536q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm896 0q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm128-1088v512q0 24-16.5 42.5t-40.5 21.5l-1044 122q13 60 13 70 0 16-24 64h920q26 0 45 19t19 45-19 45-45 19h-1024q-26 0-45-19t-19-45q0-11 8-31.5t16-36 21.5-40 15.5-29.5l-177-823h-204q-26 0-45-19t-19-45 19-45 45-19h256q16 0 28.5 6.5t19.5 15.5 13 24.5 8 26 5.5 29.5 4.5 26h1201q26 0 45 19t19 45z" />
+                                    </svg>
+                                    &nbsp;&nbsp;Change password
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                     <!-- Order list -->
-                    <div class="my-order-wrapper">
-                        <div class="account-title">My Order</div>
-                        {% if orders %}
-                        {% for order in orders %}
-                        {% if order.order_status == '6' %}
-                        {% else %}
-                        <div class="order-item p-2" style="color: black;">
-                            <div class="row justify-content-center align-self-center">
-                                <div class="col-6 col-md-3 mb-3 mb-xl-0 my-auto">
-                                    <div><strong> Order ID:</strong> {{order.pk}}</div>
-                                    <div> <strong>Date ordered:</strong>  {{order.date_ordered}}</div>
-                                </div>
-                                <div class="col-6 col-md-2 my-auto">
-                                    <div><strong>Total cost:</strong> </div>
-                                    <div class="price">{{order.get_total_order_price}}</div>
-                                </div>
-                                <div class="col-6 col-md-2 my-auto">
-                                    <div><strong>Payment:</strong> </div>
-                                    <div> Cash </div>
-                                </div>
-                                <div class="col-6 col-md-2 my-auto" >
-                                    <div class="font-weight-bold" class="order-status">Order status:</div>
-                                    {% if order.order_status == '1' %}
-                                        <div class="" class="order-status">Waiting Confirmation</div>
+                    <div class="col-12 col-xl-9 content-wrapper">
+                        <!-- Order list -->
+                        <div class="my-order-wrapper">
+                            <div class="account-title">My Order</div>
+                            {% if orders %}
+                            {% for order in orders %}
+                            {% if order.order_status == '6' %}
+                            {% else %}
+                            <div class="order-item p-2" style="color: black;">
+                                <!-- Row item -->
+                                <div class="row justify-content-center align-self-center">
+                                    <div class="col-6 col-md-3 mb-3 mb-xl-0 my-auto">
+                                        <div><strong> Order ID:</strong> {{order.pk}}</div>
+                                        <div> <strong>Date ordered:</strong> {{order.date_ordered}}</div>
                                     </div>
-                                        <div class="col-6 col-md-1 my-auto">
-                                            <a href="#" data-id="{{ order.get_cancel_order_url }}"  class="cancel-request btn" data-toggle="modal" data-target="#modal-be-sure">
-                                                <i class="material-icons" style="font-size:24px; vertical-align: middle !important;">cancel</i>
-                                            </a>
-                                        </div>
-                                    
-                                    {% elif order.order_status == '2' %}
-                                        <div class="" class="order-status">Processing</div>
+                                    <div class="col-6 col-md-2 my-auto">
+                                        <div><strong>Total cost:</strong> </div>
+                                        <div class="price">{{order.get_total_order_price}}</div>
                                     </div>
-                                    {% elif order.order_status == '3' %}
-                                        <div class="" class="order-status">Shipping</div>
+                                    <div class="col-6 col-md-2 my-auto">
+                                        <div><strong>Payment:</strong> </div>
+                                        <div> Cash </div>
                                     </div>
-                                    {% elif order.order_status == '5' %}
-                                        <div class="" class="order-status">Requesting Cancel</div> 
+                                    <div class="col-6 col-md-2 my-auto">
+                                        <div class="font-weight-bold" class="order-status">Order status:</div>
+                                        {% if order.order_status == '1' %}
+                                        <div class="order-status">Waiting Confirmation</div>
+
+                                        {% elif order.order_status == '2' %}
+                                        <div class="order-status">Processing</div>
+
+                                        {% elif order.order_status == '3' %}
+                                        <div class="order-status">Shipping</div>
+
+                                        {% elif order.order_status == '4' %}
+                                        <div class="order-status">Finished</div>
+
+                                        {% elif order.order_status == '5' %}
+                                        <div class="order-status">Requesting Cancel</div>
+
+                                        {% endif %}
                                     </div>
-                                    {% endif %}
-                                <div class="col-6 col-md-1 my-auto">
-                                    <a class="btn-view-detail card-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapse-{{order.pk}}">
-                                        Detail
-                                    </a>
+                                    <!-- Button request cancel -->
+
+                                    <div class="col-6 col-md-1 my-auto">
+                                        {% if order.order_status == '1' %}
+                                        <button data-id="{{ order.get_cancel_order_url }}" class="cancel-request btn"
+                                            data-toggle="modal" data-target="#modal-be-sure">
+                                            {% else %}
+                                            <button data-id="{{ order.get_cancel_order_url }}"
+                                                class="cancel-request btn" data-toggle="modal"
+                                                data-target="#modal-be-sure" disabled>
+                                                {% endif %}
+                                                <i class="material-icons"
+                                                    style="font-size:24px; vertical-align: middle !important;">cancel</i>
+                                            </button>
+                                            
+                                    </div>
+                                    <!-- End button cancel -->
+
+                                    <div class="col-6 col-md-1 my-auto">
+                                        <a class="btn-view-detail card-link" data-toggle="collapse"
+                                            href="#collapseExample" role="button" aria-expanded="false"
+                                            aria-controls="collapse-{{order.pk}}">
+                                            Detail
+                                            <span class="d-none">{{order.pk}}</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            
-                        </div>
-                        <div class="collapse collapse-{{order.pk}}" id="collapse-{{order.pk}}">
-                            <div class="card card-body">
-                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                        {% else %}
-                        <div class="">
-                            You have no order in progress.
-                        </div>
-                        {% endif %}
-                        <!-- POPUP DETAIL -->
-                        <div class="position-fixed popup-detail-order d-none">
-                            <div class="order-detail-content bg-white position-absolute">
-                                <div class="row h-100">
-                                    <div class="col-12 col-lg-6 col-xl-8 bg-white overflow-auto scrollbar scrollbar-rare-wind h-100 order-2 order-lg-1">
-                                        <div class="product-item px-3 py-3">
-                                            <div class="row">
-                                                <div class="col-4 col-xl-3">
-                                                    <img width="136" height="136"
-                                                         src="http://127.0.0.1:8000/media/product_thumbnail/download_8.jpg" alt="rose">
-                                                </div>
-                                                <div class="col-8 col-xl-9 d-flex">
-                                                    <div class="product-item-info align-self-center">
-                                                        <h2 class="product-item-title">Red Rose</h2>
-                                                        <div class="d-flex">
-                                                            <div class="mr-xl-5">
-                                                                <p class="mb-0">
-                                                                    <span>Price:</span>&nbsp;
-                                                                    <span>900,000 VNĐ</span>
-                                                                </p>
-                                                                <p class="mb-0 d-block d-xl-none">
-                                                                    <span>Quantity:</span>&nbsp;
-                                                                    <span>02</span>
-                                                                </p>
-                                                                <p class="mb-0 d-none d-xl-block">
-                                                                    <span>Price root:</span>&nbsp;
-                                                                    <span class="price-root">1,000,000 VNĐ</span>
-                                                                </p>
+                            {% endif %}
+                            <!-- POPUP DETAIL -->
+                            <div class="position-fixed popup-detail-order d-none" id="detail-{{ order.pk }}">
+                                <div class="order-detail-content bg-white position-absolute">
+                                    <div class="row h-100">
+                                        <div
+                                            class="col-12 col-lg-6 col-xl-8 bg-white overflow-auto scrollbar scrollbar-rare-wind h-100 order-2 order-lg-1">
+                                            {% for item in order.items_ordered.all %}
+                                            <div class="product-item px-3 py-3">
+                                                <div class="row">
+                                                    <div class="col-4 col-xl-3">
+                                                        <img width="136" height="136"
+                                                            src={{item.item.image.first.image.url}} alt="image">
+                                                    </div>
+                                                    <div class="col-8 col-xl-9 d-flex">
+
+                                                        <div class="product-item-info align-self-center">
+                                                            <h2 class="product-item-title">{{item.item.title}}</h2>
+                                                            <div class="d-flex">
+                                                                <div class="mr-xl-5">
+                                                                    <p class="mb-0">
+                                                                        <span>Price:</span>&nbsp;
+                                                                        <span
+                                                                            class="price">{{item.price_client_bought}}</span>
+                                                                    </p>
+                                                                    <p class="mb-0 d-block d-xl-none">
+                                                                        <span>Quantity:</span>&nbsp;
+                                                                        <span>{{item.quantity}}</span>
+                                                                    </p>
+                                                                    <p class="mb-0 d-none d-xl-block">
+                                                                        <span>Original Price:</span>&nbsp;
+                                                                        <span
+                                                                            class="price-root price">{{item.item.price}}</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="d-none d-xl-block">
+                                                                    <p>
+                                                                        <span>Quantity:</span>&nbsp;
+                                                                        <span>{{item.quantity}}</span>
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                            <div class="d-none d-xl-block">
-                                                                <p>
-                                                                    <span>Quantity:</span>&nbsp;
-                                                                    <span>02</span>
-                                                                </p>
-                                                            </div>
+                                                            <p class="mb-0 product-topic d-none d-xl-block">
+                                                                <span>Topic:</span>&nbsp;
+                                                                <span>{{item.item.topic}}</span>
+                                                            </p>
                                                         </div>
-                                                        <p class="mb-0 product-topic d-none d-xl-block">
-                                                            <span>Topic:</span>&nbsp;
-                                                            <span>Flower Meaning</span>
-                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
+                                            {% endfor %}
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 col-xl-4 pr-0 pr-xl-3 pl-3 pl-sm-0 order-1 order-lg-2">
-                                        <div class="py-3 px-3 detail-order h-100">
-                                            <h2 class="text-center detail-order-title">Detail Order</h2>
-                                            <div>
-                                                <p class="clearfix">
-                                                    <span>Order No:</span>&nbsp;
-                                                    <span class="float-right">P01231244</span>
-                                                </p>
-                                                <p class="clearfix">
-                                                    <span>Date:</span>&nbsp;
-                                                    <span class="float-right">4/7/2020</span>
-                                                </p>
-                                                <p class="clearfix">
-                                                    <span>Status:</span>&nbsp;
-                                                    <span class="float-right">Waiting for confirmation</span>
-                                                </p>
-                                            </div>
-                                            <hr>
-                                            <div class="total-row">
-                                                <p class="clearfix">
-                                                    <span>Payment Method:</span>&nbsp;
-                                                    <span class="float-right">Cash</span>
-                                                </p>
-                                                <p class="clearfix font-weight-bold total-line">
-                                                    <span>Total:</span>&nbsp;
-                                                    <span class="float-right">1,700,000 VNĐ</span>
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <a class="btn-success btn-custom btn-discard-close float-right" href="javascript:void(0)">Cancel</a>
+                                        <div
+                                            class="col-12 col-lg-6 col-xl-4 pr-0 pr-xl-3 pl-3 pl-sm-0 order-1 order-lg-2">
+                                            <div class="py-3 px-3 detail-order h-100">
+                                                <h2 class="text-center detail-order-title">Detail Order</h2>
+                                                <div>
+                                                    <p class="clearfix">
+                                                        <span>Order No:</span>&nbsp;
+                                                        <span class="float-right">{{order.pk}}</span>
+                                                    </p>
+                                                    <p class="clearfix">
+                                                        <span>Date:</span>&nbsp;
+                                                        <span class="float-right">{{order.date_ordered}}</span>
+                                                    </p>
+                                                    <p class="clearfix">
+                                                        <span>Status:</span>&nbsp;
+                                                        <span class="float-right">
+                                                            {% if order.order_status == '1' %}
+                                                            Waiting Confirmation
+                                                            {% elif order.order_status == '2' %}
+                                                            Processing
+                                                            {% elif order.order_status == '3' %}
+                                                            Shipping
+                                                            {% elif order.order_status == '4' %}
+                                                            Finished
+                                                            {% elif order.order_status == '5' %}
+                                                            Requesting Cancel
+                                                            {% endif %}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <hr>
+                                                <div class="total-row">
+                                                    <p class="clearfix">
+                                                        <span>Payment Method:</span>&nbsp;
+                                                        <span class="float-right">Cash</span>
+                                                    </p>
+                                                    <p class="clearfix font-weight-bold total-line">
+                                                        <span>Total:</span>&nbsp;
+                                                        <span
+                                                            class="float-right price">{{order.get_total_order_price}}</span>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <button
+                                                        class="btn-success btn-custom btn-discard-close float-right w-100"
+                                                        id="close-detail-{{ order.pk }}">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="">
+                                You have no order in progress.
+                            </div>
+                            {% endif %}
                         </div>
-                        <!-- Popup detail -->
+
                         <!-- Modal -->
-                        <div class="modal fade modal-be-sure" id="modal-be-sure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade modal-be-sure" id="modal-be-sure" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title modal-title-sure" id="exampleModalLabel" style="cursor:default;">Confirmation</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title modal-title-sure" id="exampleModalLabel"
+                                            style="cursor:default;">
+                                            Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body modal-body-sure " style="cursor:default;">
+                                        Are you sure want to cancel this order?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" id="request-cancel">Request
+                                            cancel</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body modal-body-sure " style="cursor:default;">
-                                    Are you sure want to cancel this order?
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-danger" id="request-cancel">Request cancel</button>
-                                </div>
-                              </div>
                             </div>
                         </div>
                     </div>
                     <div class="my-profile-wrapper">
                         <div class="card w-50">
-                            <img class="card-img-top img-fluid bg-cover bg-bottom h-56 md:h-auto md:w-56" src="{{ user.profile.image.url }}" alt="Avatar preview">
+                            <img class="card-img-top img-fluid bg-cover bg-bottom h-56 md:h-auto md:w-56"
+                                src="{{ user.profile.image.url }}" alt="Avatar preview">
                             <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                              <button type="button" 
-                                    class="btn btn-outline-secondary btn-edit-profile w-100" 
-                                    data-toggle="modal" 
-                                    data-target="#edit-modal">Edit</button>
-                                <!-- Modal profile-->
-                    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-Label" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="edit-modal-Label">Edit personal information</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="POST" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <div class="form-group">
-                                            <label for="lbl-first-name">First name</label>
-                                            <input name="first_name" type="text" class="form-control" id="input-first-name" placeholder="New first name" value="{{ u_form.first_name.value|default_if_none:'' }}">
-                                          </div>
-                                          <div class="form-group">
-                                            <label for="lbl-last-name">Last name</label>
-                                            <input name="last_name" type="text" class="form-control" id="input-last-name" placeholder="New last name" value="{{ u_form.last_name.value|default_if_none:'' }}">
-                                          </div>
-                                        <div class="form-group">
-                                          <label for="lbl-Phone">Phone</label>
-                                          <input name="phone" type="phone" class="form-control" id="input-phone" placeholder="New phone number" value="{{ p_form.phone.value|default_if_none:'' }}">
+                                <h5 class="card-title">{{ u_form.first_name.value }} {{ u_form.last_name.value }}</h5>
+                                <p class="m-1">{{ request.user.email }}</p>
+                                <p class="m-1">{{ p_form.address.value|default_if_none:'' }}</p>
+                                <p class="m-1">{{ p_form.phone.value|default_if_none:'' }}</p>
+                                <button type="button" class="btn btn-outline-secondary btn-edit-profile w-100"
+                                    data-toggle="modal" data-target="#edit-modal">Edit</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog"
+                                    aria-labelledby="edit-modal-Label" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="edit-modal-Label">Edit personal information
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    {% if u_form.errors %}
+                                                    {% for field in u_form %}
+                                                    {% for error in field.errors %}
+                                                    <div class="alert alert-danger">
+                                                        <strong>{{ error|escape }} {{field.name}}</strong>
+                                                    </div>
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                    {% for error in u_form.non_field_errors %}
+                                                    <div class="alert alert-danger">
+                                                        <strong>{{ error|escape }} {{field.name}}</strong>
+                                                    </div>
+                                                    {% endfor %}
+                                                    {% endif %}
+
+                                                    {% if p_form.errors %}
+                                                    {% for field in p_form %}
+                                                    {% for error in field.errors %}
+                                                    <div class="alert alert-danger">
+                                                        <strong>{{ error|escape }} {{field.name}}</strong>
+                                                    </div>
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                    {% for error in p_form.non_field_errors %}
+                                                    <div class="alert alert-danger">
+                                                        <strong>{{ error|escape }} {{field.name}}</strong>
+                                                    </div>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                    <div class="form-group">
+                                                        <label for="lbl-first-name">First name</label>
+                                                        <input name="first_name" type="text" class="form-control"
+                                                            id="input-first-name" placeholder="New first name"
+                                                            value="{{ u_form.first_name.value|default_if_none:'' }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="lbl-last-name">Last name</label>
+                                                        <input name="last_name" type="text" class="form-control"
+                                                            id="input-last-name" placeholder="New last name"
+                                                            value="{{ u_form.last_name.value|default_if_none:'' }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="lbl-Phone">Phone</label>
+                                                        <input name="phone" type="text" class="form-control"
+                                                            id="input-phone" placeholder="New phone number"
+                                                            value="{{ p_form.phone.value|default_if_none:'' }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="lbl-address">Address</label>
+                                                        <input name="address" type="text" class="form-control"
+                                                            id="input-address" placeholder="New address"
+                                                            value="{{ p_form.address.value|default_if_none:'' }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input name="image" type="file" class="form-control"
+                                                            id="input-image"
+                                                            value="{{ p_form.image.value|default_if_none:'' }}">
+                                                    </div>
+                                                    <input id="btn-update-profile" class="d-none" type="submit">
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button id="fake-btn-update-profile" type="submit"
+                                                    class="btn btn-primary">Save
+                                                    changes</button>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                          <label for="lbl-address">Address</label>
-                                          <input name="address" type="text" class="form-control" id="input-address" placeholder="New address" value="{{ p_form.address.value|default_if_none:'' }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <input name="image" type="file" class="form-control" id="input-image" value="{{ p_form.image.value|default_if_none:'' }}">
-                                        </div>
-                                        
-                                      </form>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                             </div>
                             <div class="card-footer">
-                              <small class="text-muted">Last updated 3 mins ago</small>
+                                <small class="text-muted">Last updated 3 mins ago</small>
                             </div>
-                            
-                        </div> 
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </article>
-{% endblock %}
+        </article>
+        {% endblock %}
 
-{% block JavaScript %}
-    <script src="{% static 'js/account_order.js' %}"></script>
-    <!--js cũng tương tự css-->
-{% endblock %}
+        {% block JavaScript %}
+        <script src="{% static 'js/account_order.js' %}"></script>
+        <!--js cũng tương tự css-->
+        {% endblock %}

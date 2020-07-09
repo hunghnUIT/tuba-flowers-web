@@ -29,12 +29,13 @@ class ProfileRegisterForm(forms.ModelForm):
         fields = ['phone','address'] 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    # Comment this field below because we do not allow user edit them
+    # email = forms.EmailField()
 
-    def __init__(self, *args, **kwargs):
-        super(UserUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['readonly'] = True
-        self.fields['email'].widget.attrs['readonly'] = True
+    # def __init__(self, *args, **kwargs):
+    #     super(UserUpdateForm, self).__init__(*args, **kwargs)
+    #     self.fields['username'].widget.attrs['readonly'] = True
+    #     self.fields['email'].widget.attrs['readonly'] = True
 
     class Meta: 
         # This class provide a nested namespace for configurations and 
@@ -42,7 +43,7 @@ class UserUpdateForm(forms.ModelForm):
         # What we have in the "field" will have in model too.
         # And the model affected here is model User.
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name']
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
