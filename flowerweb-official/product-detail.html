@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
 <link rel="stylesheet" href="{% static 'modal-product-detail-css/modal.css' %}">
 <link rel="stylesheet" href="{% static 'css/swiper-detail.css' %}">
-<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
 <!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
 <span id="detail" style="display: none"></span>
 {% endblock %}
@@ -43,9 +43,11 @@
                                 {% endfor %}
                             </div>
                             <a class="carousel-control-prev" href="#carousel-thumb-preview" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                               <span class="sr-only">Previous</span>
                             </a>
                             <a class="carousel-control-next" href="#carousel-thumb-preview" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                               <span class="sr-only">Next</span>
                             </a>
                           </div>
@@ -96,6 +98,14 @@
                                 <span class="font-weight-bold" style=" color: #B73022;">Out stock</span> <span class="font-italic">( <span id="number-item-left">{{ object.number_item_left }}</span> remaining items )</span>
                             </div>
                             {% endif %}
+                            <!-- Alert -->
+                            <div class="alert alert-success" id="success" role="alert">
+                            
+                            </div>
+                            <div class="alert alert-danger" id="fail" role="alert">
+                            
+                            </div>
+                            <!--  End alert -->
                             <div class="quantity-wrapper d-inline-block">
                                 <span class="d-inline-block quantity-label">Quantity</span>
                                 <div class="wenumberic-product-detail enumber-control float-right">
@@ -104,6 +114,7 @@
                             </div>
                             <button class="text-uppercase d-inline-block btn-add-to-cart mb-4" >add to cart</button>
                             <!-- <a class="text-uppercase d-inline-block btn-add-to-cart mb-4" href="{{ object.get_add_to_cart_url }}">add to cart</a> -->
+                        
                         </div>
                         <div class="more-information">
                             <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>

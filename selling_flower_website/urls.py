@@ -50,19 +50,24 @@ urlpatterns = [
     # For facebook login
     path('accounts/', include('allauth.urls')),
 
-    # For ckeditor
+    # For ckeditor, blog
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('blogs/<int:pk>', products_views.BlogDetailView.as_view(), name='blog-detail'),
+    path('blogs/', products_views.BlogListView.as_view(), name='blog-list'),
+    path('blogs/author=<str:author>', products_views.BlogByUserListView.as_view(), name= 'blogs-by-user'),
     
     # Search box.
     path('search/', users_views.item_search_view, name='search'),
     path('auto-search/', users_views.auto_search, name='auto-search'),
 
+    # Add coupon
+    path('add-coupon/<str:code>', users_views.add_coupon, name='add-coupon'),
+
     #call checkout 
     # path('proceed/',users_views.loadcheckout,name='checkout')
     # Test
     # path('test/',users_views.response_api,name='test')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
 
 if settings.DEBUG:
     # Thịnh's hint for uploading heroku.

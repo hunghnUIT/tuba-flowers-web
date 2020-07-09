@@ -11,7 +11,11 @@ from django.contrib.auth.models import User
 from django.db.models import Q, F
 from topic.models import Topic
 from django.http import JsonResponse
+from django.views.generic import ListView
+from users.models import Coupon
+from django.core.exceptions import ObjectDoesNotExist
 import random
+import time
 
 # def handler404(request, *args, **argv):
 #     return render(request, 'notfound-404.html', status=404)
@@ -25,9 +29,10 @@ def register(request):
             username = form.cleaned_data.get('username')
             new_user = User.objects.get(username=username)
             p_form.instance=new_user.profile # Indicating who this phone number belong to.
-            p_form.save()
-            # print(form.cleaned_data)
-
+            if p_form.is_valid():
+                p_form.save()
+            else:
+                print('invalid')
             messages.success(request, f'Your account {username} has been created. You can login now.')
             return redirect('login')
     
@@ -83,8 +88,22 @@ def item_search_view(request):
         contexts['query'] = str(query)
     
     items = get_items_queryset(query)
-    contexts['items'] = items
-    contexts['categories'] = sorted(Category.objects.all()[:12], key=lambda x: random.random())
+
+    if "order_by" in request.GET:
+        kw_order_by = request.GET['order_by']
+        if kw_order_by == 'asc-price':
+            contexts['items'] = sorted(items,key=lambda x: x.price)
+        elif kw_order_by == 'desc-price':
+            contexts['items'] = sorted(items,key=lambda x: x.price, reverse=True)
+        elif kw_order_by == 'by-name':  
+            contexts['items'] = sorted(items,key=lambda x: x.title)
+        elif kw_order_by == 'best-seller':
+            contexts['items'] = sorted(items,key=lambda x: x.number_item_sold, reverse=True)
+    else:
+        contexts['items'] = items
+    contexts['categories'] = sorted(Category.objects.all(), key=lambda x: random.random())
+    contexts['type'] = '/search/'
+    contexts['kwarg'] = query
     return render(request, 'product-list.html', contexts)
 # End search button
 
@@ -118,6 +137,15 @@ Sang's code
 def loadcheckout(request):
     return render (request,'checkout.html')
 
+def get_user_pending_order(request):
+    # get order for the correct user
+    all_orders =  Order.objects.filter(user=request.user)
+    proccessing_orders = all_orders.exclude(order_status='4').order_by('-date_ordered')
+    if proccessing_orders.exists():
+        # get the only order in the list of filtered orders
+        return proccessing_orders
+    return 0
+    # return orders
 
 @login_required
 def profile(request):
@@ -140,21 +168,18 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    existing_orders = get_user_pending_order(request)
+    print(existing_orders)
     contexts = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'orders': existing_orders
     }
 
-    return render(request, 'users/profile.html', contexts)
-
-def get_user_pending_order(request):
-    # get order for the correct user
-    orders = Order.objects.filter(user=request.user, order_status='P') | Order.objects.filter(user=request.user, order_status='S')| Order.objects.filter(user=request.user, order_status='RC')| Order.objects.filter(user=request.user, order_status='AC')
-    if orders.exists():
-        # get the only order in the list of filtered orders
-        return orders
-    return 0
-    # return orders
+    return render(request, 'account_order.html', contexts)
+# # Sang tạo 
+# def load_account_order(request):
+#     return render(request, 'account_order.html')
 
 @login_required
 def orders_detail(request):
@@ -169,8 +194,8 @@ def orders_detail(request):
 def cancel_order(request, pk):
     order = get_object_or_404(Order, pk=pk)
     if order:
-        if order.order_status == "W":
-            order.order_status = "RC"
+        if order.order_status == "1":
+            order.order_status = "5"
             order.save()
             messages.success(request, f'Requested cancel order, waiting for acceptation.')
         else:
@@ -179,7 +204,31 @@ def cancel_order(request, pk):
         
 
 @login_required
+def add_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code, is_active=False)
+        request.session['code_coupon']= coupon.code
+        now = int(time.time())
+        request.session['timeout_coupon'] = now + 30 #If user not checkout with 60s, delete coupon and require to fill it again
+        # request.session['timeout_coupon'] = now + 1 #Show at least 1s
+    except ObjectDoesNotExist:
+        request.session['code_coupon']= '404'
+        now = int(time.time())
+        request.session['timeout_coupon'] = now + 1 
+        print('Not exist coupon')
+    return redirect('cart')
+
+@login_required
 def checkout(request):
+    discount_percent_from_coupon = 0
+    coupon = None
+    if 'code_coupon' in request.session: 
+        if request.session['code_coupon'] == '404':
+            del request.session['code_coupon']
+        else:
+            coupon = Coupon.objects.get(code=request.session['code_coupon']) # Definitely this will get one due to add_coupon function above
+            discount_percent_from_coupon = coupon.percent
+
     checkout_items = ItemSelection.objects.filter(user=request.user, ordered=False, quantity__gt=0)
     
     if not checkout_items: #No item in cart -> Not allowed to checkout.
@@ -205,7 +254,8 @@ def checkout(request):
         messages.warning(request, f'Checkout failed. We do not have enough '+ ", ".join([i.item.title for i in failed_items]) + ' by now.')
         return redirect('cart')
 
-    total_cost = sum(i.get_final_price() for i in checkout_items)
+    sub_total = sum(i.get_final_price() for i in checkout_items)
+    discount_amount = sub_total*discount_percent_from_coupon//100
     
     if request.method == 'GET':
         # Check if client edit the order info.
@@ -225,8 +275,10 @@ def checkout(request):
             )
         contexts={
             'checkout_items': checkout_items,
-            'total_cost': total_cost,
-            'checkout_form': checkout_form
+            'sub_total': sub_total,
+            'checkout_form': checkout_form,
+            'discount_amount': discount_amount,
+            'total_cost': sub_total - discount_amount
         }
         
         # return render(request, 'users/checkout.html', contexts)
@@ -237,13 +289,28 @@ def checkout(request):
             receiver = checkout_form.cleaned_data['receiver']
             phone = checkout_form.cleaned_data['phone']
             address = checkout_form.cleaned_data['address']
-
+            
+            # discount_percent_from_coupon = 0
+            # if 'code_coupon' in request.session:
+            #     coupon = Coupon.objects.get(code=request.session['code_coupon']) # Definitely this will get one due to add_coupon function above
+            #     discount_percent_from_coupon = coupon.percent
+            #     coupon.is_active = True
+            #     coupon.save()
+            #     # Delete session after using it.
+            #     del request.session['code_coupon']
+            
             new_order = Order.objects.create(
                 user=request.user,
                 receiver=receiver,
                 phone=phone,
-                address=address
+                address=address,
+                discount_percent_from_coupon=discount_percent_from_coupon
             )
+            if coupon:
+                coupon.is_active = True
+                coupon.save()
+                # Delete session after using it.
+                del request.session['code_coupon']
 
             for item in checkout_items:
                 new_order.items_ordered.add(item)
@@ -267,13 +334,30 @@ def checkout(request):
 @login_required
 def cart(request):
     selected_items = ItemSelection.objects.filter(user=request.user,ordered=False)
-    total_cost = sum(i.get_final_price() for i in selected_items)
-    old_cost = sum(i.get_total_item_price() for i in selected_items)
+    sub_total = sum(i.get_final_price() for i in selected_items)
     contexts={
             'selected_items':selected_items,
-            'total_cost': total_cost,
-            'old_cost': old_cost,
+            'sub_total': sub_total,
     }
+    coupon = None
+    discount_amount = 0
+    if 'code_coupon' in request.session and 'timeout_coupon' in request.session and request.session['code_coupon'] != "404":
+        #Not time out yet: timeout is less than now.
+        if request.session['timeout_coupon'] >= int(time.time()): 
+            coupon = Coupon.objects.get(code=request.session['code_coupon'])
+            request.session['timeout_coupon'] = int(time.time()) + 30
+            # Add discount amount to html
+            contexts['discount_amount'] = discount_amount = sub_total*coupon.percent//100
+        else: #Time out, delete it from session.
+            del request.session['code_coupon']
+    elif 'code_coupon' in request.session and request.session['code_coupon'] == '404':
+        if request.session['timeout_coupon'] < int(time.time()): 
+            del request.session['code_coupon']
+        else:
+            contexts['code'] = '404'
+
+    contexts['coupon'] = coupon
+    contexts['total_cost'] = sub_total - discount_amount
     return render(request, 'cart.html', contexts)
 
 

@@ -70,7 +70,7 @@ Cart
                 <tfoot>
                     <tr>
                         <th data-title="" scope="col" colspan="4" class="text-right text-product-cell">Total:</th>
-                        <th id="summary-total" data-title="quantity" scope="col" class="text-center text-product-cell">{{ total_cost|add_point }} ₫</th>
+                        <th id="summary-total" data-title="quantity" scope="col" class="text-center text-product-cell">{{ sub_total|add_point }} ₫</th>
                         <!-- <th data-title="price" scope="col" class="text-center text-product-cell"></th> -->
                         <th scope="col" class="text-center text-product-cell">
                             <button id="btn-update-cart" class="text-capitalize btn-custom btn-update-cart">
@@ -100,8 +100,20 @@ Cart
                     <p>
                         Enter your coupon code if you have one.
                     </p>
-                    <input type="text" placeholder="ABC#1X" name="coupon" id="coupon-input">
-                    <button class="text-capitalize btn-custom btn-update-cart">
+                    {% if coupon %}
+                        <input type="text" placeholder="ABC#1X" name="coupon" value="{{coupon.code}}" id="coupon-input">
+                        <div class="alert alert-success mt-3" role="alert">
+                            Congratulation! Your order will be discount {{coupon.percent}}%.
+                        </div>
+                    {% else %}
+                        <input type="text" placeholder="ABC#1X" name="coupon" id="coupon-input">
+                        {% if code == "404" %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                Invalid coupon. Try again.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <button id="btn-apply-coupon" class="text-capitalize btn-custom btn-update-cart">
                         Apply coupon
                     </button>
                 </div>
@@ -125,7 +137,7 @@ Cart
                         <tbody class="">
                             <tr class="cart-subtotal">
                                 <td data-title="Subtotal" id="sub-total">
-                                    {{ total_cost|add_point }} ₫
+                                    {{ sub_total|add_point }} ₫
                                 </td>
                             </tr>
                             <tr class="cart-ship-cost">
@@ -134,6 +146,11 @@ Cart
                                         Enter your address to view shipping options.
                                         <br> Calculating shipping
                                     </div>
+                                </td>
+                            </tr>
+                            <tr class="cart-order-discount">
+                                <td data-title="Discount" id="discount">
+                                    {{ discount_amount|add_point|default_if_none:"0" }} ₫
                                 </td>
                             </tr>
                             <tr class="cart-order-total">

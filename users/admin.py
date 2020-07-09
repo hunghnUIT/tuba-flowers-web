@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Order, ItemSelection
+from .models import Profile, Order, ItemSelection, Coupon
 from products.models import Item
 from django.utils.html import format_html # This lib is for show image in admin site.
 
@@ -20,10 +20,11 @@ class UsersProfileAdmin(admin.ModelAdmin):
 class UserOrdersAdmin(admin.ModelAdmin):
     list_display = ('id_order','short_detail','get_total_order_price', 'phone', 'get_items', 'date_ordered' ,'order_status') 
     list_display_links = ('id_order', 'short_detail')
-    search_fields = ('user__first_name', 'user__last_name', 'phone','pk')
+    search_fields = ('receiver', 'phone','pk')
     list_filter = ('order_status',)
     list_editable = ('order_status',)
     list_per_page = 10
+    readonly_fields = ['date_ordered',]
 
     def id_order(self, obj):
         return obj.pk
@@ -45,3 +46,4 @@ class UserOrdersAdmin(admin.ModelAdmin):
 admin.site.register(Profile, UsersProfileAdmin)
 admin.site.register(Order, UserOrdersAdmin)
 admin.site.register(ItemSelection)
+admin.site.register(Coupon)

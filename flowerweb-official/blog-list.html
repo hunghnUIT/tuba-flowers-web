@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'library/wenumberic/wenumberic.css' %}">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
+<span id="detail" style="display: none"></span>
+{% endblock %}
+{% block landscape-class %}
+    <div class="container-fluid title d-flex align-items-center blog-landscape">
+{% endblock %}
+{% block box-class %}
+    <div class="box wrap w-100 align-items-center blog-box">
+{% endblock %}
+{% block title-banner %}Discovering & meaning of flowers{% endblock %}
+{% block on-page %} Blog List {% endblock %}
+{% block content %}
+<div class="container mt-4 mb-4">
+    {%for blog in blogs%}
+    <article class="media content-section mb-4 p-2" style="border: 1px solid #b9b7b7;
+                                                            border-radius: 10px;
+                                                            box-shadow: 5px 8px 5px #d8d7d7;">
+        <!-- <img class="rounded-circle article-img" src="{{ blog.author.profile.image.url }}"> -->
+        <a href="{% url 'blog-detail' blog.pk %}"><img class="img-fluid article-img mr-2 rounded" width="150" height="150" src="{{blog.background.url}}" alt="Blog background"
+            style="width: 120px; height: 150px;"></a>
+        <div class="media-body ml-4 mt-2">
+            <div class="article-metadata">
+            <a class="mr-2" href="{% url 'blogs-by-user' blog.author %}" style="color: black;"><i class="fas fa-user mr-2" style="font-size: 18px;color: black !important;"></i>{{blog.author}}</a>
+            <small class="text-muted"><i class="fa fa-calendar mr-2" style="font-size: 18px;color: black;"></i>{{ blog.posted_date | date:"F d, Y"}}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'blog-detail' blog.pk %}" style="color: black;"><h4>{{ blog.title }}</h4></a></h2>
+            <p class="article-content" style="color: black;">{{ blog.brief }}</p>
+        </div>
+        
+    </article>
+{% endfor %}
+<div class="pagination" style="position: relative; left: 85% !important;">
+    {% if is_paginated %}
+    {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4 border-0" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.previous_page_number}}"> <i class="fa fa-angle-double-left"></i> </a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4 border-0" href="?page={{ num}}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ num}}">{{ num }}</a>
+        {% endif %}
+    {% endfor%}
+
+    {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.next_page_number}}"><i class="fa fa-angle-double-right"></i></a>
+        <a class="btn btn-outline-info mb-4 border-0" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+    {% endif %}  
+{% endif %}
+</div>
+<hr class="mb-4" style="height:1px;border-width:0;color:gray;background-color:gray">
+</div>
+{% endblock %}

@@ -26,7 +26,7 @@ class UserRegisterForm(UserCreationForm):
 class ProfileRegisterForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['phone',] 
+        fields = ['phone','address'] 
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()

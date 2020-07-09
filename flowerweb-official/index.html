@@ -37,6 +37,7 @@
 </head>
 
 <body>
+    <span class="site d-none">index</span>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container">
@@ -51,20 +52,20 @@
                         id="collapse_target">
                         <div class="clearfix w-100">
                             <div class="float-left">
-                                <ul class="navbar-nav">
+                                <ul class="navbar-nav " >
                                     <li class="parent-home nav-item dropdown">
-                                        <a href="#" role="button" class="nav-link dropdown-toggle"
+                                        <a href="#" role="button" class="nav-link  "
                                             data-toggle="dropdown" data-target="#home_dropdown">Home
                                             <span class="caret"></span>
                                         </a>
                                         <div class="neumorphism dropdown-menu home" aria-labelledby="home_dropdown">
-                                            <a class="dropdown-item" href="#blog-section">Blog</a>
+                                            <a class="dropdown-item" href="{% url 'blog-list' %}">Blog</a>
                                             <a class="dropdown-item" href="{% url 'products-all' %}?order_by=best-seller">Best sellers</a>
                                             <a class="dropdown-item" href="{% url 'home' %}#team-section">Flower experts</a>
                                         </div>
                                     </li>
                                     <li class="parent-page nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                        <a class="nav-link  " data-toggle="dropdown"
                                             data-target="page-dropdown" href="#">Page<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu page" aria-labelledby="page-dropdown">
                                             <a class="dropdown-item" href="{% url 'profile' %}">My account</a>
@@ -73,7 +74,7 @@
                                         </div>
                                     </li>
                                     <li class="parent-shop nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                        <a class="nav-link  " data-toggle="dropdown"
                                             data-target="shop-dropdown" href="#">Shop<span class="caret"></span></a>
                                         <div class="neumorphism dropdown-menu shop" aria-labelledby="shop-dropdown">
                                             <a class="dropdown-item" href="{% url 'products-all' %}">Product list</a>
@@ -93,7 +94,7 @@
                     </div>
                     <div class="float-right ">
                         <div class="icon-bar">
-                            <ul class="navbar-nav">
+                            <ul class="navbar-nav" style="flex-direction:row !important;">
                                 <li class="icon-bar-hover">
                                     <a class="btn btn-customize" href="#" data-toggle="modal"
                                         data-target="#modal-search-box"><i class="fa fa-search"></i></a>
@@ -105,7 +106,7 @@
                                     </a>
                                 </li>
                                 <li class="parent-user dropdown icon-bar-hover">
-                                    <a class="btn btn-customize dropdown-toggle" data-toggle="dropdown"
+                                    <a class="btn btn-customize  " data-toggle="dropdown"
                                         data-target="user" href="#"><i class="fa fa-user"></i></a>
                                     {% if user.is_authenticated %}
                                     <div id="user"
@@ -117,8 +118,6 @@
                                         <div class="dropdown-divider"></div>
                                         <a title="Go to your account" class="dropdown-item-custom "
                                             href="{% url 'profile' %}">My account</a>
-                                        <a title="Go to your account" class="dropdown-item-custom "
-                                            href="{% url 'orders-detail' %}">My orders</a>
                                         <a title="Logout" class="dropdown-item-custom " href="{% url 'logout' %}">Log
                                             out</a>
                                     </div>
@@ -127,16 +126,16 @@
                                     <div id="visitor"
                                         class="neumorphism toggler dropdown-menu visitor-user dropdown-menu-right"
                                         aria-labelledby="visitor">
-                                        <a href="{% url 'login' %}" class="nav-link dropdown-item-custom"
+                                        <div  class="nav-link dropdown-item-custom mx-auto"
                                             title="Go to login page">
                                             <img class="text-center col-12 my-auto"
                                                 src="{%static '/images/home/welcome-cat.svg'%}" alt="login"
                                                 height="100px" width="100px">
                                             <div class=" col-12 pr-1 dropdown-divider"></div>
                                             <p class="pr-2 mt-2">Go to <span
-                                                    class="initialism text-uppercase">login</span> or <span
-                                                    class="text-uppercase">register</span> </p>
-                                        </a>
+                                                class="initialism text-uppercase font-weight-bold login-span" style="color: brown !important; cursor: pointer;">login</span> or <span
+                                                class="text-uppercase font-weight-bold register-span" style="cursor: pointer;">register</span> </p>
+                                        </div>
                                     </div>
                                     {% endif %}
                                 </li>
@@ -147,28 +146,26 @@
             </div>
         </nav>
         <div class="modal fade" id="modal-search-box">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-dialog transparent width-100">
+                <div class="modal-content transparent  modal-content-custom">
                     <div class="modal-header">
-
                     </div>
-                    <form action="{% url 'search' %}" method="GET">
-                        <div class="modal-body">
-                            <div class="input-group" id="input-group">
-                                <input type="text" class="form-control" placeholder="What are you looking for?"
-                                    name="q" id="search-box" required>
-                                <div class="input-group-btn" id="input-group-btn">
-                                    <button class="btn btn-customize btn-default p-0" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
+                    <div class="modal-body modal-body-custom">
+                        <form action="{% url 'search' %}" method="GET">
+                                <div class="input-group" id="input-group">
+                                    <input type="text" class="form-control" placeholder="What are you looking for?"
+                                        name="q" id="search-box" required>
+                                    <div class="input-group-btn" id="input-group-btn">
+                                        <button class="btn btn-customize btn-default p-0" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <ul id="list-result"></ul>
                         </div>
                     </form>
-                    
                     <div class="modal-footer">
-
                     </div>
                 </div>
             </div>
@@ -204,7 +201,7 @@
                         </div>
                         <div class="overview-description">Free shipping all over the world on<br
                                 class="d-none d-xl-block">
-                            orders over $150.</div>
+                            orders over 1.000.000 ₫</div>
                     </div>
                 </div>
             </div>
@@ -229,10 +226,11 @@
                             {% for blog in blogs %}
                             <div class="swiper-slide">
                                 <div class="blog-slide-wrapper">
-                                    <div class="blog-item text-center">
-                                        <div class="blog-item-title">From our latest blog</div>
-                                        <div class="blog-slide-title">{{ blog.title }}</div>
-                                        <div class="blog-content">{{ blog.brief }}
+                                    <div class="blog-item" style="text-shadow: 0px 2px 2px #000000;cursor: default;">
+                                        <img class="img-fluid background-blog" src="{{ blog.background.url }}" alt="background-blog">
+                                        <div class="blog-item-title" style="position: absolute;">From our latest blog</div>
+                                        <div class="blog-slide-title text-uppercase">{{ blog.title }}</div>
+                                        <div class="blog-content" style="text-align: center; padding:0px 10px 0px 10px; position: absolute;">{{ blog.brief }}
                                         </div>
                                         <a class="blog-see-more" href="{% url 'blog-detail' blog.pk%}">discover now</a>
                                     </div>
@@ -310,6 +308,7 @@
                     {% if forloop.counter0 < 4 %}
                     <div class="col-6 col-md-3 p-2">
                         <div class="card product-wrapper border-0" title="{{ new.title }}">
+                            <span class="number-item-left d-none">{{ new.number_item_left }}</span>
                             <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ new.image.first.image.url }}" alt="product"></a>
                                     {% if new.discount_percent > 0 %}
@@ -328,7 +327,6 @@
                                         title="Select this item"><i class="fa fa-cart-plus mr-2 p-1"></i><span
                                             class="p-1 font-weight-bold" style="font-size: large;">Add to
                                             cart</span><span id="id-item" style="display: none;">{{ new.pk }}</span>
-                                            <span class="number-item-left d-none">{{item.number_item_left}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -343,6 +341,7 @@
                     {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
                     <div class="col-6 col-md-3 p-2">
                         <div class="card product-wrapper border-0" title="{{ new.title }}" >
+                            <span class="number-item-left d-none">{{ new.number_item_left }}</span>
                             <a href="{% url 'item-detail' new.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ new.image.first.image.url }}" alt="product"></a>
                                     {% if new.discount_percent > 0 %}
@@ -376,6 +375,7 @@
                     {% if forloop.counter0 < 4%}
                     <div class="col-6 col-md-3 p-2">
                         <div class="card product-wrapper border-0" title="{{ sale.title }}">
+                            <span class="number-item-left d-none">{{ sale.number_item_left }}</span>
                             <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ sale.image.first.image.url }}" alt="product"></a>
                                     {% if sale.discount_percent > 0 %}
@@ -408,6 +408,7 @@
                     {% if forloop.counter0 > 3 and forloop.counter0 < 8%}
                     <div class="col-6 col-md-3 p-2">
                         <div class="card product-wrapper border-0" title="{{ sale.title }}">
+                            <span class="number-item-left d-none">{{ sale.number_item_left }}</span>
                             <a href="{% url 'item-detail' sale.pk %}"><img class="img-fluid" width="324" height="344"
                                     src="{{ sale.image.first.image.url }}" alt="product"></a>
                                     {% if sale.discount_percent > 0 %}
@@ -567,7 +568,6 @@
     <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/home-product.js' %}"></script>
     <!-- JS for auto complete search bar -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script> 
         $("#search-box").keyup(function(){ 

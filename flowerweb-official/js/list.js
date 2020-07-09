@@ -22,14 +22,30 @@ $(document).ready(function () {
 //             }
 //         } 
 //    });
-    $(".custom-select").change(function () {
+$('.product-wrapper').each(function(){
+    // console.log($(this).text()+"\n");
+    if (parseInt($(this).find('.number-item-left').text())==0)
+    {
+        console.log($(this).find('.number-item-left').text());
+        $(this).addClass('sold-out');
+    }
+});
+    $('.custom-select').on('change', function() {
+    // $(".custom-select").change(function () {
         var item = $(this).find(":selected").val();
         var type = $(document).find("#filter-page-with").text();
         var kwarg = $(document).find("#kwarg").text();
-        
+        if(type !== "/search/"){
+            type = "/products/" + type;
+            kwarg = kwarg + "?";
+        }
+        else{
+            kwarg = "?q=" + kwarg +"&"
+        }
+        var url = type + kwarg + "order_by="+ item;
         $.ajax({
             type: "GET",
-            url: "/products/" + type + kwarg +"?order_by="+ item,
+            url: url,
             cache: false,
             async: false,
             dataType: "html",
@@ -48,4 +64,14 @@ $(document).ready(function () {
         });
     });
 
+    
 });
+var swiper = new Swiper('.topics-container', {
+    speed:300,
+    calculationHeight:true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    slidesPerView: 5,
+  });

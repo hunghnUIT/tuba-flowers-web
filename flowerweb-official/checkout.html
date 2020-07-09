@@ -31,7 +31,7 @@
                         <p class="card-text phone-text"><span class="font-weight-bold">Phone :</span> {{ checkout_form.phone.value|default_if_none:"" }}</p>
                         
                       </div>
-                      <a href="#" class="btn btn-outline-secondary btn-lg w-100" id="change-address-btn">Change address</a>
+                      <a href="#" class="btn btn-outline-secondary btn-lg w-100 mt-2" id="change-address-btn">Change address</a>
                       <form id="change-address-form" method="GET" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group mt-2">
@@ -94,7 +94,11 @@
                               {% endfor %}
                               <tr>
                                 <th colspan="2" scope="row" >Temporary price</th>
-                                <td colspan="2" class="text-right price total-cost">{{ total_cost }}</td>
+                                <td colspan="2" class="text-right price total-cost">{{ sub_total }}</td>
+                              </tr>
+                              <tr class="discount-tr" >
+                                <th scope="row" colspan="2">Discount</th>
+                                <td colspan="2" class="text-right price discount-td">{{discount_amount}}</td>
                               </tr>
                               <tr class="shipping-cost-tr" >
                                 <th scope="row" colspan="2">Shipping cost</th>

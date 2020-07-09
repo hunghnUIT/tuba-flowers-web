@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 
 urlpatterns = [
-    path('orders_detail', views.orders_detail, name="orders-detail"),
+    path('orders_detail', views.profile, name="orders-detail"),
     path('orders_detail/cancel/<int:pk>', views.cancel_order, name="request-cancel-order"),
     path('profile', views.profile, name="profile"),
     # path('cart/', views.cart, name='cart'),

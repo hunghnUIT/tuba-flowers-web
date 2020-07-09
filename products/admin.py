@@ -49,7 +49,7 @@ class ProductsItemAdmin(admin.ModelAdmin):
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['title', 'brief', 'show_background', 'posted_date']
-    fields = ['title', 'brief', ('background', 'show_background'), 'content', 'posted_date']
+    fields = ['author','title', 'brief', ('background', 'show_background'), 'content', 'posted_date', 'tags']
     readonly_fields = ['show_background', 'posted_date']
     
 # Register your models here.

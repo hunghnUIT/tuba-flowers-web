@@ -1,0 +1,62 @@
+.account-container {
+    padding: 50px 0;
+}
+
+.account-title {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.account-left-sidebar {
+    list-style-type: none;
+}
+
+.account-left-sidebar a {
+    display: block;
+    padding: 10px 5px;
+    color: #222;
+}
+
+.account-left-sidebar a.active {
+    background-color: #f7f7f7;
+}
+
+.account-left-sidebar a:hover {
+    text-decoration: none;
+}
+
+.border-right {
+    border-right: 1px solid #e8e8e8;
+}
+
+.account-header {
+    background-color: #f8f9fa !important;
+}
+
+.tool-menu {
+    flex-direction: row;
+}
+
+.order-item {
+    padding: 5px;
+    border: 1px solid #e0dbdb;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.card {
+    left: 30%;
+}
+.cancel-request i {
+    transition: 0.3s linear;
+}
+.cancel-request:hover i {
+    color: #D02B3C;
+}
+.detail-request {
+    transition: 0.3s linear;
+}
+.detail-request:hover {
+    font-weight: bold;
+    font-size: 17px;
+}

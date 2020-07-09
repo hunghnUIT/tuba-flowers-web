@@ -7,6 +7,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from topic.models import Topic
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.html import mark_safe
+from django.contrib.auth.models import User
 
 # Category: string, title: string, description: string, price: int, is_available: true/false, tag: [string, string,...]
 
@@ -72,12 +73,13 @@ class ItemImage(models.Model):
 
 
 class Blog(models.Model):
+    author = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length = 150, unique = True)
     brief = models.TextField()
     background = models.ImageField(upload_to = 'blog_background')
     content = RichTextUploadingField()
     posted_date = models.DateField(auto_now_add = True)
-    # tags = models.ManyToManyField(Tag, blank = True) #Bây giờ tạm ẩn, sau này tách ra làm model riêng sẽ add vô lại.
+    tags = models.ManyToManyField(Tag, blank = True) #Bây giờ tạm ẩn, sau này tách ra làm model riêng sẽ add vô lại.
 
 
     def __str__(self):
