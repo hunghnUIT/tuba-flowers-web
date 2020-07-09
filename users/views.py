@@ -162,14 +162,14 @@ def profile(request):
             p_form.save()
             messages.success(request, f'Your account profile has been updated!')
             return redirect('profile')
-
+        
     else: # This case we are trying to get the page only.
         # Give argument "instance" to give current user info to those forms
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     existing_orders = get_user_pending_order(request)
-    print(existing_orders)
+    # print(existing_orders)
     contexts = {
         'u_form': u_form,
         'p_form': p_form,
