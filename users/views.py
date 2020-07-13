@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRe
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CheckoutForm, ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Order, ItemSelection
+from .models import Profile, Order, ItemSelection, ReviewItem
 from products.models import Item, Blog, Category
 from django.utils import timezone
 from django.views.generic import View
@@ -450,3 +450,40 @@ def remove_single_item_from_cart(request, pk):
     except: #Case: Not have this item in cart
         messages.info(request, "This item was not in your cart")
     return redirect('item-detail', pk)
+
+def permission_to_review(request, pk):
+    user = request.user
+    if ItemSelection.objects.filter(item__pk=pk, user=user, ordered=True).exists():
+        return True
+    return False
+    
+@login_required
+def add_review(request, pk):
+    if request.method == "POST":
+        if ItemSelection.objects.filter(item__pk=pk, user=request.user, ordered=True).exists():
+            ReviewItem.objects.create(
+                item = Item.objects.get(pk=pk),
+                user = request.user,
+                rate = request.POST.get('rate'),
+                comment = request.POST.get('comment')
+            )
+            messages.success(request, f'Add your review successfully.')
+            return redirect('item-detail',pk)
+        messages.warning(request, f'You need to buy this item for adding your review.')
+    return redirect('item-detail',pk)
+        
+
+
+@login_required
+def delete_review(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    try: #Case: This review is exist
+        selected_review = ReviewItem.objects.get(
+                item=item,
+                user=request.user,
+        )
+        selected_review.delete()
+        messages.info(request, "Your review was deleted.")
+    except: #Case: not exist
+        messages.info(request, "Review you are trying to delete is not found.")
+    return redirect('item-detail',pk)

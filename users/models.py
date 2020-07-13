@@ -115,3 +115,18 @@ class Order(models.Model):
         return reverse("request-cancel-order",kwargs={
             'pk' : self.pk
         })
+
+class ReviewItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #User who writing review
+    rate = models.PositiveSmallIntegerField(validators = [MinValueValidator(1), MaxValueValidator(5)],default=5)
+    comment = models.TextField(default="This one is so beautiful.")
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Review of "+self.user.username+" about: "+self.item.title
+
+    def get_delete_review_url(self):
+        return reverse("delete-review",kwargs={
+            'pk' : self.item.pk
+        })  

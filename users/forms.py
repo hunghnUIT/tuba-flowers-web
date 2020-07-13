@@ -56,3 +56,5 @@ class CheckoutForm(forms.Form):
     phone = forms.CharField(max_length=12, required=True)
     address = forms.CharField(max_length=70, required=True)
 
+# class ReviewForm(forms.ModelForm):
+#     content = forms.TextField()

@@ -37,7 +37,7 @@
             <div class="blog-container mt-4 pt-4" style="border-top: 1px solid grey;">
                 <h1>{{object.title}}</h1>
                 <p>{{ object.content|safe }}</p>
-                <h6 class="font-weight-bold font-italic">Tags: 
+                <h6 class="font-weight-bold font-italic">Related products: 
                     {% for tag in object.tags.all %}
                         <a href="{% url 'products-tag' tag %}">{{ tag }}</a> ,
                     {% endfor %}
