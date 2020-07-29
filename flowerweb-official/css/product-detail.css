@@ -253,12 +253,29 @@
 .active:after {
     content: "-"; /* Unicode character for "minus" sign (-) */
 }
-.active {
+div.active {
     background-color: #FAFAFA !important;
 }
 
 .carousel-inner div img {
     overflow: hidden;
+}
+.rate-base-layer
+{
+    color: #aaa;
+}
+.rate-hover-layer
+{
+    color: orange;
+}
+.rate2
+{
+    font-size: 30px;
+}
+
+.rate2 .rate-select-layer
+{
+    color: rgb(150, 92, 5);
 }
 /****RESPONSIVE*****/
 @media (min-width: 1200px) {

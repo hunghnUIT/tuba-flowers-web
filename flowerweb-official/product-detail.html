@@ -3,153 +3,232 @@
 {% load products_tags %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'library/wenumberic/wenumberic.css' %}">
+<link rel="stylesheet" href="{% static 'library/werating/werating.css' %}">
 <link rel="stylesheet" href="{% static 'css/product-detail.css' %}">
 <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
 <link rel="stylesheet" href="{% static 'modal-product-detail-css/modal.css' %}">
 <link rel="stylesheet" href="{% static 'css/swiper-detail.css' %}">
 <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
 <!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
+<script src="{% static 'library/werating/rater.js' %}" charset="utf-8"></script>
 <span id="detail" style="display: none"></span>
 {% endblock %}
 {% block landscape-class %}
-    <div class="container-fluid title d-flex align-items-center detail-landscape">
-{% endblock %}
-{% block box-class %}
+<div class="container-fluid title d-flex align-items-center detail-landscape">
+    {% endblock %}
+    {% block box-class %}
     <div class="box wrap w-100 align-items-center detail-box">
-{% endblock %}
-{% block title-banner %}Schefflera aptent taciti sociosqu{% endblock %}
-{% block on-page %} {{ object.title }} {% endblock %}
-{% block content %}
+        {% endblock %}
+        {% block title-banner %}Schefflera aptent taciti sociosqu{% endblock %}
+        {% block on-page %} {{ object.title }} {% endblock %}
+        {% block content %}
         <!-- Id item  -->
-    <span id="id-item" style="display: none;">{{object.pk}}</span>
+        <span id="id-item" style="display: none;">{{object.pk}}</span>
         <!--  -->
-    <article class="product-detail-section">
-        <div class="container mb-5">
-            <div class="row">
-                <div class="col-12 col-lg-5 col-md-5 col-xl-5">
-                    <div class="single-product-images-wraps">
-                        <div id="carousel-thumb-preview" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                {% for image in object.image.all %}
-                                {% if forloop.counter0 == 0 %}
-                                <div class="carousel-item active">
-                                    <img class="d-block w-100 text-center" src="{{ object.image.first.image.url }}" alt="First slide">
+        <article class="product-detail-section">
+            <div class="container mb-5">
+                <div class="row">
+                    <div class="col-12 col-lg-5 col-md-5 col-xl-5">
+                        <div class="single-product-images-wraps">
+                            <div id="carousel-thumb-preview" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for image in object.image.all %}
+                                    {% if forloop.counter0 == 0 %}
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100 text-center" src="{{ object.image.first.image.url }}"
+                                            alt="First slide">
+                                    </div>
+                                    {% else %}
+                                    <div class="carousel-item">
+                                        <img class="d-block mx-auto w-100 text-center" src="{{ image.image.url }}"
+                                            alt="slide">
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel-thumb-preview" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel-thumb-preview" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                            <div class="swiper-container preview-products-container">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+                                    <span id="num-image" style="display:none;">{{ object.image.all.count }}</span>
+                                    {% for image in object.image.all %}
+                                    <div class="swiper-slide">
+                                        <div class="thumbs-product-wraps">
+                                            <img class="thumbs-product-preview mb-2 border" width="120px" height="auto"
+                                                src="{{ image.image.url }}" alt="preview-img">
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div id="myModal" class="modal thumbs-modal" style="display: none;">
+                            <span class="close">&times;</span>
+                            <img class="modal-content thumbs-modal-content" id="img01">
+                            <div id="caption"></div>
+                        </div>
+                    </div>
+                    <!-- Modal to popup thumbs-->
+                    <!-- The Modal -->
+
+                    <div class="col-12 col-lg-7 col-md-7 col-xl-7">
+                        <div class="detail-information">
+                            <h2 class="detail-title">{{ object.title }}</h2>
+                            {% if object.discount_percent > 0 %}
+                            <p class="detail-price">
+                                <span class="price font-weight-bold"
+                                    style="font-size: 20px;color: #3A5557;">{{ object.get_final_price }}</span>
+                                <span class="root-price price font-italic"
+                                    style="font-size: 20px;">{{ object.price }}</span></p>
+                            {% else %}
+                            <p class="detail-price"><span class="price font-weight-bold"
+                                    style="font-size: 20px;color: #3A5557;">{{ object.price }}</span>
+                                {% endif %}
+                            <p class="detail-description">{{ object.description }}</p>
+                            <div class="add-to-cart-wrapper">
+                                {% if object.number_item_left > 0 %}
+                                <div class="stock-status mb-2 pt-4" style=" font-size: 18px;">
+                                    <span class="font-weight-bold" style=" color: #A3CD39;">In stock</span> <span
+                                        class="font-italic">( <span
+                                            id="number-item-left">{{ object.number_item_left }}</span> remaining items
+                                        )</span>
                                 </div>
                                 {% else %}
-                                <div class="carousel-item">
-                                    <img class="d-block mx-auto w-100 text-center" src="{{ image.image.url }}" alt="slide">
-                                  </div>
+                                <div class="stock-status mb-2 pt-4" style=" font-size: 18px;">
+                                    <span class="font-weight-bold" style=" color: #B73022;">Out stock</span> <span
+                                        class="font-italic">( <span
+                                            id="number-item-left">{{ object.number_item_left }}</span> remaining items
+                                        )</span>
+                                </div>
                                 {% endif %}
-                                {% endfor %}
-                            </div>
-                            <a class="carousel-control-prev" href="#carousel-thumb-preview" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carousel-thumb-preview" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </div>
-                          <div class="swiper-container preview-products-container">
-                            <!-- Additional required wrapper -->
-                            <div class="swiper-wrapper">
-                                <!-- Slides -->
-                                <span id="num-image" style="display:none;">{{ object.image.all.count }}</span>
-                                {% for image in object.image.all %}
-                                <div class="swiper-slide">
-                                    <div class="thumbs-product-wraps">
-                                        <img class="thumbs-product-preview mb-2 border" width="120px" height="auto" src="{{ image.image.url }}" alt="preview-img">
+                                <!-- Alert -->
+                                <div class="alert alert-success" id="success" role="alert">
+
+                                </div>
+                                <div class="alert alert-danger" id="fail" role="alert">
+
+                                </div>
+                                <!--  End alert -->
+                                <div class="quantity-wrapper d-inline-block">
+                                    <span class="d-inline-block quantity-label">Quantity</span>
+                                    <div class="wenumberic-product-detail enumber-control float-right">
+                                        <input id="quantity" value="1" name="quantity" class="qty" type="number" min=1
+                                            max={{object.number_item_left}} readonly>
                                     </div>
                                 </div>
-                                {% endfor %}
+                                <button class="text-uppercase d-inline-block btn-add-to-cart mb-4">add to cart</button>
+                                <!-- <a class="text-uppercase d-inline-block btn-add-to-cart mb-4" href="{{ object.get_add_to_cart_url }}">add to cart</a> -->
+
                             </div>
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
+                            <div class="more-information">
+                                <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
+                                <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;
+                                    {% for category in object.category.all %}
+                                    <a href="{% url 'products-category' category %}">{{ category|capitalize }}</a>
+                                    {% endfor %}
+                                </p>
+                                <p><span class="font-weight-bold">TAGS :</span>&nbsp
+                                    {% for tag in object.tag.all %}
+                                    <a href="{% url 'products-tag' tag %}">{{ tag }}</a>
+                                    {% endfor %}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div id="myModal" class="modal thumbs-modal" style="display: none;">
-                        <span class="close">&times;</span>
-                        <img class="modal-content thumbs-modal-content" id="img01">
-                        <div id="caption"></div>
+                </div>
+            </div>
+
+            <!--TAB DESKTOP/ MOBILE-->
+            <div class="tab-desktop">
+                <div class="tab-header-section">
+                    <div class="container">
+                        <a id="btn-tab-description" class="text-uppercase detail-tab-style active"
+                            href="javascript:void(0)">description</a>
+                        <a id="btn-tab-addinfo" class="text-uppercase detail-tab-style"
+                            href="javascript:void(0)">additional information</a>
+                        <a id="btn-tab-review" class="text-uppercase detail-tab-style"
+                            href="javascript:void(0)">reviews</a>
                     </div>
                 </div>
-                <!-- Modal to popup thumbs-->
-                <!-- The Modal -->
-                
-                <div class="col-12 col-lg-7 col-md-7 col-xl-7">
-                    <div class="detail-information">
-                        <h2 class="detail-title">{{ object.title }}</h2>
-                        {% if object.discount_percent > 0 %}
-                            <p class="detail-price">
-                                <span class="price font-weight-bold" style="font-size: 20px;color: #3A5557;">{{ object.get_final_price }}</span>
-                                <span class="root-price price font-italic" style="font-size: 20px;">{{ object.price }}</span></p>
-                        {% else %}
-                        <p class="detail-price"><span class="price font-weight-bold" style="font-size: 20px;color: #3A5557;">{{ object.price }}</span>
-                        {% endif %}
-                        <p class="detail-description">{{ object.description }}</p>
-                        <div class="add-to-cart-wrapper">
-                            {% if object.number_item_left > 0 %}
-                            <div class="stock-status mb-2 pt-4" style=" font-size: 18px;">
-                                <span class="font-weight-bold" style=" color: #A3CD39;">In stock</span> <span class="font-italic">( <span id="number-item-left">{{ object.number_item_left }}</span> remaining items )</span>
-                            </div>
-                            {% else %}
-                            <div class="stock-status mb-2 pt-4" style=" font-size: 18px;">
-                                <span class="font-weight-bold" style=" color: #B73022;">Out stock</span> <span class="font-italic">( <span id="number-item-left">{{ object.number_item_left }}</span> remaining items )</span>
-                            </div>
-                            {% endif %}
-                            <!-- Alert -->
-                            <div class="alert alert-success" id="success" role="alert">
-                            
-                            </div>
-                            <div class="alert alert-danger" id="fail" role="alert">
-                            
-                            </div>
-                            <!--  End alert -->
-                            <div class="quantity-wrapper d-inline-block">
-                                <span class="d-inline-block quantity-label">Quantity</span>
-                                <div class="wenumberic-product-detail enumber-control float-right">
-                                    <input id="quantity" value="1" name="quantity" class="qty" type="number" min=1 max={{object.number_item_left}} readonly>
+                <div class="tab-content">
+                    <div class="container">
+                        <div class="tab-description">
+                            <h3 class="mb-4">The power of flowers</h3>
+                            <p>{{ object.description }}</p>
+                        </div>
+                        <div class="tab-addinfo" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <p class="font-weight-bold">Weight:</p>
+                                    <p class="font-weight-bold">Demensions:</p>
+                                </div>
+                                <div class="col-md-10">
+                                    <p>{{ object.weight }} kg</p>
+                                    <p>{{ object.dimension }} cm</p>
                                 </div>
                             </div>
-                            <button class="text-uppercase d-inline-block btn-add-to-cart mb-4" >add to cart</button>
-                            <!-- <a class="text-uppercase d-inline-block btn-add-to-cart mb-4" href="{{ object.get_add_to_cart_url }}">add to cart</a> -->
-                        
                         </div>
-                        <div class="more-information">
-                            <p><span class="font-weight-bold">SKU :</span>&nbsp;N/B</p>
-                            <p><span class="font-weight-bold">CATEGORIES :</span>&nbsp;
-                                {% for category in object.category.all %}
-                                    <a href="{% url 'products-category' category %}">{{ category|capitalize }}</a> 
-                                {% endfor %}
-                            </p>
-                            <p><span class="font-weight-bold">TAGS :</span>&nbsp
-                                {% for tag in object.tag.all %}
-                                    <a href="{% url 'products-tag' tag %}">{{ tag }}</a> 
-                                {% endfor %}
-                            </p>
+                        <div class="tab-review" style="display: none;">
+                            <!-- Chẹck if have any comments -->
+                            <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
+                                <div class="font-weight-bold reviewer-name">Username</div>
+                                <div class="font-italic post-timestamp">May 6,2019</div>
+                                <div class="rating border-bottom" data-rate-value=1></div>
+                                <div class="content-comment mt-4 mb-4">Lorem ....</div>
+                            </div>
+                            <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
+                                <div class="font-weight-bold reviewer-name">Username</div>
+                                <div class="font-italic post-timestamp">May 6,2019</div>
+                                <div class="rating border-bottom" data-rate-value=1></div>
+                                <div class="content-comment mt-4 mb-4">Lorem ....</div>
+                            </div>
+                            <!-- Check if you have not logged in yet -->
+                            <div class="notice-review mt-2 d-none">Notice: You must be logged in to post a review</div>
+                            <!-- else -->
+                            <div class="row mt-4" style="font-size: 14px;">
+                                <div class="col-12 col-md-3 col-lg-3 col-xm-3">
+                                    <div class="text-uppercase" style="font-weight: bold;">Your rating</div>
+                                    <div class="rate2" data-rating="0"></div>
+                                    <div class="thank-content mb-2">Thanks for your feedback!</div>
+                                    <a href="#" class="btn btn-outline-secondary submit-comment w-50">Submit</a>
+                                </div>
+                                <div class="col-12 col-md-9 col-lg-9 col-xm-9">
+                                    <textarea id="comment" name="comment" cols="100" rows="6" >Your review</textarea>
+                                    <script>
+                                        $( "#comment" ).one( "click", function() {
+                                            $("#comment").html("");
+                                        });
+                                    </script>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--TAB DESKTOP/ MOBILE-->
-        <div class="tab-desktop">
-            <div class="tab-header-section">
-                <div class="container">
-                    <a id="btn-tab-description" class="text-uppercase detail-tab-style active" href="javascript:void(0)">description</a>
-                    <a id="btn-tab-addinfo" class="text-uppercase detail-tab-style" href="javascript:void(0)">additional information</a>
-                    <a id="btn-tab-review" class="text-uppercase detail-tab-style" href="javascript:void(0)">reviews</a>
-                </div>
-            </div>
-            <div class="tab-content">
-                <div class="container">
+            <div class="tab-mobile mb-5" style="display: none;">
+                <button type="button" class="collapsible">description</button>
+                <div class="content">
                     <div class="tab-description">
                         <h3 class="mb-4">The power of flowers</h3>
                         <p>{{ object.description }}</p>
                     </div>
-                    <div class="tab-addinfo" style="display: none;">
+                </div>
+                <button type="button" class="collapsible">additional information</button>
+                <div class="content">
+                    <div class="tab-addinfo">
                         <div class="row">
                             <div class="col-md-2">
                                 <p class="font-weight-bold">Weight:</p>
@@ -157,78 +236,88 @@
                             </div>
                             <div class="col-md-10">
                                 <p>{{ object.weight }} kg</p>
-                                <p>{{ object.dimension }} cm</p>
+                                <p>{{ object.dimension }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-review" style="display: none;">
-                        <p>Thông tin đang được cập nhật...</p>
+                </div>
+                <button type="button" class="collapsible">reviews</button>
+                <div class="content">
+                    <div class="tab-review">
+                        <!-- Chẹck if have any comments -->
+                        <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
+                            <div class="font-weight-bold reviewer-name">Username</div>
+                            <div class="font-italic post-timestamp">May 6,2019</div>
+                            <div class="rating border-bottom" data-rate-value=1></div>
+                            <div class="content-comment mt-4 mb-4">Lorem ....</div>
+                        </div>
+                        <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
+                            <div class="font-weight-bold reviewer-name">Username</div>
+                            <div class="font-italic post-timestamp">May 6,2019</div>
+                            <div class="rating border-bottom" data-rate-value=1></div>
+                            <div class="content-comment mt-4 mb-4">Lorem ....</div>
+                        </div>
+                        <!-- Check if you have not logged in yet -->
+                        <div class="notice-review mt-2 d-none">Notice: You must be logged in to post a review</div>
+                        <!-- else -->
+                        <div class="row mt-4" style="font-size: 14px;">
+                            <div class="col-12 col-md-3 col-lg-3 col-xm-3">
+                                <div class="text-uppercase" style="font-weight: bold;">Your rating</div>
+                                <div class="rate2" data-rating="0"></div>
+                                <div class="thank-content mb-2">Thanks for your feedback!</div>
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-9 col-xm-9">
+                                <textarea id="comment" name="comment" cols="50" rows="6" >Your review</textarea>
+                                <script>
+                                    $( "#comment" ).one( "click", function() {
+                                        $("#comment").html("");
+                                    });
+                                </script>
+                            </div>
+                            <a href="#" class="btn btn-outline-secondary submit-comment w-50 mt-2 mb-4"
+                            style="margin-left: auto; margin-right: auto;">Submit</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-mobile mb-5" style="display: none;">
-            <button type="button" class="collapsible">description</button>
-            <div class="content">
-                <div class="tab-description">
-                    <h3 class="mb-4">The power of flowers</h3>
-                    <p>{{ object.description }}</p>
-                </div>
-            </div>
-            <button type="button" class="collapsible">additional information</button>
-            <div class="content">
-                <div class="tab-addinfo">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold">Weight:</p>
-                            <p class="font-weight-bold">Demensions:</p>
-                        </div>
-                        <div class="col-md-10">
-                            <p>{{ object.weight }} kg</p>
-                            <p>{{ object.dimension }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="collapsible">reviews</button>
-            <div class="content">
-                <div class="tab-review">
-                    <p>Thông tin đang được cập nhật...</p>
-                </div>
-            </div>
-        </div>
 
-        <div class="container">
-            <h2 class="related-products-title text-center">Related Products</h2>
-            <div class="swiper-container related-products-container">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    {% for item in related_products %}
-                    {% if forloop.counter0 < 8%}
-                    <div class="swiper-slide">
-                        <div class="card product-wrapper " style="width: 90%;">
-                            <a href="{% url 'item-detail' item.pk %}"><img class="img-fluid" width="324" height="344" src="{{ item.image.first.image.url }}" alt="product"></a>
-                            <div class="card-body p-1">
-                                <a href="{% url 'item-detail' item.pk %}"><h3 class="text-center">{{ item.title }}</h3></a>
-                                {% if item.discount_percent > 0 %}
-                                <p class="card-tex text-center price"> <span>{{ item.get_final_price }}</span>
-                                <span class="root-price price font-italic" style="font-size: 20px;">{{ item.price }}</span></p>
-                            {% else %}
-                            <p class="card-tex text-center price"> <span>{{ item.price }}</span></p>
-                            {% endif %}
-                            </div> 
-                        </div>  
+            <div class="container">
+                <h2 class="related-products-title text-center">Related Products</h2>
+                <div class="swiper-container related-products-container">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        {% for item in related_products %}
+                        {% if forloop.counter0 < 8%}
+                        <div class="swiper-slide">
+                            <div class="card product-wrapper " style="width: 90%;">
+                                <a href="{% url 'item-detail' item.pk %}"><img class="img-fluid" width="324"
+                                        height="344" src="{{ item.image.first.image.url }}" alt="product"></a>
+                                <div class="card-body p-1">
+                                    <a href="{% url 'item-detail' item.pk %}">
+                                        <h3 class="text-center">{{ item.title }}</h3>
+                                    </a>
+                                    {% if item.discount_percent > 0 %}
+                                    <p class="card-tex text-center price"> <span>{{ item.get_final_price }}</span>
+                                        <span class="root-price price font-italic"
+                                            style="font-size: 20px;">{{ item.price }}</span></p>
+                                    {% else %}
+                                    <p class="card-tex text-center price"> <span>{{ item.price }}</span></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
                     </div>
-                    {% endif %}
-                    {% endfor %}
                 </div>
             </div>
-        </div>
-    </article>
-{% endblock %}
-{% block JavaScript %}
-    <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
-    <script src="{% static 'library/wenumberic/wenumberic.js' %}"></script>
-    <script src="{% static 'js/product-detail.js' %}"></script>
-{% endblock %}
+        </article>
+        {% endblock %}
+        {% block JavaScript %}
+        <script src="{% static 'library/swiper/swiper.min.js' %}"></script>
+        <script src="{% static 'library/wenumberic/wenumberic.js' %}"></script>
+        <script src="{% static 'js/product-detail.js' %}"></script>
+        <script src="{% static 'js/rating-review.js' %}"></script>
+        <script src="{% static 'library/werating/werating.js' %}"></script>
+        {% endblock %}
