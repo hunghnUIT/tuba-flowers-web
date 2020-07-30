@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}">
 <link rel="stylesheet" href="{% static 'modal-product-detail-css/modal.css' %}">
 <link rel="stylesheet" href="{% static 'css/swiper-detail.css' %}">
+<meta name="csrf-token" content="{{ csrf_token }}">
 <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
 <!-- <link rel="stylesheet" href="{% static 'css/homeproduct.css' %}"> -->
 <script src="{% static 'library/werating/rater.js' %}" charset="utf-8"></script>
@@ -183,37 +184,39 @@
                         </div>
                         <div class="tab-review" style="display: none;">
                             <!-- Chẹck if have any comments -->
+                            {% for review in object.get_all_review %}
                             <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
-                                <div class="font-weight-bold reviewer-name">Username</div>
-                                <div class="font-italic post-timestamp">May 6,2019</div>
-                                <div class="rating border-bottom" data-rate-value=1></div>
-                                <div class="content-comment mt-4 mb-4">Lorem ....</div>
+                                <div class="font-weight-bold reviewer-name">{{review.user.username}}</div>
+                                <div class="font-italic post-timestamp">{{review.date_created}}</div>
+                                <div class="rating border-bottom" data-rate-value={{review.rate}}></div>
+                                <div class="content-comment mt-4 mb-4">{{review.comment}}</div>
                             </div>
-                            <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
-                                <div class="font-weight-bold reviewer-name">Username</div>
-                                <div class="font-italic post-timestamp">May 6,2019</div>
-                                <div class="rating border-bottom" data-rate-value=1></div>
-                                <div class="content-comment mt-4 mb-4">Lorem ....</div>
-                            </div>
+                            {% endfor %}
                             <!-- Check if you have not logged in yet -->
-                            <div class="notice-review mt-2 d-none">Notice: You must be logged in to post a review</div>
-                            <!-- else -->
-                            <div class="row mt-4" style="font-size: 14px;">
-                                <div class="col-12 col-md-3 col-lg-3 col-xm-3">
-                                    <div class="text-uppercase" style="font-weight: bold;">Your rating</div>
-                                    <div class="rate2" data-rating="0"></div>
-                                    <div class="thank-content mb-2">Thanks for your feedback!</div>
-                                    <a href="#" class="btn btn-outline-secondary submit-comment w-50">Submit</a>
-                                </div>
-                                <div class="col-12 col-md-9 col-lg-9 col-xm-9">
-                                    <textarea id="comment" name="comment" cols="100" rows="6" >Your review</textarea>
-                                    <script>
-                                        $( "#comment" ).one( "click", function() {
-                                            $("#comment").html("");
-                                        });
-                                    </script>
-                                </div>
-                            </div>
+                            {% if not user.is_authenticated %}
+                            <div class="notice-review mt-2">Notice: You have to be <a href="{% url 'login' %}">login</a> first to be able to post a review.</div>
+                            {% else %}
+                                {% if user|is_allow_add_review:object.pk %}</p>
+                                    <div class="row mt-4" style="font-size: 14px;">
+                                        <div class="col-12 col-md-3 col-lg-3 col-xm-3">
+                                            <div class="text-uppercase" style="font-weight: bold;">Your rating</div>
+                                            <div class="rate2" data-rating="0"></div>
+                                            <div class="thank-content mb-2">Thanks for your feedback!</div>
+                                            <button class="btn btn-outline-secondary submit-comment w-50">Submit</button>
+                                        </div>
+                                        <div class="col-12 col-md-9 col-lg-9 col-xm-9">
+                                            <textarea id="comment" name="comment" cols="100" rows="6" >Your review</textarea>
+                                            <script>
+                                                $( "#comment" ).one( "click", function() {
+                                                    $("#comment").html("");
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                <div class="notice-review mt-2">Notice: You have to buy this item first to be able to post a review.</div>
+                                {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -245,38 +248,40 @@
                 <div class="content">
                     <div class="tab-review">
                         <!-- Chẹck if have any comments -->
-                        <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
-                            <div class="font-weight-bold reviewer-name">Username</div>
-                            <div class="font-italic post-timestamp">May 6,2019</div>
-                            <div class="rating border-bottom" data-rate-value=1></div>
-                            <div class="content-comment mt-4 mb-4">Lorem ....</div>
-                        </div>
-                        <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
-                            <div class="font-weight-bold reviewer-name">Username</div>
-                            <div class="font-italic post-timestamp">May 6,2019</div>
-                            <div class="rating border-bottom" data-rate-value=1></div>
-                            <div class="content-comment mt-4 mb-4">Lorem ....</div>
-                        </div>
+                        {% for review in object.get_all_review %}
+                            <div class="comment-container mt-2" style="font-size: 14px; border-bottom: solid 1px rgb(199, 188, 188);">
+                                <div class="font-weight-bold reviewer-name">{{review.user.username}}</div>
+                                <div class="font-italic post-timestamp">{{review.date_created}}</div>
+                                <div class="rating border-bottom" data-rate-value={{review.rate}}></div>
+                                <div class="content-comment mt-4 mb-4">{{review.comment}}</div>
+                            </div>
+                        {% endfor %}
                         <!-- Check if you have not logged in yet -->
+                        {% if not user.is_authenticated %}
                         <div class="notice-review mt-2 d-none">Notice: You must be logged in to post a review</div>
-                        <!-- else -->
-                        <div class="row mt-4" style="font-size: 14px;">
-                            <div class="col-12 col-md-3 col-lg-3 col-xm-3">
-                                <div class="text-uppercase" style="font-weight: bold;">Your rating</div>
-                                <div class="rate2" data-rating="0"></div>
-                                <div class="thank-content mb-2">Thanks for your feedback!</div>
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-9 col-xm-9">
-                                <textarea id="comment" name="comment" cols="50" rows="6" >Your review</textarea>
-                                <script>
-                                    $( "#comment" ).one( "click", function() {
-                                        $("#comment").html("");
-                                    });
-                                </script>
-                            </div>
-                            <a href="#" class="btn btn-outline-secondary submit-comment w-50 mt-2 mb-4"
-                            style="margin-left: auto; margin-right: auto;">Submit</a>
-                        </div>
+                        {% else %}
+                            {% if user|is_allow_add_review:object.pk %}</p>
+                                <div class="row mt-4" style="font-size: 14px;">
+                                    <div class="col-12 col-md-3 col-lg-3 col-xm-3">
+                                        <div class="text-uppercase" style="font-weight: bold;">Your rating</div>
+                                        <div class="rate2" data-rating="0"></div>
+                                        <div class="thank-content mb-2">Thanks for your feedback!</div>
+                                    </div>
+                                    <div class="col-12 col-md-9 col-lg-9 col-xm-9">
+                                        <textarea id="comment" name="comment" cols="50" rows="6" >Your review</textarea>
+                                        <script>
+                                            $( "#comment" ).one( "click", function() {
+                                                $("#comment").html("");
+                                            });
+                                        </script>
+                                    </div>
+                                    <button class="btn btn-outline-secondary submit-comment w-50 mt-2 mb-4"
+                                    style="margin-left: auto; margin-right: auto;">Submit</button>
+                                </div>
+                            {% else %}
+                                <div class="notice-review mt-2">Notice: You have to buy this item first to be able to post a review.</div>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

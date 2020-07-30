@@ -55,6 +55,9 @@ class Item(models.Model):
         return reverse("remove-single-item-from-cart",kwargs={
             'pk' : self.pk
         })  
+
+    def get_all_review(self):
+        return self.reviewitem_set.all().order_by('date_created')
     
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, on_delete = models.CASCADE, related_name='image')   

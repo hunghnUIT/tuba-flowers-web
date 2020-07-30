@@ -1,4 +1,7 @@
 from django import template
+from users.models import ItemSelection
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 register = template.Library()
 
@@ -45,3 +48,13 @@ def add_point(value):
         return res
     else: #If nothing in value pass to function
         return 0
+
+@register.filter(name='is_allow_add_review')
+def is_allow_add_review(username, id_item):
+    try:
+        user = User.objects.get(username=username)
+        if ItemSelection.objects.filter(item__pk=id_item, user=user, ordered=True).exists():
+            return True
+    except ObjectDoesNotExist:
+        print("Not found current user in database")
+    return False

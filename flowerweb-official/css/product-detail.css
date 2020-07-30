@@ -276,6 +276,12 @@ div.active {
 .rate2 .rate-select-layer
 {
     color: rgb(150, 92, 5);
+ 
+}
+.rating .rate-select-layer
+{
+    color:orange;
+ 
 }
 /****RESPONSIVE*****/
 @media (min-width: 1200px) {
