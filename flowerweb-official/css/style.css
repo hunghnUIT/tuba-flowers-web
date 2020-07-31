@@ -74,3 +74,6 @@ body {
         padding-top: 0;
     }
 }
+.blog-container p img {
+    width: 100%;
+}

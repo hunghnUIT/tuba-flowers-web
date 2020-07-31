@@ -4,18 +4,16 @@ $(document).ready(function () {
         step_size: 1,
         url: 'http://localhost/test.php',
         initial_value: 1,
+        initial_value: 5,
         update_input_field_name: $("#input2"),
     }
     $(".rate2").rate(options);
-
             $(".rate2").on("change", function(ev, data){
                 console.log(data.from, data.to);
             });
-
             $(".rate2").on("updateError", function(ev, jxhr, msg, err){
                 console.log("This is a custom error event");
             });
-
             $(".rate2").rate("setAdditionalData", {id: 42});
             $(".rate2").on("updateSuccess", function(ev, data){
                 console.log(data);
@@ -33,10 +31,42 @@ $(document).ready(function () {
         // additional_data: {} // Additional data to send to the server
     }
             
+
     $(".rating").rate(options2);
     $('.thank-content').hide();
     $(".rate2").one("click", function(ev, data){
         $('.thank-content').fadeIn(700);
     });
-    console.log($(".rate2").rate("getValue"));
-});
+
+    $(".submit-comment").on("click", function(){
+        var id = $(document).find("#id-item").text();
+        var rate = $('.rate2').attr('data-rate-value');
+        var comment = $(document).find("#comment").val();
+
+        var csrftoken = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "POST",
+            url: "/add-review/",
+            headers:{
+                "X-CSRFToken": csrftoken
+            },
+            data: { 
+                'id': id,
+                'rate': rate, 
+                'comment': comment
+            },
+            cache: false,
+            async: false,
+            dataType: "html",
+            success:function(response){
+                // var review_tab = $(response).find(".tab-review");
+                // $('.tab-review').replaceWith(review_tab)
+                window.location.reload();
+                // $('html').replaceWith(response); 
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+            },
+        });
+    });
+}); 

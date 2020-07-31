@@ -64,6 +64,7 @@ urlpatterns = [
     path('add-coupon/<str:code>', users_views.add_coupon, name='add-coupon'),
 
     # Review product:
+    path('add-review/', users_views.add_review, name='add-review'),
     path('check-review/<str:pk>', users_views.permission_to_review, name='check-review'),
     path('delete-review/<str:pk>', users_views.delete_review, name='delete-review'),
 

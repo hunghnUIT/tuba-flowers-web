@@ -458,8 +458,10 @@ def permission_to_review(request, pk):
     return False
     
 @login_required
-def add_review(request, pk):
+def add_review(request):
     if request.method == "POST":
+        pk = request.POST.get('id')
+        print(request.POST)
         if ItemSelection.objects.filter(item__pk=pk, user=request.user, ordered=True).exists():
             ReviewItem.objects.create(
                 item = Item.objects.get(pk=pk),
