@@ -38,4 +38,5 @@ $(document).ready(function () {
     $(".rate2").one("click", function(ev, data){
         $('.thank-content').fadeIn(700);
     });
+    console.log($(".rate2").rate("getValue"));
 });
