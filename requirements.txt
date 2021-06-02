@@ -33,7 +33,7 @@ six==1.14.0
 soupsieve==2.0
 sqlparse==0.3.1
 toml==0.10.1
-urllib3==1.25.8
+urllib3==1.26.5
 virtualenv==20.0.10
 virtualenvwrapper-win==1.2.6
 wcwidth==0.1.9
